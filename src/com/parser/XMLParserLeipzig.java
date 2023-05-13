@@ -43,7 +43,7 @@ public class XMLParserLeipzig {
                     Element itemElement = (Element) itemNode;
                     String pgroup = itemElement.getAttribute("pgroup");
                     String asin = itemElement.getAttribute("asin");
-                    String musicspecBinding = getTagValue(itemElement, "binding");
+                    String musicspecBinding = getTagValue(itemElement, "musicspec/binding");
                     String similars = getSimilars(itemElement);
                     List<String> tracks = getTracks(itemElement);
                     String salesRank = itemElement.getAttribute("salesrank");
@@ -62,9 +62,23 @@ public class XMLParserLeipzig {
     }
 
     private static String getTagValue(Element element, String tagName) {
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        Node node = nodeList.item(0);
-        if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+        String[] tagNames = tagName.split("/");
+        Node node = element;
+        for (String name : tagNames) {
+            NodeList nodeList = ((Node) node).getChildNodes();
+            node = null;
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node tempNode = nodeList.item(i);
+                if (tempNode.getNodeName().equals(name)) {
+                    node = tempNode;
+                    break;
+                }
+            }
+            if (node == null) {
+                return "";
+            }
+        }
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element tagElement = (Element) node;
             return tagElement.getTextContent();
         }
