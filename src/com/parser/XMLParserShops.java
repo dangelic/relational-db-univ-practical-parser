@@ -44,20 +44,29 @@ public class XMLParserShops {
                     // Überprüfen, ob das Attribut im XML-Element vorhanden ist
                     NodeList nodes = item.getElementsByTagName(attribute);
                     if (nodes.getLength() > 0) {
-                        if (attribute.equals("tracks") || attribute.equals("listmania")) {
-                            NodeList childNodes = nodes.item(0).getChildNodes();
-                            for (int j = 0; j < childNodes.getLength(); j++) {
-                                Node childNode = childNodes.item(j);
-                                if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                                    Element element = (Element) childNode;
-                                    if (element.getTagName().equals("list")) {
-                                        String value = element.getAttribute("name");
-                                        writer.write(attribute + "=\"" + escapeString(value) + "\"");
-                                        writer.newLine();
-                                        break; // Exit the loop after processing the first <list> element
-                                    }
+                        if (attribute.equals("tracks")) {
+                            List<String> trackList = new ArrayList<>();
+                            NodeList trackNodes = nodes.item(0).getChildNodes();
+                            for (int j = 0; j < trackNodes.getLength(); j++) {
+                                Node trackNode = trackNodes.item(j);
+                                if (trackNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    String track = escapeString(trackNode.getTextContent().trim());
+                                    trackList.add("\"" + track + "\"");
                                 }
                             }
+                            writer.write(attribute + "=[" + String.join(", ", trackList) + "]");
+                        } else if (attribute.equals("listmania")) {
+                            List<String> listmaniaList = new ArrayList<>();
+                            NodeList listNodes = nodes.item(0).getChildNodes();
+                            for (int j = 0; j < listNodes.getLength(); j++) {
+                                Node listNode = listNodes.item(j);
+                                if (listNode.getNodeType() == Node.ELEMENT_NODE && listNode.getNodeName().equals("list")) {
+                                    Element listElement = (Element) listNode;
+                                    String listName = listElement.getAttribute("name");
+                                    listmaniaList.add("\"" + escapeString(listName) + "\"");
+                                }
+                            }
+                            writer.write(attribute + "=[" + String.join(", ", listmaniaList) + "]");
                         } else {
                             String value = escapeString(nodes.item(0).getTextContent().trim());
                             writer.write(attribute + "=\"" + value + "\"");
@@ -78,6 +87,7 @@ public class XMLParserShops {
             e.printStackTrace();
         }
     }
+
 
     public static String escapeString(String str) {
         return str.replace("\"", "\\\"").replace("'", "\\'");
