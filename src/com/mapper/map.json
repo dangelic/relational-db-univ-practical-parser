@@ -1,0 +1,14 @@
+[
+  {
+    "searchAttribute": "title",
+    "replaceAttribute": "mitle"
+  },
+  {
+    "searchAttribute": "regioncode",
+    "replaceAttribute": "regioncodes"
+  },
+  {
+    "searchAttribute": "runningtime",
+    "replaceAttribute": "runningtimes"
+  }
+]
