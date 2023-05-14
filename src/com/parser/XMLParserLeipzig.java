@@ -9,10 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XMLParserLeipzig {
+
+    public static final String SHOP_MODE = "LEIPZIG";
     public static void main(String[] args) {
         String filePath = "./data/raw/xml/leipzig_transformed.xml";
         List<Item> items = parseXML(filePath);
+
+
+
         for (Item item : items) {
+            System.out.println("SHOP: " + SHOP_MODE);
             System.out.println("pgroup: " + item.getPgroup());
             System.out.println("asin: " + item.getAsin());
             System.out.println("product title: " + item.getProductTitle());
@@ -116,8 +122,18 @@ public class XMLParserLeipzig {
                     String similars = getSimilars(itemElement);
                     List<String> tracks = getTracks(itemElement);
                     String salesRank = itemElement.getAttribute("salesrank");
-                    String picture = itemElement.getAttribute("picture");
-                    String detailPage = itemElement.getAttribute("detailpage");
+
+                    if (SHOP_MODE.equals("LEIPZIG")) {
+                        String picture = itemElement.getAttribute("picture");
+                        String detailPage = itemElement.getAttribute("detailpage");
+
+                        // TODO: REWORK!
+                    } else {
+                        String picture = itemElement.getAttribute("picture");
+                        String detailPage = itemElement.getAttribute("detailpage");
+                    }
+
+
                     String ean = itemElement.getAttribute("ean");
 
                     List<String> labels = getTagValuesList(itemElement, "labels", "label","name");
