@@ -22,6 +22,15 @@ public class XMLParserLeipzig {
             System.out.println("price state: " + item.getPriceState());
             System.out.println("price currency: " + item.getPriceCurrency());
 
+
+            System.out.println("dvdspec aspect ratio: " + item.getDvdspecAspectRatio());
+            System.out.println("dvdspec format: " + item.getDvdspecFormat());
+            System.out.println("dvdspec region code: " + item.getDvdspecRegionCode());
+            System.out.println("dvdspec release date: " + item.getDvdspecReleaseDate());
+            System.out.println("dvdspec running time: " + item.getDvdspecRunningTime());
+            System.out.println("dvdspec theatr release: " + item.getDvdspecTheatrRelease());
+            System.out.println("dvdspec upc: " + item.getDvdspecUpc());
+
             System.out.println("bookspec binding: " + item.getBookspecBinding());
             System.out.println("bookspec edition: " + item.getBookspecEdition());
             System.out.println("bookspec isbn: " + item.getBookspecISBN());
@@ -81,12 +90,21 @@ public class XMLParserLeipzig {
                     String priceState = getTagAttributeValue(itemElement, "price", "state");
                     String priceCurrency = getTagAttributeValue(itemElement, "price", "currency");
 
+                    String dvdspecAspectRatio = getCharacterData(itemElement, "dvdspec/price");
+                    String dvdspecFormat = getCharacterData(itemElement, "dvdspec/format");
+                    String dvdspecRegionCode = getCharacterData(itemElement, "dvdspec/regioncode");
+                    String dvdspecReleaseDate = getCharacterData(itemElement, "dvdspec/releasedate");
+                    String dvdspecRunningTime = getCharacterData(itemElement, "dvdspec/runningtime");
+                    String dvdspecTheatrRelease = getCharacterData(itemElement, "dvdspec/theatr_release");
+                    String dvdspecUpc = getTagValue(itemElement, "dvdspec/upc");
+
+
                     String bookspecBinding = getTagValue(itemElement, "bookspec/binding");
                     String bookspecEdition = getTagAttributeValue(itemElement, "edition", "val");
                     String bookspecISBN = getTagAttributeValue(itemElement, "isbn", "val");
-                    String bookspecWeight = getTagValue(itemElement, "package/weight");
-                    String bookspecHeight = getTagValue(itemElement, "package/height");
-                    String bookspecLength = getTagValue(itemElement, "package/length");
+                    List<String> bookspecWeight = getTagValuesList(itemElement, "bookspec", "package", "weight");
+                    List<String> bookspecHeight = getTagValuesList(itemElement, "bookspec", "package", "height");
+                    List<String> bookspecLength = getTagValuesList(itemElement, "bookspec", "package", "length");
                     String bookspecPages = getTagValue(itemElement, "bookspec/pages");
                     String bookspecPublicationDate = getTagAttributeValue(itemElement, "publication", "date");
 
@@ -119,6 +137,13 @@ public class XMLParserLeipzig {
                             priceMult,
                             priceState,
                             priceCurrency,
+                            dvdspecAspectRatio,
+                            dvdspecFormat,
+                            dvdspecRegionCode,
+                            dvdspecReleaseDate,
+                            dvdspecRunningTime,
+                            dvdspecTheatrRelease,
+                            dvdspecUpc,
                             bookspecBinding,
                             bookspecEdition,
                             bookspecISBN,
@@ -299,13 +324,21 @@ class Item {
     private String priceState;
     private String priceCurrency;
 
+    private String dvdspecAspectRatio;
+    private String dvdspecFormat;
+    private String dvdspecRegionCode;
+    private String dvdspecReleaseDate;
+    private String dvdspecRunningTime;
+    private String dvdspecTheatrRelease;
+    private String dvdspecUpc;
+
     private String bookspecBinding;
     private String bookspecEdition;
     private String bookspecISBN;
-    private String bookspecWeight;
-    private String bookspecHight;
+    private List<String>  bookspecWeight;
+    private List<String>  bookspecHight;
 
-    private String bookspecLength;
+    private List<String>  bookspecLength;
     private String bookspecPages;
 
     private String bookspecPublicationDate;
@@ -340,12 +373,19 @@ class Item {
                 String priceMult,
                 String priceState,
                 String priceCurrency,
+                String dvdspecAspectRatio,
+                String dvdspecFormat,
+                String dvdspecRegionCode,
+                String dvdspecReleaseDate,
+                String dvdspecRunningTime,
+                String dvdspecTheatrRelease,
+                String dvdspecUpc,
                 String bookspecBinding,
                 String bookspecEdition,
                 String bookspecISBN,
-                String bookspecWeight,
-                String bookspecHight,
-                String bookspecLength,
+                List<String>  bookspecWeight,
+                List<String>  bookspecHight,
+                List<String>  bookspecLength,
                 String bookspecPages,
                 String bookspecPublicationDate,
                 String musicspecBinding,
@@ -376,6 +416,13 @@ class Item {
         this.priceState = priceState;
         this.priceCurrency = priceCurrency;
         this.productTitle = productTitle;
+        this.dvdspecAspectRatio = dvdspecAspectRatio;
+        this.dvdspecFormat = dvdspecFormat;
+        this.dvdspecRegionCode = dvdspecRegionCode;
+        this.dvdspecReleaseDate = dvdspecReleaseDate;
+        this.dvdspecRunningTime = dvdspecRunningTime;
+        this.dvdspecTheatrRelease = dvdspecTheatrRelease;
+        this.dvdspecUpc = dvdspecUpc;
         this.bookspecBinding = bookspecBinding;
         this.bookspecEdition = bookspecEdition;
         this.bookspecISBN = bookspecISBN;
@@ -433,6 +480,34 @@ class Item {
         return priceCurrency;
     }
 
+    public String getDvdspecAspectRatio() {
+        return dvdspecAspectRatio;
+    }
+
+    public String getDvdspecFormat() {
+        return dvdspecFormat;
+    }
+
+    public String getDvdspecRegionCode() {
+        return dvdspecRegionCode;
+    }
+
+    public String getDvdspecReleaseDate() {
+        return dvdspecReleaseDate;
+    }
+
+    public String getDvdspecRunningTime() {
+        return dvdspecRunningTime;
+    }
+
+    public String getDvdspecTheatrRelease() {
+        return dvdspecTheatrRelease;
+    }
+
+    public String getDvdspecUpc() {
+        return dvdspecUpc;
+    }
+
     public String getBookspecBinding() {
         return bookspecBinding;
     }
@@ -445,15 +520,15 @@ class Item {
         return bookspecISBN;
     }
 
-    public String getBookspecWeight() {
+    public List<String>  getBookspecWeight() {
         return bookspecWeight;
     }
 
-    public String getBookspecHight() {
+    public List<String>  getBookspecHight() {
         return bookspecHight;
     }
 
-    public String getBookspecLength() {
+    public List<String>  getBookspecLength() {
         return bookspecLength;
     }
 
