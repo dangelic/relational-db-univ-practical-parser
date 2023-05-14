@@ -15,6 +15,12 @@ public class XMLParserLeipzig {
         for (Item item : items) {
             System.out.println("pgroup: " + item.getPgroup());
             System.out.println("asin: " + item.getAsin());
+            System.out.println("product title: " + item.getProductTitle());
+
+            System.out.println("price: " + item.getPrice());
+            System.out.println("price multiplier: " + item.getPriceMult());
+            System.out.println("price state: " + item.getPriceState());
+            System.out.println("price currency: " + item.getPriceCurrency());
 
             System.out.println("bookspec binding: " + item.getBookspecBinding());
             System.out.println("bookspec edition: " + item.getBookspecEdition());
@@ -58,6 +64,12 @@ public class XMLParserLeipzig {
                     Element itemElement = (Element) itemNode;
                     String pgroup = itemElement.getAttribute("pgroup");
                     String asin = itemElement.getAttribute("asin");
+                    String productTitle = getTagValue(itemElement, "title");
+
+                    String price = getCharacterData(itemElement, "price");
+                    String priceMult = getTagAttributeValue(itemElement, "price", "mult");
+                    String priceState = getTagAttributeValue(itemElement, "price", "state");
+                    String priceCurrency = getTagAttributeValue(itemElement, "price", "currency");
 
                     String bookspecBinding = getTagValue(itemElement, "bookspec/binding");
                     String bookspecEdition = getTagAttributeValue(itemElement, "edition", "val");
@@ -82,6 +94,11 @@ public class XMLParserLeipzig {
 
                     Item item = new Item(pgroup,
                             asin,
+                            productTitle,
+                            price,
+                            priceMult,
+                            priceState,
+                            priceCurrency,
                             bookspecBinding,
                             bookspecEdition,
                             bookspecISBN,
@@ -117,6 +134,22 @@ public class XMLParserLeipzig {
             return tagElement.getAttribute(attribute);
         }
         return "";
+    }
+
+    private static String getCharacterData(Element element, String attribute) {
+        String[] attributePath = attribute.split("/");
+        Node currentNode = element;
+
+        for (String attr : attributePath) {
+            NodeList nodeList = ((Element) currentNode).getElementsByTagName(attr);
+            if (nodeList.getLength() > 0) {
+                currentNode = nodeList.item(0);
+            } else {
+                return "";
+            }
+        }
+
+        return currentNode.getTextContent().trim();
     }
 
     private static String getTagValue(Element element, String tagName) {
@@ -210,6 +243,13 @@ class Item {
     private String pgroup;
     private String asin;
 
+    private String productTitle;
+
+    private String price;
+    private String priceMult;
+    private String priceState;
+    private String priceCurrency;
+
     private String bookspecBinding;
     private String bookspecEdition;
     private String bookspecISBN;
@@ -234,6 +274,11 @@ class Item {
 
     public Item(String pgroup,
                 String asin,
+                String productTitle,
+                String price,
+                String priceMult,
+                String priceState,
+                String priceCurrency,
                 String bookspecBinding,
                 String bookspecEdition,
                 String bookspecISBN,
@@ -255,6 +300,12 @@ class Item {
                 String ean) {
         this.pgroup = pgroup;
         this.asin = asin;
+        this.productTitle = productTitle;
+        this.price = price;
+        this.priceMult = priceMult;
+        this.priceState = priceState;
+        this.priceCurrency = priceCurrency;
+        this.productTitle = productTitle;
         this.bookspecBinding = bookspecBinding;
         this.bookspecEdition = bookspecEdition;
         this.bookspecISBN = bookspecISBN;
@@ -282,6 +333,26 @@ class Item {
 
     public String getAsin() {
         return asin;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getPriceMult() {
+        return priceMult;
+    }
+
+    public String getPriceState() {
+        return priceState;
+    }
+
+    public String getPriceCurrency() {
+        return priceCurrency;
     }
 
     public String getBookspecBinding() {
