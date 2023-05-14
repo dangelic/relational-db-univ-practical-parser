@@ -43,6 +43,7 @@ public class XMLParserLeipzig {
             System.out.println("picture: " + item.getPicture());
             System.out.println("detailpage: " + item.getDetailPage());
             System.out.println("ean: " + item.getEan());
+            System.out.println("labels: " + item.getLabels());
             System.out.println("----------------------------------");
         }
     }
@@ -92,6 +93,8 @@ public class XMLParserLeipzig {
                     String detailPage = itemElement.getAttribute("detailpage");
                     String ean = itemElement.getAttribute("ean");
 
+                    List<String> labels = getTagValuesList(itemElement, "labels", "label","name");
+
                     Item item = new Item(pgroup,
                             asin,
                             productTitle,
@@ -117,7 +120,8 @@ public class XMLParserLeipzig {
                             salesRank,
                             picture,
                             detailPage,
-                            ean);
+                            ean,
+                            labels);
                     items.add(item);
                 }
             }
@@ -237,7 +241,27 @@ public class XMLParserLeipzig {
         }
         return tracks;
     }
+
+    private static List<String> getTagValuesList(Element element, String overallTagName, String subTagName, String val) {
+        List<String> labelValues = new ArrayList<>();
+        NodeList labelsList = element.getElementsByTagName(overallTagName);
+        if (labelsList.getLength() > 0) {
+            Element labelsElement = (Element) labelsList.item(0);
+            NodeList labelList = labelsElement.getElementsByTagName(subTagName);
+            for (int i = 0; i < labelList.getLength(); i++) {
+                Node labelNode = labelList.item(i);
+                if (labelNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element labelElement = (Element) labelNode;
+                    String labelValue = labelElement.getAttribute(val);
+                    labelValues.add(labelValue);
+                }
+            }
+        }
+        return labelValues;
+    }
 }
+
+
 
 class Item {
     private String pgroup;
@@ -271,6 +295,7 @@ class Item {
     private String picture;
     private String detailPage;
     private String ean;
+    private List<String> labels;
 
     public Item(String pgroup,
                 String asin,
@@ -297,7 +322,9 @@ class Item {
                 String salesRank,
                 String picture,
                 String detailPage,
-                String ean) {
+                String ean,
+                List<String> labels
+                ) {
         this.pgroup = pgroup;
         this.asin = asin;
         this.productTitle = productTitle;
@@ -325,6 +352,7 @@ class Item {
         this.picture = picture;
         this.detailPage = detailPage;
         this.ean = ean;
+        this.labels = labels;
     }
 
     public String getPgroup() {
@@ -432,5 +460,9 @@ class Item {
 
     public String getEan() {
         return ean;
+    }
+
+    public List<String> getLabels() {
+        return labels;
     }
 }
