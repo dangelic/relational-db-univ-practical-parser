@@ -44,6 +44,15 @@ public class XMLParserLeipzig {
             System.out.println("detailpage: " + item.getDetailPage());
             System.out.println("ean: " + item.getEan());
             System.out.println("labels: " + item.getLabels());
+
+            System.out.println("creators: " + item.getCreators());
+            System.out.println("authors: " + item.getAuthors());
+            System.out.println("directors: " + item.getDirectors());
+            System.out.println("artists: " + item.getArtists());
+            System.out.println("listmania lists: " + item.getListmanialists());
+            System.out.println("publishers: " + item.getPublishers());
+            System.out.println("studios: " + item.getStudios());
+
             System.out.println("----------------------------------");
         }
     }
@@ -94,6 +103,14 @@ public class XMLParserLeipzig {
                     String ean = itemElement.getAttribute("ean");
 
                     List<String> labels = getTagValuesList(itemElement, "labels", "label","name");
+                    List<String> creators = getTagValuesList(itemElement, "creators", "creator","name");
+                    List<String> authors = getTagValuesList(itemElement, "authors", "author","name");
+                    List<String> directors = getTagValuesList(itemElement, "directors", "director","name");
+                    List<String> artists = getTagValuesList(itemElement, "artists", "artist","name");
+                    List<String> listmanialists = getTagValuesList(itemElement, "listmania", "list","name");
+                    List<String> publishers = getTagValuesList(itemElement, "publishers", "publisher","name");
+                    List<String> studios = getTagValuesList(itemElement, "studios", "studio","name");
+
 
                     Item item = new Item(pgroup,
                             asin,
@@ -121,7 +138,15 @@ public class XMLParserLeipzig {
                             picture,
                             detailPage,
                             ean,
-                            labels);
+                            labels,
+                            creators,
+                            authors,
+                            directors,
+                            artists,
+                            listmanialists,
+                            publishers,
+                            studios
+                            );
                     items.add(item);
                 }
             }
@@ -297,6 +322,17 @@ class Item {
     private String ean;
     private List<String> labels;
 
+    private List<String> creators;
+    private List<String> authors;
+    private List<String> directors;
+    private List<String> artists;
+    private List<String> listmanialists;
+
+    private List<String> publishers;
+
+    private List<String> studios;
+
+
     public Item(String pgroup,
                 String asin,
                 String productTitle,
@@ -323,7 +359,14 @@ class Item {
                 String picture,
                 String detailPage,
                 String ean,
-                List<String> labels
+                List<String> labels,
+                List<String> creators,
+                List<String> authors,
+                List<String> directors,
+                List<String> artists,
+                List<String> listmanialists,
+                List<String> publishers,
+                List<String> studios
                 ) {
         this.pgroup = pgroup;
         this.asin = asin;
@@ -353,6 +396,13 @@ class Item {
         this.detailPage = detailPage;
         this.ean = ean;
         this.labels = labels;
+        this.creators = creators;
+        this.authors = authors;
+        this.directors = directors;
+        this.artists = artists;
+        this.listmanialists = listmanialists;
+        this.publishers = publishers;
+        this.studios = studios;
     }
 
     public String getPgroup() {
@@ -464,5 +514,33 @@ class Item {
 
     public List<String> getLabels() {
         return labels;
+    }
+
+    public List<String> getCreators() {
+        return creators;
+    }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public List<String> getDirectors() {
+        return directors;
+    }
+
+    public List<String> getArtists() {
+        return artists;
+    }
+
+    public List<String> getListmanialists() {
+        return listmanialists;
+    }
+
+    public List<String> getPublishers() {
+        return publishers;
+    }
+
+    public List<String> getStudios() {
+        return studios;
     }
 }
