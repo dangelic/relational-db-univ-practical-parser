@@ -84,7 +84,7 @@ public class XMLParserShops {
                 Node itemNode = itemList.item(i);
                 if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element itemElement = (Element) itemNode;
-                    String pgroup = itemElement.getAttribute("pgroup");
+                    List<String> pgroup =  getTagAttributeValues(itemElement, "", "pgroup");
                     String asin = itemElement.getAttribute("asin");
                     String productTitle = getTagValue(itemElement, "title");
 
@@ -116,9 +116,10 @@ public class XMLParserShops {
                     String musicspecNumDiscs = getTagValue(itemElement, "musicspec/num_discs");
                     String musicspecReleaseDate = getTagValue(itemElement, "musicspec/releasedate");
                     String musicspecUpc = getTagValue(itemElement, "musicspec/upc");
-                    String similars = getSimilars(itemElement);
-                    List<String> tracks = getTracks(itemElement);
+                    List<String> similars = getCharacterDataValues(itemElement, "similars/sim_product/asin");
+                    List<String> tracks = getCharacterDataValues(itemElement, "tracks/title");
                     String salesRank = itemElement.getAttribute("salesrank");
+
 
                     String picture = "";
                     String detailPage ="";
@@ -139,7 +140,7 @@ public class XMLParserShops {
 
                     String ean = itemElement.getAttribute("ean");
 
-                    List<String> labels = getTagValuesList(itemElement, "labels", "label","name");
+                    List<String> labels =  getTagAttributeValues(itemElement, "labels/label", "name");
                     List<String> creators = getTagValuesList(itemElement, "creators", "creator","name");
                     List<String> authors = getTagValuesList(itemElement, "authors", "author","name");
                     List<String> directors = getTagValuesList(itemElement, "directors", "director","name");
@@ -147,7 +148,6 @@ public class XMLParserShops {
                     List<String> listmanialists = getTagValuesList(itemElement, "listmania", "list","name");
                     List<String> publishers = getTagValuesList(itemElement, "publishers", "publisher","name");
                     List<String> studios = getTagValuesList(itemElement, "studios", "studio","name");
-
 
                     Item item = new Item(pgroup,
                             asin,
@@ -200,6 +200,7 @@ public class XMLParserShops {
         return items;
     }
 
+    // Use this for getting the value of a tag attribute, but only if it is unique.
     private static String getTagAttributeValue(Element element, String tagName, String attribute) {
         NodeList nodeList = element.getElementsByTagName(tagName);
         if (nodeList.getLength() > 0) {
@@ -263,38 +264,74 @@ public class XMLParserShops {
         return "";
     }
 
-    private static String getSimilars(Element element) {
-        StringBuilder sb = new StringBuilder();
-        NodeList similarsList = element.getElementsByTagName("sim_product");
-        for (int i = 0; i < similarsList.getLength(); i++) {
-            Node similarNode = similarsList.item(i);
-            if (similarNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element similarElement = (Element) similarNode;
-                String asin = getTagValue(similarElement, "asin");
-                String title = getTagValue(similarElement, "title");
-                sb.append("ASIN: ").append(asin).append(", Title: ").append(title).append("; ");
-            }
-        }
-        return sb.toString();
+
+    private static List<String> getCharacterDataValues(Element element, String path) {
+        List<String> characterDataValues = new ArrayList<>();
+        String[] tags = path.split("/");
+        getCharacterDataValuesRecursive(element, tags, 0, characterDataValues);
+        return characterDataValues;
     }
 
-    private static List<String> getTracks(Element element) {
-        List<String> tracks = new ArrayList<>();
-        NodeList tracksList = element.getElementsByTagName("tracks");
-        if (tracksList.getLength() > 0) {
-            Element tracksElement = (Element) tracksList.item(0);
-            NodeList trackList = tracksElement.getElementsByTagName("title");
-            for (int i = 0; i < trackList.getLength(); i++) {
-                Node trackNode = trackList.item(i);
-                if (trackNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element trackElement = (Element) trackNode;
-                    String trackTitle = trackElement.getTextContent();
-                    tracks.add(trackTitle);
+    private static void getCharacterDataValuesRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
+        if (index >= tags.length) {
+            // Reached the end of the path, collect character data value
+            String characterData = element.getTextContent().trim();
+            if (!characterData.isEmpty()) {
+                characterDataValues.add(characterData);
+            }
+            return;
+        }
+
+        String tag = tags[index];
+        NodeList nodeList = element.getElementsByTagName(tag);
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element childElement = (Element) node;
+                getCharacterDataValuesRecursive(childElement, tags, index + 1, characterDataValues);
+            }
+        }
+    }
+
+    private static List<String> getTagAttributeValues(Element element, String path, String attributeName) {
+        List<String> tagAttributeValues = new ArrayList<>();
+        if (path.isEmpty()) {
+            String attributeValue = element.getAttribute(attributeName);
+            if (!attributeValue.isEmpty()) {
+                tagAttributeValues.add(attributeValue);
+            }
+        } else {
+            String[] tags = path.split("/");
+            getTagAttributeValuesRecursive(element, tags, 0, attributeName, tagAttributeValues);
+        }
+        return tagAttributeValues;
+    }
+
+    private static void getTagAttributeValuesRecursive(Element element, String[] tags, int index, String attributeName, List<String> tagAttributeValues) {
+        if (index >= tags.length) {
+            return;
+        }
+
+        String tag = tags[index];
+        NodeList nodeList = element.getElementsByTagName(tag);
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element childElement = (Element) node;
+                getTagAttributeValuesRecursive(childElement, tags, index + 1, attributeName, tagAttributeValues);
+                String attributeValue = childElement.getAttribute(attributeName);
+                if (!attributeValue.isEmpty()) {
+                    tagAttributeValues.add(attributeValue);
                 }
             }
         }
-        return tracks;
     }
+
+
+
+
+
+
 
     private static List<String> getTagValuesList(Element element, String overallTagName, String subTagName, String val) {
         List<String> labelValues = new ArrayList<>();
@@ -318,7 +355,7 @@ public class XMLParserShops {
 
 
 class Item {
-    private String pgroup;
+    private List<String> pgroup;
     private String asin;
 
     private String productTitle;
@@ -351,7 +388,7 @@ class Item {
     private String musicspecNumDiscs;
     private String musicspecReleaseDate;
     private String musicspecUpc;
-    private String similars;
+    private List<String> similars;
     private List<String> tracks;
     private String salesRank;
     private String picture;
@@ -370,7 +407,7 @@ class Item {
     private List<String> studios;
 
 
-    public Item(String pgroup,
+    public Item(List<String> pgroup,
                 String asin,
                 String productTitle,
                 String price,
@@ -397,7 +434,7 @@ class Item {
                 String musicspecNumDiscs,
                 String musicspecReleaseDate,
                 String musicspecUpc,
-                String similars,
+                List<String> similars,
                 List<String> tracks,
                 String salesRank,
                 String picture,
@@ -456,7 +493,7 @@ class Item {
         this.studios = studios;
     }
 
-    public String getPgroup() {
+    public List<String> getPgroup() {
         return pgroup;
     }
 
@@ -567,7 +604,7 @@ class Item {
         return musicspecUpc;
     }
 
-    public String getSimilars() {
+    public List<String> getSimilars() {
         return similars;
     }
 
