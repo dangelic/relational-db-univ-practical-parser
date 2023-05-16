@@ -220,10 +220,27 @@ public class XMLParserShops {
         return items;
     }
 
+    private static List<String> escapeStrings(List<String> strings) {
+        List<String> escapedStrings = new ArrayList<>();
+        for (String string : strings) {
+            escapedStrings.add(escapeString(string));
+        }
+        return escapedStrings;
+    }
+
+    private static String escapeString(String string) {
+        string = string.replace("'", "\\'");
+        string = string.replace("\"", "\\\"");
+        string = string.replace("[", "\\[");
+        string = string.replace("]", "\\]");
+        return "'" + string + "'";
+    }
+
     private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
         traversCharacterDataValRecursive(element, tags, 0, characterDataValues);
+        characterDataValues = escapeStrings(characterDataValues);
         return characterDataValues;
     }
 
@@ -259,6 +276,7 @@ public class XMLParserShops {
             String[] tags = path.split("/");
             traversTagAttributeDataValRecursive(element, tags, 0, attributeName, tagAttributeValues);
         }
+        tagAttributeValues = escapeStrings(tagAttributeValues);
         return tagAttributeValues;
     }
 
