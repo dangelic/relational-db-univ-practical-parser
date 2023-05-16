@@ -6,73 +6,78 @@ import javax.xml.parsers.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+
 
 public class XMLParserShops {
 
-    public static void parseXMLFile(String filePath, String SHOP_MODE) {
+    public static HashMap<String, List<String>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
         List<Item> items = parseXML(filePath, SHOP_MODE);
 
-
+        // Set up the HashMap with defined key mapping
+        HashMap<String, List<String>> itemMap = new HashMap<>();
         for (Item item : items) {
-            System.out.println("SHOP: " + SHOP_MODE);
-            System.out.println("pgroup: " + item.getPgroup());
-            System.out.println("asin: " + item.getAsin());
-            System.out.println("product title: " + item.getProductTitle());
 
-            System.out.println("price: " + item.getPrice());
-            System.out.println("price multiplier: " + item.getPriceMult());
-            System.out.println("price state: " + item.getPriceState());
-            System.out.println("price currency: " + item.getPriceCurrency());
+            itemMap.put("SHOP", SHOP_MODE);
+            itemMap.put("pgroup", item.getPgroup());
+            itemMap.put("asin", item.getAsin());
+            itemMap.put("product title", item.getProductTitle());
 
+            itemMap.put("price", item.getPrice());
+            itemMap.put("price multiplier", item.getPriceMult());
+            itemMap.put("price state", item.getPriceState());
+            itemMap.put("price currency", item.getPriceCurrency());
 
-            System.out.println("dvdspec aspect ratio: " + item.getDvdspecAspectRatio());
-            System.out.println("dvdspec format: " + item.getDvdspecFormat());
-            System.out.println("dvdspec region code: " + item.getDvdspecRegionCode());
-            System.out.println("dvdspec release date: " + item.getDvdspecReleaseDate());
-            System.out.println("dvdspec running time: " + item.getDvdspecRunningTime());
-            System.out.println("dvdspec theatr release: " + item.getDvdspecTheatrRelease());
-            System.out.println("dvdspec upc: " + item.getDvdspecUpc());
+            itemMap.put("dvdspec aspect ratio", item.getDvdspecAspectRatio());
+            itemMap.put("dvdspec format", item.getDvdspecFormat());
+            itemMap.put("dvdspec region code", item.getDvdspecRegionCode());
+            itemMap.put("dvdspec release date", item.getDvdspecReleaseDate());
+            itemMap.put("dvdspec running time", item.getDvdspecRunningTime());
+            itemMap.put("dvdspec theatr release", item.getDvdspecTheatrRelease());
+            itemMap.put("dvdspec upc", item.getDvdspecUpc());
 
-            System.out.println("bookspec binding: " + item.getBookspecBinding());
-            System.out.println("bookspec edition: " + item.getBookspecEdition());
-            System.out.println("bookspec isbn: " + item.getBookspecISBN());
-            System.out.println("bookspec weight: " + item.getBookspecWeight());
-            System.out.println("bookspec height: " + item.getBookspecHight());
-            System.out.println("bookspec length: " + item.getBookspecLength());
-            System.out.println("bookspec pages: " + item.getBookspecPages());
-            System.out.println("bookspec publication date: " + item.getBookspecPublicationDate());
+            itemMap.put("bookspec binding", item.getBookspecBinding());
+            itemMap.put("bookspec edition", item.getBookspecEdition());
+            itemMap.put("bookspec isbn", item.getBookspecISBN());
+            itemMap.put("bookspec weight", item.getBookspecWeight());
+            itemMap.put("bookspec height", item.getBookspecHight());
+            itemMap.put("bookspec length", item.getBookspecLength());
+            itemMap.put("bookspec pages", item.getBookspecPages());
+            itemMap.put("bookspec publication date", item.getBookspecPublicationDate());
 
-            System.out.println("musicspec binding: " + item.getMusicspecBinding());
-            System.out.println("musicspec format: " + item.getMusicspecFormat());
-            System.out.println("musicspec num discs: " + item.getMusicspecNumDiscs());
-            System.out.println("musicspec release date: " + item.getMusicspecReleaseDate());
-            System.out.println("musicspec upc: " + item.getMusicspecUpc());
+            itemMap.put("musicspec binding", item.getMusicspecBinding());
+            itemMap.put("musicspec format", item.getMusicspecFormat());
+            itemMap.put("musicspec num discs", item.getMusicspecNumDiscs());
+            itemMap.put("musicspec release date", item.getMusicspecReleaseDate());
+            itemMap.put("musicspec upc", item.getMusicspecUpc());
 
-            System.out.println("audiotext type: " + item.getAudiotextType());
-            System.out.println("audiotext language " + item.getAudiotextLanguage());
-            System.out.println("audiotext audio format: " + item.getAudiotextAudioformat());
+            itemMap.put("audiotext type", item.getAudiotextType());
+            itemMap.put("audiotext language", item.getAudiotextLanguage());
+            itemMap.put("audiotext audio format", item.getAudiotextAudioformat());
 
-            System.out.println("similars: " + item.getSimilars());
-            System.out.println("tracks: " + item.getTracks());
-            System.out.println("salesrank: " + item.getSalesRank());
-            System.out.println("picture: " + item.getPicture());
-            System.out.println("detailpage: " + item.getDetailPage());
-            System.out.println("ean: " + item.getEan());
-            System.out.println("labels: " + item.getLabels());
+            itemMap.put("similars", item.getSimilars());
+            itemMap.put("tracks", item.getTracks());
+            itemMap.put("salesrank", item.getSalesRank());
+            itemMap.put("picture", item.getPicture());
+            itemMap.put("detailpage", item.getDetailPage());
+            itemMap.put("ean", item.getEan());
+            itemMap.put("labels", item.getLabels());
 
-            System.out.println("creators: " + item.getCreators());
-            System.out.println("authors: " + item.getAuthors());
-            System.out.println("directors: " + item.getDirectors());
-            System.out.println("artists: " + item.getArtists());
-            System.out.println("listmania lists: " + item.getListmanialists());
-            System.out.println("publishers: " + item.getPublishers());
-            System.out.println("studios: " + item.getStudios());
+            itemMap.put("creators", item.getCreators());
+            itemMap.put("authors", item.getAuthors());
+            itemMap.put("directors", item.getDirectors());
+            itemMap.put("artists", item.getArtists());
+            itemMap.put("listmania lists", item.getListmanialists());
+            itemMap.put("publishers", item.getPublishers());
+            itemMap.put("studios", item.getStudios());
 
+            System.out.println(itemMap);
             System.out.println("----------------------------------");
         }
+        return itemMap;
     }
 
-    private static List<Item> parseXML(String filePath, String SHOP_MODE) {
+    private static List<Item> parseXML(String filePath, List<String> SHOP_MODE) {
         List<Item> items = new ArrayList<>();
         try {
             File inputFile = new File(filePath);
@@ -155,14 +160,14 @@ public class XMLParserShops {
                     List<String> detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
 
 
-                    if (SHOP_MODE.equals("LEIPZIG")) {
+                    if (SHOP_MODE.get(0).equals("LEIPZIG")) {
                         picture = getTagAttributeDataVal(itemElement, "", "picture");
                         detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
 
                         // TODO: REWORK!
                     }
 
-                    if (SHOP_MODE.equals("DRESDEN")) {
+                    if (SHOP_MODE.get(0).equals("DRESDEN")) {
 
                     }
 
