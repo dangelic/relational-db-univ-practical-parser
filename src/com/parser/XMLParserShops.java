@@ -2,7 +2,6 @@ package com.parser;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -49,6 +48,10 @@ public class XMLParserShops {
             System.out.println("musicspec release date: " + item.getMusicspecReleaseDate());
             System.out.println("musicspec upc: " + item.getMusicspecUpc());
 
+            System.out.println("audiotext type: " + item.getAudiotextType());
+            System.out.println("audiotext language " + item.getAudiotextLanguage());
+            System.out.println("audiotext audio format: " + item.getAudiotextAudioformat());
+
             System.out.println("similars: " + item.getSimilars());
             System.out.println("tracks: " + item.getTracks());
             System.out.println("salesrank: " + item.getSalesRank());
@@ -84,70 +87,84 @@ public class XMLParserShops {
                 Node itemNode = itemList.item(i);
                 if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element itemElement = (Element) itemNode;
-                    List<String> pgroup =  getTagAttributeValues(itemElement, "", "pgroup");
-                    String asin = itemElement.getAttribute("asin");
-                    String productTitle = getTagValue(itemElement, "title");
+                    // ## Common data which is labeled the same in XML for both LEIPZIG and DRESDEN
 
-                    String price = getCharacterData(itemElement, "price");
-                    String priceMult = getTagAttributeValue(itemElement, "price", "mult");
-                    String priceState = getTagAttributeValue(itemElement, "price", "state");
-                    String priceCurrency = getTagAttributeValue(itemElement, "price", "currency");
+                    // ITEM overall
+                    List<String> asin =  getTagAttributeDataVal(itemElement, "", "asin");
+                    List<String> pgroup =  getTagAttributeDataVal(itemElement, "", "pgroup");
+                    List<String> salesRank =  getTagAttributeDataVal(itemElement, "", "salesrank");
+                    List<String> ean =  getTagAttributeDataVal(itemElement, "", "ean");
 
-                    String dvdspecAspectRatio = getCharacterData(itemElement, "dvdspec/price");
-                    String dvdspecFormat = getCharacterData(itemElement, "dvdspec/format");
-                    String dvdspecRegionCode = getCharacterData(itemElement, "dvdspec/regioncode");
-                    String dvdspecReleaseDate = getCharacterData(itemElement, "dvdspec/releasedate");
-                    String dvdspecRunningTime = getCharacterData(itemElement, "dvdspec/runningtime");
-                    String dvdspecTheatrRelease = getCharacterData(itemElement, "dvdspec/theatr_release");
-                    String dvdspecUpc = getTagValue(itemElement, "dvdspec/upc");
+                    // Title
+                    List<String> productTitle = getCharacterDataVal(itemElement, "title");
+
+                    // Priceinfos
+                    List<String> price = getCharacterDataVal(itemElement, "price");
+                    List<String> priceMult = getTagAttributeDataVal(itemElement, "price", "mult");
+                    List<String> priceState = getTagAttributeDataVal(itemElement, "price", "state");
+                    List<String> priceCurrency = getTagAttributeDataVal(itemElement, "price", "currency");
+
+                    // DVDSpec
+                    List<String> dvdspecAspectRatio = getCharacterDataVal(itemElement, "dvdspec/price");
+                    List<String> dvdspecFormat = getCharacterDataVal(itemElement, "dvdspec/format");
+                    List<String> dvdspecRegionCode = getCharacterDataVal(itemElement, "dvdspec/regioncode");
+                    List<String> dvdspecReleaseDate = getCharacterDataVal(itemElement, "dvdspec/releasedate");
+                    List<String> dvdspecRunningTime = getCharacterDataVal(itemElement, "dvdspec/runningtime");
+                    List<String> dvdspecTheatrRelease = getCharacterDataVal(itemElement, "dvdspec/theatr_release");
+                    List<String> dvdspecUpc = getTagAttributeDataVal(itemElement, "dvdspec", "val");
+
+                    // BookSpec
+                    List<String> bookspecBinding = getCharacterDataVal(itemElement, "bookspec/binding");
+                    List<String> bookspecEdition = getTagAttributeDataVal(itemElement, "edition", "val");
+                    List<String> bookspecISBN = getTagAttributeDataVal(itemElement, "isbn", "val");
+                    List<String> bookspecWeight = getTagAttributeDataVal(itemElement, "bookspec/package",  "weight");
+                    List<String> bookspecHeight = getTagAttributeDataVal(itemElement, "bookspec/package",  "height");
+                    List<String> bookspecLength = getTagAttributeDataVal(itemElement, "bookspec/package", "length");
+                    List<String> bookspecPages = getCharacterDataVal(itemElement, "bookspec/pages");
+                    List<String> bookspecPublicationDate = getTagAttributeDataVal(itemElement, "publication", "date");
+
+                    // MusicSpec
+                    List<String> musicspecBinding = getCharacterDataVal(itemElement, "musicspec/binding");
+                    List<String> musicspecFormat = getTagAttributeDataVal(itemElement, "musicspec/format", "value");
+                    List<String> musicspecNumDiscs = getCharacterDataVal(itemElement, "musicspec/num_discs");
+                    List<String> musicspecReleaseDate = getCharacterDataVal(itemElement, "musicspec/releasedate");
+                    List<String> musicspecUpc = getCharacterDataVal(itemElement, "musicspec/upc");
+
+                    // Audiotext
+                    List<String> audiotextType = getTagAttributeDataVal(itemElement, "audiotext/language", "type");
+                    List<String> audiotextLanguage = getCharacterDataVal(itemElement, "audiotext/language");
+                    List<String> audiotextAudioformat = getCharacterDataVal(itemElement, "audiotext/audioformat");
 
 
-                    String bookspecBinding = getTagValue(itemElement, "bookspec/binding");
-                    String bookspecEdition = getTagAttributeValue(itemElement, "edition", "val");
-                    String bookspecISBN = getTagAttributeValue(itemElement, "isbn", "val");
-                    List<String> bookspecWeight = getTagValuesList(itemElement, "bookspec", "package", "weight");
-                    List<String> bookspecHeight = getTagValuesList(itemElement, "bookspec", "package", "height");
-                    List<String> bookspecLength = getTagValuesList(itemElement, "bookspec", "package", "length");
-                    String bookspecPages = getTagValue(itemElement, "bookspec/pages");
-                    String bookspecPublicationDate = getTagAttributeValue(itemElement, "publication", "date");
-
-                    String musicspecBinding = getTagValue(itemElement, "musicspec/binding");
-                    String musicspecFormat = getTagValue(itemElement, "musicspec/format");
-                    String musicspecNumDiscs = getTagValue(itemElement, "musicspec/num_discs");
-                    String musicspecReleaseDate = getTagValue(itemElement, "musicspec/releasedate");
-                    String musicspecUpc = getTagValue(itemElement, "musicspec/upc");
-                    List<String> similars = getCharacterDataValues(itemElement, "similars/sim_product/asin");
-                    List<String> tracks = getCharacterDataValues(itemElement, "tracks/title");
-                    String salesRank = itemElement.getAttribute("salesrank");
+                    // Multiples
+                    List<String> labels =  getTagAttributeDataVal(itemElement, "labels/label", "name");
+                    List<String> creators = getTagAttributeDataVal(itemElement, "creators/creator" ,"name");
+                    List<String> authors = getTagAttributeDataVal(itemElement, "authors/author", "name");
+                    List<String> directors = getTagAttributeDataVal(itemElement, "directors/director", "name");
+                    List<String> artists = getTagAttributeDataVal(itemElement, "artists/artist", "name");
+                    List<String> listmanialists = getTagAttributeDataVal(itemElement, "listmania/list", "name");
+                    List<String> publishers = getTagAttributeDataVal(itemElement, "publishers/publisher", "name");
+                    List<String> studios = getTagAttributeDataVal(itemElement, "studios/studio", "name");
+                    List<String> similars = getCharacterDataVal(itemElement, "similars/sim_product/asin");
+                    List<String> tracks = getCharacterDataVal(itemElement, "tracks/title");
 
 
-                    String picture = "";
-                    String detailPage ="";
+                    // ## Data which is labeled different in XML for LEIPZIG or DRESDEN
+
+                    List<String> picture = getTagAttributeDataVal(itemElement, "", "picture");
+                    List<String> detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
 
 
                     if (SHOP_MODE.equals("LEIPZIG")) {
-                        picture = itemElement.getAttribute("picture");
-                        detailPage = itemElement.getAttribute("detailpage");
+                        picture = getTagAttributeDataVal(itemElement, "", "picture");
+                        detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
 
                         // TODO: REWORK!
                     }
 
                     if (SHOP_MODE.equals("DRESDEN")) {
-                        picture = itemElement.getAttribute("picture");
-                        detailPage = itemElement.getAttribute("detailpage");
+
                     }
-
-
-                    String ean = itemElement.getAttribute("ean");
-
-                    List<String> labels =  getTagAttributeValues(itemElement, "labels/label", "name");
-                    List<String> creators = getTagValuesList(itemElement, "creators", "creator","name");
-                    List<String> authors = getTagValuesList(itemElement, "authors", "author","name");
-                    List<String> directors = getTagValuesList(itemElement, "directors", "director","name");
-                    List<String> artists = getTagValuesList(itemElement, "artists", "artist","name");
-                    List<String> listmanialists = getTagValuesList(itemElement, "listmania", "list","name");
-                    List<String> publishers = getTagValuesList(itemElement, "publishers", "publisher","name");
-                    List<String> studios = getTagValuesList(itemElement, "studios", "studio","name");
 
                     Item item = new Item(pgroup,
                             asin,
@@ -176,6 +193,9 @@ public class XMLParserShops {
                             musicspecNumDiscs,
                             musicspecReleaseDate,
                             musicspecUpc,
+                            audiotextType,
+                            audiotextLanguage,
+                            audiotextAudioformat,
                             similars,
                             tracks,
                             salesRank,
@@ -200,79 +220,14 @@ public class XMLParserShops {
         return items;
     }
 
-    // Use this for getting the value of a tag attribute, but only if it is unique.
-    private static String getTagAttributeValue(Element element, String tagName, String attribute) {
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        if (nodeList.getLength() > 0) {
-            Element tagElement = (Element) nodeList.item(0);
-            return tagElement.getAttribute(attribute);
-        }
-        return "";
-    }
-
-    private static String getCharacterData(Element element, String attribute) {
-        String[] attributePath = attribute.split("/");
-        Node currentNode = element;
-
-        for (String attr : attributePath) {
-            NodeList nodeList = ((Element) currentNode).getElementsByTagName(attr);
-            if (nodeList.getLength() > 0) {
-                currentNode = nodeList.item(0);
-            } else {
-                return "";
-            }
-        }
-
-        return currentNode.getTextContent().trim();
-    }
-
-    private static String getTagValue(Element element, String tagName) {
-        String[] tagNames = tagName.split("/");
-        Node node = element;
-        for (String name : tagNames) {
-            NodeList nodeList = ((Node) node).getChildNodes();
-            node = null;
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Node tempNode = nodeList.item(i);
-                if (tempNode.getNodeName().equals(name)) {
-                    node = tempNode;
-                    break;
-                }
-            }
-            if (node == null) {
-                return "";
-            }
-        }
-        if (node.getNodeType() == Node.ELEMENT_NODE) {
-            Element tagElement = (Element) node;
-            if (tagElement.hasAttribute("value")) {
-                return tagElement.getAttribute("value");
-            } else if (tagElement.hasAttribute("val")) {
-                return tagElement.getAttribute("val");
-            } else if (tagElement.hasAttributes()) {
-                NamedNodeMap attributes = tagElement.getAttributes();
-                StringBuilder attributeValues = new StringBuilder();
-                for (int i = 0; i < attributes.getLength(); i++) {
-                    Node attribute = attributes.item(i);
-                    attributeValues.append(attribute.getNodeName()).append("=").append(attribute.getNodeValue()).append(", ");
-                }
-                return attributeValues.toString();
-            } else {
-                return tagElement.getTextContent();
-            }
-        }
-        return "";
-    }
-
-
-    private static List<String> getCharacterDataValues(Element element, String path) {
+    private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
-        getCharacterDataValuesRecursive(element, tags, 0, characterDataValues);
+        traversCharacterDataValRecursive(element, tags, 0, characterDataValues);
         return characterDataValues;
     }
 
-    private static void getCharacterDataValuesRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
+    private static void traversCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
         if (index >= tags.length) {
             // Reached the end of the path, collect character data value
             String characterData = element.getTextContent().trim();
@@ -288,12 +243,12 @@ public class XMLParserShops {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element childElement = (Element) node;
-                getCharacterDataValuesRecursive(childElement, tags, index + 1, characterDataValues);
+                traversCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues);
             }
         }
     }
 
-    private static List<String> getTagAttributeValues(Element element, String path, String attributeName) {
+    private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {
         List<String> tagAttributeValues = new ArrayList<>();
         if (path.isEmpty()) {
             String attributeValue = element.getAttribute(attributeName);
@@ -302,12 +257,12 @@ public class XMLParserShops {
             }
         } else {
             String[] tags = path.split("/");
-            getTagAttributeValuesRecursive(element, tags, 0, attributeName, tagAttributeValues);
+            traversTagAttributeDataValRecursive(element, tags, 0, attributeName, tagAttributeValues);
         }
         return tagAttributeValues;
     }
 
-    private static void getTagAttributeValuesRecursive(Element element, String[] tags, int index, String attributeName, List<String> tagAttributeValues) {
+    private static void traversTagAttributeDataValRecursive (Element element, String[] tags, int index, String attributeName, List<String> tagAttributeValues) {
         if (index >= tags.length) {
             return;
         }
@@ -318,7 +273,7 @@ public class XMLParserShops {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element childElement = (Element) node;
-                getTagAttributeValuesRecursive(childElement, tags, index + 1, attributeName, tagAttributeValues);
+                traversTagAttributeDataValRecursive(childElement, tags, index + 1, attributeName, tagAttributeValues);
                 String attributeValue = childElement.getAttribute(attributeName);
                 if (!attributeValue.isEmpty()) {
                     tagAttributeValues.add(attributeValue);
@@ -326,74 +281,54 @@ public class XMLParserShops {
             }
         }
     }
-
-
-
-
-
-
-
-    private static List<String> getTagValuesList(Element element, String overallTagName, String subTagName, String val) {
-        List<String> labelValues = new ArrayList<>();
-        NodeList labelsList = element.getElementsByTagName(overallTagName);
-        if (labelsList.getLength() > 0) {
-            Element labelsElement = (Element) labelsList.item(0);
-            NodeList labelList = labelsElement.getElementsByTagName(subTagName);
-            for (int i = 0; i < labelList.getLength(); i++) {
-                Node labelNode = labelList.item(i);
-                if (labelNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element labelElement = (Element) labelNode;
-                    String labelValue = labelElement.getAttribute(val);
-                    labelValues.add(labelValue);
-                }
-            }
-        }
-        return labelValues;
-    }
 }
-
-
 
 class Item {
     private List<String> pgroup;
-    private String asin;
+    private List<String> asin;
 
-    private String productTitle;
+    private List<String> productTitle;
 
-    private String price;
-    private String priceMult;
-    private String priceState;
-    private String priceCurrency;
+    private List<String> price;
+    private List<String> priceMult;
+    private List<String> priceState;
+    private List<String> priceCurrency;
 
-    private String dvdspecAspectRatio;
-    private String dvdspecFormat;
-    private String dvdspecRegionCode;
-    private String dvdspecReleaseDate;
-    private String dvdspecRunningTime;
-    private String dvdspecTheatrRelease;
-    private String dvdspecUpc;
+    private List<String> dvdspecAspectRatio;
+    private List<String> dvdspecFormat;
+    private List<String> dvdspecRegionCode;
+    private List<String> dvdspecReleaseDate;
+    private List<String> dvdspecRunningTime;
+    private List<String> dvdspecTheatrRelease;
 
-    private String bookspecBinding;
-    private String bookspecEdition;
-    private String bookspecISBN;
+    private List<String> audiotextType;
+
+    private List<String> audiotextLanguage;
+
+    private List<String> audiotextAudioformat;
+    private List<String> dvdspecUpc;
+
+    private List<String> bookspecBinding;
+    private List<String> bookspecEdition;
+    private List<String> bookspecISBN;
     private List<String>  bookspecWeight;
     private List<String>  bookspecHight;
 
     private List<String>  bookspecLength;
-    private String bookspecPages;
+    private List<String> bookspecPages;
 
-    private String bookspecPublicationDate;
-    private String musicspecBinding;
-    private String musicspecFormat;
-    private String musicspecNumDiscs;
-    private String musicspecReleaseDate;
-    private String musicspecUpc;
+    private List<String> bookspecPublicationDate;
+    private List<String> musicspecBinding;
+    private List<String> musicspecFormat;
+    private List<String> musicspecNumDiscs;
+    private List<String> musicspecReleaseDate;
+    private List<String> musicspecUpc;
     private List<String> similars;
     private List<String> tracks;
-    private String salesRank;
-    private String picture;
-    private String detailPage;
-    private String ean;
+    private List<String> salesRank;
+    private List<String> picture;
+    private List<String> detailPage;
+    private List<String> ean;
     private List<String> labels;
 
     private List<String> creators;
@@ -408,38 +343,41 @@ class Item {
 
 
     public Item(List<String> pgroup,
-                String asin,
-                String productTitle,
-                String price,
-                String priceMult,
-                String priceState,
-                String priceCurrency,
-                String dvdspecAspectRatio,
-                String dvdspecFormat,
-                String dvdspecRegionCode,
-                String dvdspecReleaseDate,
-                String dvdspecRunningTime,
-                String dvdspecTheatrRelease,
-                String dvdspecUpc,
-                String bookspecBinding,
-                String bookspecEdition,
-                String bookspecISBN,
-                List<String>  bookspecWeight,
-                List<String>  bookspecHight,
-                List<String>  bookspecLength,
-                String bookspecPages,
-                String bookspecPublicationDate,
-                String musicspecBinding,
-                String musicspecFormat,
-                String musicspecNumDiscs,
-                String musicspecReleaseDate,
-                String musicspecUpc,
+                List<String> asin,
+                List<String> productTitle,
+                List<String> price,
+                List<String> priceMult,
+                List<String> priceState,
+                List<String> priceCurrency,
+                List<String> dvdspecAspectRatio,
+                List<String> dvdspecFormat,
+                List<String> dvdspecRegionCode,
+                List<String> dvdspecReleaseDate,
+                List<String> dvdspecRunningTime,
+                List<String> dvdspecTheatrRelease,
+                List<String> dvdspecUpc,
+                List<String> bookspecBinding,
+                List<String> bookspecEdition,
+                List<String> bookspecISBN,
+                List<String> bookspecWeight,
+                List<String> bookspecHight,
+                List<String> bookspecLength,
+                List<String> bookspecPages,
+                List<String> bookspecPublicationDate,
+                List<String> musicspecBinding,
+                List<String> musicspecFormat,
+                List<String> musicspecNumDiscs,
+                List<String> musicspecReleaseDate,
+                List<String> musicspecUpc,
+                List<String> audiotextLanguage,
+                List<String> audiotextType,
+                List<String> audiotextAudioformat,
                 List<String> similars,
                 List<String> tracks,
-                String salesRank,
-                String picture,
-                String detailPage,
-                String ean,
+                List<String> salesRank,
+                List<String> picture,
+                List<String> detailPage,
+                List<String> ean,
                 List<String> labels,
                 List<String> creators,
                 List<String> authors,
@@ -477,6 +415,9 @@ class Item {
         this.musicspecNumDiscs = musicspecNumDiscs;
         this.musicspecReleaseDate = musicspecReleaseDate;
         this.musicspecUpc = musicspecUpc;
+        this.audiotextLanguage = audiotextLanguage;
+        this.audiotextType = audiotextType;
+        this.audiotextAudioformat = audiotextAudioformat;
         this.similars = similars;
         this.tracks = tracks;
         this.salesRank = salesRank;
@@ -497,67 +438,73 @@ class Item {
         return pgroup;
     }
 
-    public String getAsin() {
+    public List<String> getAsin() {
         return asin;
     }
 
-    public String getProductTitle() {
+    public List<String> getProductTitle() {
         return productTitle;
     }
 
-    public String getPrice() {
+    public List<String> getPrice() {
         return price;
     }
 
-    public String getPriceMult() {
+    public List<String> getPriceMult() {
         return priceMult;
     }
 
-    public String getPriceState() {
+    public List<String> getPriceState() {
         return priceState;
     }
 
-    public String getPriceCurrency() {
+    public List<String> getPriceCurrency() {
         return priceCurrency;
     }
 
-    public String getDvdspecAspectRatio() {
-        return dvdspecAspectRatio;
-    }
+    public List<String> getDvdspecAspectRatio() { return dvdspecAspectRatio; }
 
-    public String getDvdspecFormat() {
+    public List<String> getDvdspecFormat() {
         return dvdspecFormat;
     }
 
-    public String getDvdspecRegionCode() {
+    public List<String> getDvdspecRegionCode() {
         return dvdspecRegionCode;
     }
 
-    public String getDvdspecReleaseDate() {
-        return dvdspecReleaseDate;
-    }
+    public List <String> getDvdspecReleaseDate() { return dvdspecReleaseDate;}
 
-    public String getDvdspecRunningTime() {
-        return dvdspecRunningTime;
-    }
+    public List<String> getDvdspecRunningTime() { return dvdspecRunningTime;}
 
-    public String getDvdspecTheatrRelease() {
+    public List<String> getDvdspecTheatrRelease() {
         return dvdspecTheatrRelease;
     }
 
-    public String getDvdspecUpc() {
+    public List<String> getDvdspecUpc() {
         return dvdspecUpc;
     }
 
-    public String getBookspecBinding() {
+    public List<String> getAudiotextType() {
+        return audiotextType;
+    }
+
+    public List<String> getAudiotextLanguage() {
+        return audiotextLanguage;
+    }
+
+    public List<String> getAudiotextAudioformat() {
+        return audiotextAudioformat;
+    }
+
+    public List<String> getBookspecBinding() {
         return bookspecBinding;
     }
 
-    public String getBookspecEdition() {
+    public List<String> getBookspecEdition() {
         return bookspecEdition;
     }
 
-    public String getBookspecISBN() {
+    public List<String> getBookspecISBN() {
         return bookspecISBN;
     }
 
@@ -569,38 +516,33 @@ class Item {
         return bookspecHight;
     }
 
-    public List<String>  getBookspecLength() {
-        return bookspecLength;
-    }
+    public List<String>  getBookspecLength() { return bookspecLength; }
 
-
-    public String getBookspecPages() {
+    public List<String> getBookspecPages() {
         return bookspecPages;
     }
 
-    public String getBookspecPublicationDate() {
+    public List<String> getBookspecPublicationDate() {
         return bookspecPublicationDate;
     }
 
 
-    public String getMusicspecBinding() {
+    public List<String> getMusicspecBinding() {
         return musicspecBinding;
     }
-
-
-    public String getMusicspecFormat() {
+    public List<String> getMusicspecFormat() {
         return musicspecFormat;
     }
 
-    public String getMusicspecNumDiscs() {
+    public List<String> getMusicspecNumDiscs() {
         return musicspecNumDiscs;
     }
 
-    public String getMusicspecReleaseDate() {
+    public List<String> getMusicspecReleaseDate() {
         return musicspecReleaseDate;
     }
 
-    public String getMusicspecUpc() {
+    public List<String> getMusicspecUpc() {
         return musicspecUpc;
     }
 
@@ -612,19 +554,19 @@ class Item {
         return tracks;
     }
 
-    public String getSalesRank() {
+    public List<String> getSalesRank() {
         return salesRank;
     }
 
-    public String getPicture() {
+    public List<String> getPicture() {
         return picture;
     }
 
-    public String getDetailPage() {
+    public List<String> getDetailPage() {
         return detailPage;
     }
 
-    public String getEan() {
+    public List<String> getEan() {
         return ean;
     }
 
