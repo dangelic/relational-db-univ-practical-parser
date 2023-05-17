@@ -78,12 +78,11 @@ public class XMLParserShops {
 
             itemList.add(itemMap);
 
-
-            System.out.println("----------------------------------");
+            //System.out.println(itemMap);
+            // System.out.println("----------------------------------");
 
             itemIndex++;
         }
-        System.out.println(itemList);
         return itemList;
     }
 
@@ -110,7 +109,8 @@ public class XMLParserShops {
                     List<String> salesRank =  getTagAttributeDataVal(itemElement, "", "salesrank");
 
                     // Title
-                    List<String> productTitle = getCharacterDataVal(itemElement, "title");
+                    List<String> productTitle = getProductTitle(itemElement);
+                    System.out.println(productTitle);
 
                     // Priceinfos
                     List<String> price = getCharacterDataVal(itemElement, "price");
@@ -119,7 +119,7 @@ public class XMLParserShops {
                     List<String> priceCurrency = getTagAttributeDataVal(itemElement, "price", "currency");
 
                     // DVDSpec
-                    List<String> dvdspecAspectRatio = getCharacterDataVal(itemElement, "dvdspec/price");
+                    List<String> dvdspecAspectRatio = getCharacterDataVal(itemElement, "dvdspec/aspectratio");
                     List<String> dvdspecFormat = getCharacterDataVal(itemElement, "dvdspec/format");
                     List<String> dvdspecRegionCode = getCharacterDataVal(itemElement, "dvdspec/regioncode");
                     List<String> dvdspecReleaseDate = getCharacterDataVal(itemElement, "dvdspec/releasedate");
@@ -148,10 +148,8 @@ public class XMLParserShops {
                     List<String> audiotextLanguage = getCharacterDataVal(itemElement, "audiotext/language");
                     List<String> audiotextAudioformat = getCharacterDataVal(itemElement, "audiotext/audioformat");
 
-
                     // Tracks
                     List<String> tracks = getCharacterDataVal(itemElement, "tracks/title");
-
 
                     // ## Data which is labeled different in XML for LEIPZIG or DRESDEN
 
@@ -168,8 +166,6 @@ public class XMLParserShops {
                     List<String> publishers;
                     List<String> studios;
                     List<String> similars;
-
-
 
                     if (SHOP_MODE.get(0).equals("LEIPZIG")) {
                         picture = getTagAttributeDataVal(itemElement, "", "picture");
@@ -269,25 +265,26 @@ public class XMLParserShops {
         string = string.replace("\"", "\\\"");
         string = string.replace("[", "\\[");
         string = string.replace("]", "\\]");
+        string = string.replace("&", "\\&");
+        string = string.replace(";", "\\;");
         return "'" + string + "'";
     }
+
 
     private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
-        traversCharacterDataValRecursive(element, tags, 0, characterDataValues, false);
+        traverseCharacterDataValRecursive(element, tags, 0, characterDataValues);
         characterDataValues = escapeStrings(characterDataValues);
         return characterDataValues;
     }
 
-    private static void traversCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues, boolean foundPath) {
+    private static void traverseCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
         if (index >= tags.length) {
             // Reached the end of the path, collect character data value
-            if (foundPath) {
-                String characterData = element.getTextContent().trim();
-                if (!characterData.isEmpty()) {
-                    characterDataValues.add(characterData);
-                }
+            String characterData = element.getTextContent().trim();
+            if (!characterData.isEmpty()) {
+                characterDataValues.add(characterData);
             }
             return;
         }
@@ -298,19 +295,23 @@ public class XMLParserShops {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element childElement = (Element) node;
-                if (index == tags.length - 1) {
-                    // Last tag in the path is "title", set foundPath to true and stop traversal
-                    String characterData = childElement.getTextContent().trim();
-                    if (!characterData.isEmpty()) {
-                        characterDataValues.add(characterData);
-                    }
-                    return;
-                } else {
-                    // Continue recursively traversing the path
-                    traversCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues, foundPath);
-                }
+                    traverseCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues);
             }
         }
+    }
+
+    private static List<String> getProductTitle(Element element) {
+        List<String> productTitleList = new ArrayList<>();
+        NodeList productTitleNodes = element.getElementsByTagName("title");
+        if (productTitleNodes.getLength() > 0) {
+            Node productTitleNode = productTitleNodes.item(0);
+            String title = productTitleNode.getTextContent().trim();
+            if (!title.isEmpty()) {
+                productTitleList.add(title);
+            }
+        }
+        productTitleList = escapeStrings(productTitleList);
+        return productTitleList;
     }
 
     private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {
