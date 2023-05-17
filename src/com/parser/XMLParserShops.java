@@ -11,14 +11,19 @@ import java.util.HashMap;
 
 public class XMLParserShops {
 
-    public static HashMap<String, List<String>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
+    public static List<HashMap<String, List<String>>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
         List<Item> items = parseXML(filePath, SHOP_MODE);
 
-        // Set up the HashMap with defined key mapping
-        HashMap<String, List<String>> itemMap = new HashMap<>();
-        for (Item item : items) {
+        List<HashMap<String, List<String>>> itemList = new ArrayList<>();
 
-            itemMap.put("SHOP", SHOP_MODE);
+        int itemIndex = 1;
+        for (Item item : items) {
+            HashMap<String, List<String>> itemMap = new HashMap<>();
+            ArrayList<String> indexMap = new ArrayList<>();
+            indexMap.add(String.valueOf(itemIndex));
+
+            itemMap.put("__INDEX__", indexMap);
+            itemMap.put("shop", SHOP_MODE);
             itemMap.put("pgroup", item.getPgroup());
             itemMap.put("asin", item.getAsin());
             itemMap.put("product title", item.getProductTitle());
@@ -71,10 +76,15 @@ public class XMLParserShops {
             itemMap.put("publishers", item.getPublishers());
             itemMap.put("studios", item.getStudios());
 
-            System.out.println(itemMap);
+            itemList.add(itemMap);
+
+
             System.out.println("----------------------------------");
+
+            itemIndex++;
         }
-        return itemMap;
+        System.out.println(itemList);
+        return itemList;
     }
 
     private static List<Item> parseXML(String filePath, List<String> SHOP_MODE) {
@@ -244,17 +254,19 @@ public class XMLParserShops {
     private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
-        traversCharacterDataValRecursive(element, tags, 0, characterDataValues);
+        traversCharacterDataValRecursive(element, tags, 0, characterDataValues, false);
         characterDataValues = escapeStrings(characterDataValues);
         return characterDataValues;
     }
 
-    private static void traversCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
+    private static void traversCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues, boolean foundPath) {
         if (index >= tags.length) {
             // Reached the end of the path, collect character data value
-            String characterData = element.getTextContent().trim();
-            if (!characterData.isEmpty()) {
-                characterDataValues.add(characterData);
+            if (foundPath) {
+                String characterData = element.getTextContent().trim();
+                if (!characterData.isEmpty()) {
+                    characterDataValues.add(characterData);
+                }
             }
             return;
         }
@@ -265,10 +277,24 @@ public class XMLParserShops {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element childElement = (Element) node;
-                traversCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues);
+                if (index == tags.length - 1) {
+                    // Last tag in the path is "title", set foundPath to true and stop traversal
+                    String characterData = childElement.getTextContent().trim();
+                    if (!characterData.isEmpty()) {
+                        characterDataValues.add(characterData);
+                    }
+                    return;
+                } else {
+                    // Continue recursively traversing the path
+                    traversCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues, foundPath);
+                }
             }
         }
     }
+
+
+
+
 
     private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {
         List<String> tagAttributeValues = new ArrayList<>();
