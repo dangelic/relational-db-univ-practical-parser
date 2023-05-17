@@ -108,7 +108,6 @@ public class XMLParserShops {
                     List<String> asin =  getTagAttributeDataVal(itemElement, "", "asin");
                     List<String> pgroup =  getTagAttributeDataVal(itemElement, "", "pgroup");
                     List<String> salesRank =  getTagAttributeDataVal(itemElement, "", "salesrank");
-                    List<String> ean =  getTagAttributeDataVal(itemElement, "", "ean");
 
                     // Title
                     List<String> productTitle = getCharacterDataVal(itemElement, "title");
@@ -140,7 +139,6 @@ public class XMLParserShops {
 
                     // MusicSpec
                     List<String> musicspecBinding = getCharacterDataVal(itemElement, "musicspec/binding");
-                    List<String> musicspecFormat = getTagAttributeDataVal(itemElement, "musicspec/format", "value");
                     List<String> musicspecNumDiscs = getCharacterDataVal(itemElement, "musicspec/num_discs");
                     List<String> musicspecReleaseDate = getCharacterDataVal(itemElement, "musicspec/releasedate");
                     List<String> musicspecUpc = getCharacterDataVal(itemElement, "musicspec/upc");
@@ -151,34 +149,57 @@ public class XMLParserShops {
                     List<String> audiotextAudioformat = getCharacterDataVal(itemElement, "audiotext/audioformat");
 
 
-                    // Multiples
-                    List<String> labels =  getTagAttributeDataVal(itemElement, "labels/label", "name");
-                    List<String> creators = getTagAttributeDataVal(itemElement, "creators/creator" ,"name");
-                    List<String> authors = getTagAttributeDataVal(itemElement, "authors/author", "name");
-                    List<String> directors = getTagAttributeDataVal(itemElement, "directors/director", "name");
-                    List<String> artists = getTagAttributeDataVal(itemElement, "artists/artist", "name");
-                    List<String> listmanialists = getTagAttributeDataVal(itemElement, "listmania/list", "name");
-                    List<String> publishers = getTagAttributeDataVal(itemElement, "publishers/publisher", "name");
-                    List<String> studios = getTagAttributeDataVal(itemElement, "studios/studio", "name");
-                    List<String> similars = getCharacterDataVal(itemElement, "similars/sim_product/asin");
+                    // Tracks
                     List<String> tracks = getCharacterDataVal(itemElement, "tracks/title");
 
 
                     // ## Data which is labeled different in XML for LEIPZIG or DRESDEN
 
-                    List<String> picture = getTagAttributeDataVal(itemElement, "", "picture");
-                    List<String> detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
+                    List<String> picture;
+                    List<String> detailPage;
+                    List<String> musicspecFormat;
+                    List<String> ean;
+                    List<String> listmanialists;
+                    List<String> labels;
+                    List<String> creators;
+                    List<String> authors;
+                    List<String> directors;
+                    List<String> artists;
+                    List<String> publishers;
+                    List<String> studios;
+                    List<String> similars;
+
 
 
                     if (SHOP_MODE.get(0).equals("LEIPZIG")) {
                         picture = getTagAttributeDataVal(itemElement, "", "picture");
                         detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
+                        musicspecFormat = getTagAttributeDataVal(itemElement, "musicspec/format", "value");
+                        ean = getTagAttributeDataVal(itemElement, "", "ean");
+                        listmanialists = getTagAttributeDataVal(itemElement, "listmania/list", "name");
+                        labels =  getTagAttributeDataVal(itemElement, "labels/label", "name");
+                        creators = getTagAttributeDataVal(itemElement, "creators/creator" ,"name");
+                        authors = getTagAttributeDataVal(itemElement, "authors/author", "name");
+                        directors = getTagAttributeDataVal(itemElement, "directors/director", "name");
+                        artists = getTagAttributeDataVal(itemElement, "artists/artist", "name");
+                        publishers = getTagAttributeDataVal(itemElement, "publishers/publisher", "name");
+                        studios = getTagAttributeDataVal(itemElement, "studios/studio", "name");
+                        similars = getCharacterDataVal(itemElement, "similars/sim_product/asin");
 
-                        // TODO: REWORK!
-                    }
-
-                    if (SHOP_MODE.get(0).equals("DRESDEN")) {
-
+                    } else { // DRESDEN
+                        picture = getTagAttributeDataVal(itemElement, "details", "img");
+                        detailPage = getCharacterDataVal(itemElement, "details");
+                        musicspecFormat = getCharacterDataVal(itemElement, "musicspec/format");
+                        ean = getCharacterDataVal(itemElement, "ean");
+                        listmanialists = getCharacterDataVal(itemElement, "listmania/list");
+                        labels =  getCharacterDataVal(itemElement, "labels/label");
+                        creators = getCharacterDataVal(itemElement, "creators/creator");
+                        authors = getCharacterDataVal(itemElement, "authors/author");
+                        directors = getCharacterDataVal(itemElement, "directors/director");
+                        artists = getCharacterDataVal(itemElement, "artists/artist");
+                        publishers = getCharacterDataVal(itemElement, "publishers/publisher");
+                        studios = getCharacterDataVal(itemElement, "studios/studio");
+                        similars = getTagAttributeDataVal(itemElement, "similars/item", "asin");
                     }
 
                     Item item = new Item(pgroup,
@@ -291,10 +312,6 @@ public class XMLParserShops {
             }
         }
     }
-
-
-
-
 
     private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {
         List<String> tagAttributeValues = new ArrayList<>();
