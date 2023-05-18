@@ -1,6 +1,6 @@
 package map;
 
-import java.sql.SQLBuilder;
+import queryBuilder.QueryBuilder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class MapperDataTables {
                         getValueAtIndex(upcList, i)
                 };
 
-                String sql = SQLBuilder.buildInsertStatement(tableName, columns, values);
+                String sql = QueryBuilder.buildInsertStatement(tableName, columns, values);
                 System.out.println(sql);
             }
         }

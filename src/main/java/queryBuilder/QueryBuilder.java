@@ -1,9 +1,9 @@
-package sql;
+package queryBuilder;
 
 import java.sql.Date;
 import java.util.Objects;
 
-public class SQLBuilder {
+public class QueryBuilder {
 
     public static String buildInsertStatement(String tableName, String[] columns, Object[] values) {
         if (tableName == null || tableName.isEmpty()) {
