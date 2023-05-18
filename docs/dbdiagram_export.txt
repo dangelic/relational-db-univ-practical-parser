@@ -1,0 +1,224 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table products {
+  "asin (PK)" varchar [pk]
+  title varchar
+  pgroup varchar
+  ean varchar
+  image_url text
+  detailpage_url text
+  salesrank int
+}
+
+// Is this pk?
+Table books {
+  "asin (PK)" string [pk, ref: - products."asin (PK)"]
+  isbn varchar
+  edition varchar
+  binding varchar
+  weight float
+  hight float
+  length float
+  pages int
+  publication_date date
+}
+
+Table dvds {
+  "asin (PK)" string [pk, ref: - products."asin (PK)"]
+  upc varchar
+  format varchar
+  region_code varchar
+  aspect_ration varchar
+  runningtime_minutes integer
+  theatr_release_year integer
+  release_date date
+}
+
+Table cds {
+  "asin (PK)" string [pk, ref: - products."asin (PK)"]
+  upc varchar
+  binding varchar
+  format varchar
+  discs_num integer
+  release_date date
+}
+
+Table stores {
+  "store_id (PK)" varchar [pk]
+  name varchar
+  address text
+}
+
+Table priceinfos {
+  "priceinfo_id (PK)" varchar [pk]
+  price float
+  multiplier float
+  currency varchar
+  state varchar
+}
+
+Table map_products_stores_priceinfos {
+  "product_store_price_id (PK)" varchar [pk]
+  "stores_store_id (FK)" varchar [ref: - stores."store_id (PK)"]
+  "products_asin (FK)" varchar [ref: - products."asin (PK)"]
+  "priceinfos_priceinfo_id (FK)" varchar [ref: - priceinfos."priceinfo_id (PK)"]
+}
+
+Table customers {
+  "username (PK)" varchar [pk]
+  bank_account_number varchar
+  delivery_address text
+}
+
+Table map_customers_reviews {
+  "customer_review_id (PK)" varchar [pk]
+  "products_asin (FK)" varchar [ref: - products."asin (PK)"]
+  "reviews_review_id (FK)" varchar [ref: - reviews."review_id (PK)"]
+  "customers_username (FK)" varchar [ref: - customers."username (PK)"]
+}
+
+Table reviews {
+  "review_id (PK)" varchar [pk]
+  customer_product_rating integer
+  review_summary text
+  review_content text
+  review_helpful_rating integer
+  review_date date
+}
+
+Table purchases {
+  "purchase_id (PK)" varchar [pk]
+  "customers_username (FK)" varchar [ref: - customers."username (PK)"]
+  "product_store_price_id (FK)" varchar
+  purchase_date date
+}
+
+Table categories {
+  "category_id (PK)" varchar [pk]
+  "parent_category_id (FK)" varchar [ref: - categories."category_id (PK)"]
+  name varchar
+}
+
+Table map_products_categories {
+  "product_category_id (PK)" varchar [pk]
+  "products_asin (FK)" varchar [ref: - products."asin (PK)"]
+  "categories_category_id (FK)" varchar [ref: - categories."category_id (PK)"]
+}
+
+
+
+Table tracks {
+  "track_id (PK)" varchar [pk]
+  "cds_asin (FK)" string [ref: > cds."asin (PK)"]
+  title varchar
+}
+
+Table map_cds_labels {
+    "cd_label_id (PK)" varchar [pk]
+    "cds_asin (FK)" string [ref: <> cds."asin (PK)"]
+    "labels_label_id (FK)" varchar [ref: > labels."label_id (PK)"]
+}
+
+Table labels {
+  "label_id (PK)" varchar
+  name varchar
+}
+
+Table listmanialists {
+  "listmanialist_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_products_listmanialists {
+  "product_listmanialist_id (PK)" varchar [pk]
+  "products_asin (FK)" varchar [ref: - products."asin (PK)"]
+  "listmanialists_listmanialist_id (FK)" varchar [ref: - listmanialists."listmanialist_id (PK)"]
+}
+
+Table studios {
+  "studio_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_dvds_studios {
+  "studio_dvd_id (PK)" varchar [pk]
+  "dvds_asin (FK)" string [ref: <> dvds."asin (PK)"]
+  "studios_studio_id (FK)" string [ref: - studios."studio_id (PK)"]
+}
+
+Table actors {
+  "actor_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_dvds_actors {
+  "dvd_actor_id (PK)" varchar [pk]
+  "dvds_asin (FK)" string [ref: <> dvds."asin (PK)"]
+  "actors_actor_id (FK)" string [ref: > actors."actor_id (PK)"]
+}
+
+Table directors {
+  "director_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_dvds_directors {
+  "dvd_directir_id (PK)" varchar [pk]
+  "dvds_asin (FK)" string [ref: <> dvds."asin (PK)"]
+  "directors_director_id (FK)" string [ref: > directors."director_id (PK)"]
+}
+
+// ATTENTION
+Table audiotexts {
+  "audiotext_id (PK)" varchar [pk]
+  language varchar
+  language_type varchar
+  audioformat varchar
+}
+
+Table map_dvds_audiotexts {
+  "dvd_audiotext_id (PK)" varchar [pk]
+  "dvds_asin (FK)" string [ref: <> dvds."asin (PK)"]
+  "audiotext_id (FK)" string [ref: > audiotexts."audiotext_id (PK)"]
+}
+
+Table authors {
+  "author_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_books_authors {
+  "book_author_id (PK)" varchar [pk]
+  "books_asin (FK)" string [ref: <> books."asin (PK)"]
+  "authors_author_id (FK)" string [ref: > authors."author_id (PK)"]
+}
+
+Table publishers {
+  "publisher_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_books_publishers {
+  "book_publisher_id (PK)" varchar [pk]
+  "books_asin (FK)" string [ref: <> books."asin (PK)"]
+  "publishers_publisher_id (FK)" string [ref: > publishers."publisher_id (PK)"]
+}
+
+table creators {
+  "creator_id (PK)" varchar [pk]
+  name varchar
+}
+
+Table map_products_creators {
+  "product_creator_id (PK)" varchar [pk]
+  "products_asin (FK)" string [ref: - products."asin (PK)"]
+  "creators_creator_id (FK)" string [ref: - creators."creator_id (PK)"]
+}
+
+Table map_products_similars {
+  "similarity_id (PK)" varchar [pk]
+  "products_asin (FK)" string [ref: - products."asin (PK)"]
+  "similar_products_asin (FK)" string [ref: - products."asin (PK)"]
+
+}
