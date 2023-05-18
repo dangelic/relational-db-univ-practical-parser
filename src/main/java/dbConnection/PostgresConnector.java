@@ -1,4 +1,4 @@
-package sql;
+package dbConnection;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,12 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatabaseConnection {
+public class PostgresConnector {
     private Connection connection;
     private String username;
     private String password;
 
-    public DatabaseConnection(String username, String password) {
+    public PostgresConnector(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -61,7 +61,7 @@ public class DatabaseConnection {
         String password = "";
         String sqlStatement = "INSERT INTO your_table (column1, column2) VALUES ('value1', 'value2')";
 
-        DatabaseConnection dbConnection = new DatabaseConnection(username, password);
+        PostgresConnector dbConnection = new PostgresConnector(username, password);
 
         try {
             dbConnection.connect();
