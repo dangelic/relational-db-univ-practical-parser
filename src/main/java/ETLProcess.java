@@ -16,9 +16,9 @@ public class ETLProcess {
         //XMLParsingProducts.parseXMLFile(pathToDresdenRawXML, "DRESDEN");
 
         HashMap<String, String> dataTypeMapping = new HashMap<>();
-        dataTypeMapping.put("asin", "asin2@string");
-        dataTypeMapping.put("pgroup", "asin3@string");
+        dataTypeMapping.put("asin", "name@string");
+        dataTypeMapping.put("tracks", "tracks@string");
 
-        QueryBuilder.getInsertQueries(dataLeipzig, dataTypeMapping, "products");
+        QueryBuilder.getInsertQueries2(dataLeipzig, dataTypeMapping, "products", "tracks", 1, "my_id");
     }
 }

@@ -8,11 +8,12 @@ import java.util.Objects;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 
 public class QueryBuilder {
 
-    public static List<String> getInsertQueries(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName) {
+    public static List<String> getInsertQueriesForCommonEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
 
@@ -31,6 +32,43 @@ public class QueryBuilder {
             String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values); // Use mapped column names
             queryList.add(sql);
             System.out.println(sql); // Print the SQL statement
+        }
+
+        return queryList;
+    }
+
+    public static List<String> getInsertQueriesForNestedEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
+        String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
+        List<String> queryList = new ArrayList<>();
+
+        int id = idStart;
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> fieldItems = hashMap.get(fieldName);
+
+            if (fieldItems != null && !fieldItems.isEmpty()) {
+                for (String fieldItem : fieldItems) {
+                    Object[] values = new Object[columns.length];
+                    String[] mappedColumns = new String[columns.length];
+                    values[0] = id;
+                    mappedColumns[0] = idName;
+                    for (int i = 1; i < columns.length; i++) {
+                        String column = columns[i];
+                        String dataType = dataTypeMapping.get(column);
+                        String columnName = getColumnName(dataType);
+                        List<String> columnData = hashMap.get(column);
+                        values[i] = getColumnValue(columnData, dataType);
+                        mappedColumns[i] = columnName;
+                    }
+
+                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current val
+
+                    String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
+                    queryList.add(sql);
+                    System.out.println(sql);
+
+                    id++;
+                }
+            }
         }
 
         return queryList;
@@ -125,7 +163,7 @@ class InsertQueryStringGenerator {
         if (value == null) {
             return "NULL";
         } else if (value instanceof String) {
-            return "'" + value.toString().replaceAll("'", "''") + "'";
+            return "'" + value.toString() + "'";
         } else if (value instanceof Date) {
             return "'" + value.toString() + "'";
         } else {
