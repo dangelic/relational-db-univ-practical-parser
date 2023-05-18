@@ -9,16 +9,23 @@ public class ETLProcess {
         // ## Parse Shops XML for Leipzig and Dresden
         // Parse Leipzig
         String pathToLeipzigRawXML = "./data/raw/xml/leipzig_transformed.xml";
-        List<String> arrayList = new ArrayList<>();
-        arrayList.add("LEIPZIG");
-        List<HashMap<String, List<String>>> dataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigRawXML, arrayList);
+        List<String> leipzig = new ArrayList<>();
+        leipzig.add("LEIPZIG");
+        List<HashMap<String, List<String>>> parsedXMLProductDataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigRawXML, leipzig);
+        // Parse Dresden
         String pathToDresdenRawXML = "./data/raw/xml/dresden.xml";
-        //XMLParsingProducts.parseXMLFile(pathToDresdenRawXML, "DRESDEN");
+        List<String> dresden = new ArrayList<>();
+        dresden.add("DRESDEN");
+        List<HashMap<String, List<String>>> parsedXMLProductDataDresden = XMLParsingProducts.parseXMLFile(pathToDresdenRawXML, dresden);
+
+        // Merge the two lists
+        parsedXMLProductDataLeipzig.addAll(parsedXMLProductDataDresden);
+        List<HashMap<String, List<String>>> parsedXMLProductDataMerged = parsedXMLProductDataLeipzig;
 
         HashMap<String, String> dataTypeMapping = new HashMap<>();
         dataTypeMapping.put("asin", "name@string");
         dataTypeMapping.put("tracks", "tracks@string");
 
-        QueryBuilder.getInsertQueries2(dataLeipzig, dataTypeMapping, "products", "tracks", 1, "my_id");
+        QueryBuilder.getInsertQueriesForNestedEntitySuppressDuplicates(parsedXMLProductDataMerged, dataTypeMapping, "products", "tracks", 1, "my_id");
     }
 }

@@ -19,7 +19,7 @@ public class XMLParsingProducts {
         int itemIndex = 0;
         for (Item item : items) {
             if (itemIndex >= 2) {
-                break;
+                //break;
             }
 
             HashMap<String, List<String>> itemMap = new HashMap<>();

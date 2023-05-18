@@ -9,6 +9,9 @@ import java.util.Objects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 
 
 public class QueryBuilder {
@@ -60,12 +63,55 @@ public class QueryBuilder {
                         mappedColumns[i] = columnName;
                     }
 
-                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current val
+                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current field item
 
                     String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
                     queryList.add(sql);
                     System.out.println(sql);
 
+                    id++;
+                }
+            }
+        }
+
+        return queryList;
+    }
+
+    public static List<String> getInsertQueriesForNestedEntitySuppressDuplicates(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
+        String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
+        List<String> queryList = new ArrayList<>();
+        Set<String> insertedTitles = new HashSet<>();
+
+        int id = idStart;
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> fieldItems = hashMap.get(fieldName);
+
+            if (fieldItems != null && !fieldItems.isEmpty()) {
+                for (String fieldItem : fieldItems) {
+                    if (insertedTitles.contains(fieldItem)) {
+                        continue; // Skip duplicate track
+                    }
+
+                    Object[] values = new Object[columns.length];
+                    String[] mappedColumns = new String[columns.length];
+                    values[0] = id;
+                    mappedColumns[0] = idName;
+                    for (int i = 1; i < columns.length; i++) {
+                        String column = columns[i];
+                        String dataType = dataTypeMapping.get(column);
+                        String columnName = getColumnName(dataType);
+                        List<String> columnData = hashMap.get(column);
+                        values[i] = getColumnValue(columnData, dataType);
+                        mappedColumns[i] = columnName;
+                    }
+
+                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current track value
+
+                    String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
+                    queryList.add(sql);
+                    System.out.println(sql);
+
+                    insertedTitles.add(fieldItem); // Add inserted field item to the set
                     id++;
                 }
             }
@@ -154,7 +200,7 @@ class InsertQueryStringGenerator {
             }
         }
 
-        builder.append(")");
+        builder.append(");");
 
         return builder.toString();
     }
