@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import xmlParsing.XMLParsingProducts;
-import map.MapperDataTables;
+import queryBuilder.QueryBuilder;
 
 public class ETLProcess {
     public static void main(String[] args) {
@@ -16,10 +16,9 @@ public class ETLProcess {
         //XMLParsingProducts.parseXMLFile(pathToDresdenRawXML, "DRESDEN");
 
         HashMap<String, String> dataTypeMapping = new HashMap<>();
-        dataTypeMapping.put("asin", "string");
-        dataTypeMapping.put("pgroup", "string");
-        dataTypeMapping.put("salesrank", "integer");
+        dataTypeMapping.put("asin", "asin2@string");
+        dataTypeMapping.put("pgroup", "asin3@string");
 
-        MapperDataTables.mapCommonTable(dataLeipzig, dataTypeMapping, "products");
+        QueryBuilder.getInsertQueries(dataLeipzig, dataTypeMapping, "products");
     }
 }
