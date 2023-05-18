@@ -41,7 +41,7 @@ public class DatabaseConnection {
 
     private void writeErrorToFile(String sql, String errorMessage) {
         try {
-            FileWriter writer = new FileWriter("./src/sql_error_log.txt", true);
+            FileWriter writer = new FileWriter("./src/logs/sql_error_log.txt", true);
             writer.write("SQL Statement: " + sql + "\n");
             writer.write("Error Message: " + errorMessage + "\n");
             writer.close();

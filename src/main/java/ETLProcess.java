@@ -10,11 +10,16 @@ public class ETLProcess {
         // Parse Leipzig
         String pathToLeipzigRawXML = "./data/raw/xml/leipzig_transformed.xml";
         List<String> arrayList = new ArrayList<>();
-        arrayList.add("DRESDEN");
+        arrayList.add("LEIPZIG");
         List<HashMap<String, List<String>>> dataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigRawXML, arrayList);
         String pathToDresdenRawXML = "./data/raw/xml/dresden.xml";
         //XMLParsingProducts.parseXMLFile(pathToDresdenRawXML, "DRESDEN");
 
-        MapperDataTables.mapProductsTable(dataLeipzig);
+        HashMap<String, String> dataTypeMapping = new HashMap<>();
+        dataTypeMapping.put("asin", "string");
+        dataTypeMapping.put("pgroup", "string");
+        dataTypeMapping.put("salesrank", "integer");
+
+        MapperDataTables.mapCommonTable(dataLeipzig, dataTypeMapping, "products");
     }
 }
