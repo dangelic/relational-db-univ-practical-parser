@@ -15,7 +15,6 @@ public class ETLProcess {
         String pathToDresdenRawXML = "./data/raw/xml/dresden.xml";
         // XMLParserShops.parseXMLFile(pathToDresdenRawXML, "DRESDEN");
 
-
         MapperDataTables.mapProductsTable(dataLeipzig);
     }
 }
