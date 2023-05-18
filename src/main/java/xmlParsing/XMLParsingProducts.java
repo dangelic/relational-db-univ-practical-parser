@@ -16,8 +16,12 @@ public class XMLParsingProducts {
 
         List<HashMap<String, List<String>>> itemList = new ArrayList<>();
 
-        int itemIndex = 1;
+        int itemIndex = 0;
         for (Item item : items) {
+            if (itemIndex >= 2) {
+                break;
+            }
+
             HashMap<String, List<String>> itemMap = new HashMap<>();
             ArrayList<String> indexMap = new ArrayList<>();
             indexMap.add(String.valueOf(itemIndex));
