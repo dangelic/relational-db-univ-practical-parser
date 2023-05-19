@@ -50,20 +50,25 @@ public class QueryBuilder {
 
             if (fieldItems != null && !fieldItems.isEmpty()) {
                 for (String fieldItem : fieldItems) {
-                    Object[] values = new Object[columns.length];
-                    String[] mappedColumns = new String[columns.length];
+                    Object[] values = new Object[columns.length + 1];
+                    String[] mappedColumns = new String[columns.length + 1];
                     values[0] = id;
                     mappedColumns[0] = idName;
-                    for (int i = 1; i < columns.length; i++) {
+
+                    for (int i = 0; i < columns.length; i++) {
                         String column = columns[i];
                         String dataType = dataTypeMapping.get(column);
                         String columnName = getColumnName(dataType);
                         List<String> columnData = hashMap.get(column);
-                        values[i] = getColumnValue(columnData, dataType);
-                        mappedColumns[i] = columnName;
-                    }
 
-                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current field item
+                        if (column.equals(fieldName)) {
+                            values[i + 1] = fieldItem;
+                        } else {
+                            values[i + 1] = getColumnValue(columnData, dataType);
+                        }
+
+                        mappedColumns[i + 1] = columnName;
+                    }
 
                     String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
                     queryList.add(sql);
@@ -76,6 +81,7 @@ public class QueryBuilder {
 
         return queryList;
     }
+
 
     public static List<String> getInsertQueriesForNestedEntitySuppressDuplicates(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
@@ -89,23 +95,28 @@ public class QueryBuilder {
             if (fieldItems != null && !fieldItems.isEmpty()) {
                 for (String fieldItem : fieldItems) {
                     if (insertedTitles.contains(fieldItem)) {
-                        continue; // Skip duplicate track
+                        continue; // Skip duplicate item
                     }
 
-                    Object[] values = new Object[columns.length];
-                    String[] mappedColumns = new String[columns.length];
+                    Object[] values = new Object[columns.length + 1];
+                    String[] mappedColumns = new String[columns.length + 1];
                     values[0] = id;
                     mappedColumns[0] = idName;
-                    for (int i = 1; i < columns.length; i++) {
+
+                    for (int i = 0; i < columns.length; i++) {
                         String column = columns[i];
                         String dataType = dataTypeMapping.get(column);
                         String columnName = getColumnName(dataType);
                         List<String> columnData = hashMap.get(column);
-                        values[i] = getColumnValue(columnData, dataType);
-                        mappedColumns[i] = columnName;
-                    }
 
-                    values[Arrays.asList(columns).indexOf(fieldName)] = fieldItem; // Assign current track value
+                        if (column.equals(fieldName)) {
+                            values[i + 1] = fieldItem;
+                        } else {
+                            values[i + 1] = getColumnValue(columnData, dataType);
+                        }
+
+                        mappedColumns[i + 1] = columnName;
+                    }
 
                     String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
                     queryList.add(sql);
@@ -119,6 +130,8 @@ public class QueryBuilder {
 
         return queryList;
     }
+
+
 
     private static String getColumnName(String dataType) {
         int index = dataType.indexOf('@');
