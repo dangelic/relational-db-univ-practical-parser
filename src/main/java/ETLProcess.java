@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import xmlParsing.XMLParsingProducts;
+import xmlParsingProducts.XMLParsingProducts;
 import queryBuilder.QueryBuilder;
 
 public class ETLProcess {
@@ -23,8 +23,9 @@ public class ETLProcess {
         List<HashMap<String, List<String>>> parsedXMLProductDataMerged = parsedXMLProductDataLeipzig;
 
         HashMap<String, String> dataTypeMapping = new HashMap<>();
-        dataTypeMapping.put("asin", "name@string");
+        dataTypeMapping.put("asin", "asin@string");
         dataTypeMapping.put("tracks", "tracks@string");
+        dataTypeMapping.put("pgroup", "pgroup2@string");
 
         QueryBuilder.getInsertQueriesForNestedEntitySuppressDuplicates(parsedXMLProductDataMerged, dataTypeMapping, "products", "tracks", 1, "my_id");
     }
