@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class PostgresConnector {
     private Connection connection;
@@ -22,26 +23,28 @@ public class PostgresConnector {
         connection = DriverManager.getConnection(url, username, password);
     }
 
-    public void executeSQL(String sql) {
+    public void executeSQL(String sql, String pathToLogFile) {
         try {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             connection.commit();
             statement.close();
+            System.out.println("Query executed successfully: " + sql);
         } catch (SQLException e) {
             try {
                 connection.rollback();
-                writeErrorToFile(sql, e.getMessage());
+                System.out.println(e.getMessage());
+                writeErrorToFile(sql, e.getMessage(), pathToLogFile);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
-    private void writeErrorToFile(String sql, String errorMessage) {
+    private void writeErrorToFile(String sql, String errorMessage, String pathToLogFile) {
         try {
-            FileWriter writer = new FileWriter("./src/logs/sql_error_log.txt", true);
+            FileWriter writer = new FileWriter(pathToLogFile, true);
             writer.write("SQL Statement: " + sql + "\n");
             writer.write("Error Message: " + errorMessage + "\n");
             writer.close();
@@ -56,16 +59,18 @@ public class PostgresConnector {
         }
     }
 
-    public static void main(String[] args) {
+    public static void executeSQLQueryBatch(List<String> sqlStatements, String pathToLogFile) {
+        // Local db instance
         String username = "postgres";
         String password = "";
-        String sqlStatement = "INSERT INTO your_table (column1, column2) VALUES ('value1', 'value2')";
 
         PostgresConnector dbConnection = new PostgresConnector(username, password);
 
         try {
             dbConnection.connect();
-            dbConnection.executeSQL(sqlStatement);
+            for (String sqlStatement : sqlStatements) {
+                dbConnection.executeSQL(sqlStatement, pathToLogFile);
+            }
             dbConnection.disconnect();
         } catch (SQLException e) {
             e.printStackTrace();

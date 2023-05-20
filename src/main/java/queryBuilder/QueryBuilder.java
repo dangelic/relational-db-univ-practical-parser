@@ -34,7 +34,6 @@ public class QueryBuilder {
 
             String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values); // Use mapped column names
             queryList.add(sql);
-            System.out.println(sql); // Print the SQL statement
         }
 
         return queryList;
@@ -72,7 +71,6 @@ public class QueryBuilder {
 
                     String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
                     queryList.add(sql);
-                    System.out.println(sql);
 
                     id++;
                 }
@@ -120,7 +118,6 @@ public class QueryBuilder {
 
                     String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
                     queryList.add(sql);
-                    System.out.println(sql);
 
                     insertedTitles.add(fieldItem); // Add inserted field item to the set
                     id++;
