@@ -10,7 +10,7 @@ import java.util.List;
 public class CSVParsingUserReviews {
     private static final String CSV_FILE_PATH = "./data/raw/csv/reviews.csv";
 
-    public List<HashMap<String, List<String>>> parseCSVCustomer() {
+    public List<HashMap<String, List<String>>> parseCSVCRegisteredUserReviews() {
         List<HashMap<String, List<String>>> customerData = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
@@ -29,18 +29,46 @@ public class CSVParsingUserReviews {
                     dataEntry.put(headers[i], valueList);
                 }
 
-                List<String> userList = dataEntry.get("user");
-
+                List<String> userList = dataEntry.get("\"user\"");
+                if (userList == null || !userList.contains("guest")) {
                     customerData.add(dataEntry);
-
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return customerData;
     }
 
+    public List<HashMap<String, List<String>>> parseCSVGuestReviews() {
+        List<HashMap<String, List<String>>> customerData = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
+            String headerLine = reader.readLine();
+            String[] headers = headerLine.split(",");
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                HashMap<String, List<String>> dataEntry = new HashMap<>();
+
+                for (int i = 0; i < headers.length; i++) {
+                    String value = escapeString(values[i].replaceAll("\"", ""));
+                    List<String> valueList = dataEntry.getOrDefault(headers[i], new ArrayList<>());
+                    valueList.add(value);
+                    dataEntry.put(headers[i], valueList);
+                }
+
+                List<String> userList = dataEntry.get("\"user\"");
+                if (userList == null || userList.contains("guest")) {
+                    customerData.add(dataEntry);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customerData;
+    }
 
 
     private String escapeString(String input) {
@@ -71,16 +99,5 @@ public class CSVParsingUserReviews {
         input = input.replace("\\&#8364\\;", "€");
 
         return input;
-    }
-
-    public static void main(String[] args) {
-        CSVParsingUserReviews csvParser = new CSVParsingUserReviews();
-        List<HashMap<String, List<String>>> customerData = csvParser.parseCSVCustomer();
-
-        // Print the parsed data for customers
-        System.out.println(" Data:");
-        for (HashMap<String, List<String>> entry : customerData) {
-            System.out.println(entry);
-        }
     }
 }
