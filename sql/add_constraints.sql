@@ -52,10 +52,10 @@ ALTER COLUMN name SET NOT NULL;
 
 -- #### storeaddresses
 ALTER TABLE storeaddresses
-ADD CONSTRAINT unique_address_id UNIQUE (address_id);
+ADD CONSTRAINT unique_address_id UNIQUE (storeaddress_id);
 
 ALTER TABLE storeaddresses
-ALTER COLUMN address_id SET NOT NULL,
+ALTER COLUMN storeaddress_id SET NOT NULL,
 ALTER COLUMN street SET NOT NULL,
 ALTER COLUMN zip SET NOT NULL;
 
@@ -86,31 +86,29 @@ ALTER COLUMN stores_store_id SET NOT NULL;
 
 -- #### userreviews
 ALTER TABLE userreviews
-ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username);
+ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username),
 ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
 
-
-ALTER TABLE userreviews
 ALTER TABLE userreviews
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN users_username SET NOT NULL,
-ALTER COLUMN rating INTEGER NOT NULL,
-ALTER COLUMN helpful_votes INTEGER NOT NULL,
-ALTER COLUMN summary TEXT NOT NULL,
-ALTER COLUMN content TEXT NOT NULL,
-ALTER COLUMN review_date DATE NOT NULL,
-ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
+ALTER COLUMN rating SET NOT NULL,
+ALTER COLUMN helpful_votes SET NOT NULL,
+ALTER COLUMN summary SET NOT NULL,
+ALTER COLUMN content SET NOT NULL,
+ALTER COLUMN review_date SET NOT NULL,
+ADD CONSTRAINT check_rating_range_userreviews CHECK (rating >= 0 AND rating <= 5);
 
 -- #### guestreviews
 ALTER TABLE guestreviews
-ADD CONSTRAINT unique_guestreview_id UNIQUE (questreview_id);
-ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
+ADD CONSTRAINT unique_guestreview_id UNIQUE (guestreview_id),
+ADD CONSTRAINT check_rating_range_guestreviews CHECK (rating >= 0 AND rating <= 5);
 
 ALTER TABLE guestreviews
-ALTER COLUMN questreview_id SET NOT NULL,
+ALTER COLUMN guestreview_id SET NOT NULL,
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN rating SET NOT NULL,
-ALTER COLUMN helpful_rating SET NOT NULL,
+ALTER COLUMN helpful_votes SET NOT NULL,
 ALTER COLUMN summary SET NOT NULL,
 ALTER COLUMN content SET NOT NULL,
 ALTER COLUMN review_date SET NOT NULL;
@@ -124,7 +122,7 @@ ALTER COLUMN purchase_id SET NOT NULL,
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
 ALTER COLUMN stores_store_id SET NOT NULL,
-ALTER COLUMN users_name SET NOT NULL;
+ALTER COLUMN users_username SET NOT NULL;
 
 -- #### deliveryaddresses
 ALTER TABLE deliveryaddresses
@@ -248,7 +246,7 @@ ALTER COLUMN labels_label_id SET NOT NULL;
 
 -- #### tracks
 ALTER TABLE tracks
-ADD CONSTRAINT unique_trackname_cd UNIQUE (cds_asin, labels_label_id);
+ADD CONSTRAINT unique_trackname_cd UNIQUE (cds_asin, name);
 
 ALTER TABLE tracks
 ALTER COLUMN name SET NOT NULL,
@@ -256,8 +254,8 @@ ALTER COLUMN cds_asin SET NOT NULL;
 
 -- #### products_similars
 ALTER TABLE products_similars
-ADD CONSTRAINT unique_mapping_product_similarproduct UNIQUE (products_asin, similars_asin);
+ADD CONSTRAINT unique_mapping_product_similarproduct UNIQUE (products_asin, similar_product_asin);
 
 ALTER TABLE products_similars
 ALTER COLUMN products_asin SET NOT NULL,
-ALTER COLUMN similars_asin SET NOT NULL;
+ALTER COLUMN similar_product_asin SET NOT NULL;

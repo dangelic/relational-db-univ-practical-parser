@@ -58,7 +58,7 @@ CREATE TABLE stores (
 );
 
 CREATE TABLE priceinfos (
-  priceinfo_id VARCHAR(9) ,
+  priceinfo_id VARCHAR(9),
   price FLOAT(2),
   multiplier FLOAT(2),
   currency VARCHAR(9),
@@ -76,35 +76,34 @@ CREATE TABLE map_products_priceinfos_stores (
 
 CREATE TABLE userreviews (
   products_asin VARCHAR(12)  REFERENCES products(asin),
-  users_usersname VARCHAR(30)  REFERENCES users(username),
-  rating VARCHAR(12) ,
-  helpful_votes VARCHAR(255) ,
-  summary TEXT ,
-  content TEXT ,
-  review_date DATE
-  PRIMARY KEY (products_asin, user_username)
+  users_username VARCHAR(30)  REFERENCES users(username),
+  rating INTEGER,
+  helpful_votes INTEGER,
+  summary TEXT,
+  content TEXT,
+  review_date DATE,
+  PRIMARY KEY (products_asin, users_username)
 );
 
 CREATE TABLE guestreviews (
-  guestreview_id VARCHAR(9)
+  guestreview_id VARCHAR(9),
   products_asin VARCHAR(12)  REFERENCES products(asin),
-  rating VARCHAR(12) ,
-  helpful_votes VARCHAR(255) ,
-  summary TEXT ,
-  content TEXT ,
-  review_date DATE
+  rating INTEGER,
+  helpful_votes INTEGER,
+  summary TEXT,
+  content TEXT,
+  review_date DATE,
   PRIMARY KEY (guestreview_id)
 );
 
 CREATE TABLE purchases (
-  purchase_id VARCHAR(12) ,
-  products_asin VARCHAR(12) ,
-  priceinfos_priceinfo_id VARCHAR(9) ,
-  stores_store_id VARCHAR(9) ,
-  users_name VARCHAR(30)  REFERENCES users(name),
-  purchase_date DATE ,
-
-  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, stores_store_id) REFERENCES map_products_priceinfos_stores(products_asin, priceinfos_priceinfo_id, stores_store_id)
+  purchase_id VARCHAR(12),
+  products_asin VARCHAR(12),
+  priceinfos_priceinfo_id VARCHAR(9),
+  stores_store_id VARCHAR(9),
+  users_username VARCHAR(30)  REFERENCES users(username),
+  purchase_date DATE,
+  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, stores_store_id) REFERENCES map_products_priceinfos_stores(products_asin, priceinfos_priceinfo_id, stores_store_id),
   PRIMARY KEY (purchase_id)
 );
 
@@ -259,7 +258,7 @@ CREATE TABLE map_products_creators (
 );
 
 CREATE TABLE map_users_deliveryaddresses (
-  users_name VARCHAR(30)  REFERENCES users(name),
+  users_username VARCHAR(30)  REFERENCES users(username),
   deliveryaddresses_deliveryaddress_id VARCHAR(9)  REFERENCES deliveryaddresses(deliveryaddress_id),
-  PRIMARY KEY (users_name, deliveryaddresses_deliveryaddress_id)
+  PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id)
 );
