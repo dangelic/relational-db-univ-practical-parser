@@ -78,7 +78,7 @@ CREATE TABLE userreviews (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   users_usersname VARCHAR(30)  REFERENCES users(username),
   rating VARCHAR(12) ,
-  helpful_rating VARCHAR(255) ,
+  helpful_votes VARCHAR(255) ,
   summary TEXT ,
   content TEXT ,
   review_date DATE
@@ -89,7 +89,7 @@ CREATE TABLE guestreviews (
   guestreview_id VARCHAR(9)
   products_asin VARCHAR(12)  REFERENCES products(asin),
   rating VARCHAR(12) ,
-  helpful_rating VARCHAR(255) ,
+  helpful_votes VARCHAR(255) ,
   summary TEXT ,
   content TEXT ,
   review_date DATE
