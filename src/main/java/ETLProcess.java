@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import xmlParsingProducts.XMLParsingProducts;
-import queryBuilder.QueryBuilder;
+
 import helper.sqlParser;
 import dbConnection.PostgresConnector;
 import java.io.File;
