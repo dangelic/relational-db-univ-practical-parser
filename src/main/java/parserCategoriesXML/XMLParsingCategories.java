@@ -1,4 +1,4 @@
-package xmlParsingCategories;
+package parserCategoriesXML;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;

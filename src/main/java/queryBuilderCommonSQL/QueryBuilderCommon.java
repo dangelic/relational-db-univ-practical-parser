@@ -1,4 +1,4 @@
-package queryBuilder;
+package queryBuilderCommonSQL;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -8,13 +8,12 @@ import java.util.Objects;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 
 
-public class QueryBuilder {
+public class QueryBuilderCommon {
 
     public static List<String> getInsertQueriesForCommonEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
