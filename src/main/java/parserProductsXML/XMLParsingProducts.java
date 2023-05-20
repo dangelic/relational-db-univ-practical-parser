@@ -18,9 +18,8 @@ public class XMLParsingProducts {
 
         int itemIndex = 0;
         for (Item item : items) {
-            if (itemIndex >= 2) {
-                //break;
-            }
+            // Debugging
+            // if (itemIndex >= 2) break;
 
             HashMap<String, List<String>> itemMap = new HashMap<>();
             ArrayList<String> indexMap = new ArrayList<>();
@@ -83,7 +82,7 @@ public class XMLParsingProducts {
             itemList.add(itemMap);
 
             System.out.println(itemMap);
-            System.out.println("----------------------------------");
+            // System.out.println("----------------------------------");
 
             itemIndex++;
         }
@@ -113,7 +112,7 @@ public class XMLParsingProducts {
                     List<String> salesRank =  getTagAttributeDataVal(itemElement, "", "salesrank");
 
                     // Title
-                    List<String> productTitle = getProductTitle(itemElement);
+                    List<String> productTitle =  getCharacterDataVal(itemElement, "title");
 
                     // Priceinfos
                     List<String> price = getCharacterDataVal(itemElement, "price");
@@ -278,6 +277,19 @@ public class XMLParsingProducts {
     private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
+        // Suppresses a recursion for single elements on hierarchy 1
+        if (tags.length == 1) {
+            NodeList nodeList = element.getElementsByTagName(tags[0]);
+            if (nodeList.getLength() > 0) {
+                Node node = nodeList.item(0);
+                String ele = node.getTextContent().trim();
+                if (!ele.isEmpty()) {
+                    characterDataValues.add(ele);
+                }
+            }
+            characterDataValues = escapeStrings(characterDataValues);
+            return characterDataValues;
+        }
         traverseCharacterDataValRecursive(element, tags, 0, characterDataValues);
         characterDataValues = escapeStrings(characterDataValues);
         return characterDataValues;
@@ -302,20 +314,6 @@ public class XMLParsingProducts {
                 traverseCharacterDataValRecursive(childElement, tags, index + 1, characterDataValues);
             }
         }
-    }
-
-    private static List<String> getProductTitle(Element element) {
-        List<String> productTitleList = new ArrayList<>();
-        NodeList productTitleNodes = element.getElementsByTagName("title");
-        if (productTitleNodes.getLength() > 0) {
-            Node productTitleNode = productTitleNodes.item(0);
-            String title = productTitleNode.getTextContent().trim();
-            if (!title.isEmpty()) {
-                productTitleList.add(title);
-            }
-        }
-        productTitleList = escapeStrings(productTitleList);
-        return productTitleList;
     }
 
     private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {

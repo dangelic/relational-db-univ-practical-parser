@@ -6,11 +6,15 @@ import helper.sqlParser;
 import dbConnection.PostgresConnector;
 import java.io.File;
 
+import parserProductsXML.XMLParsingProducts;
+
 
 public class ETLProcess {
     public static void main(String[] args) {
 
-        initializeDatabaseScheme();
+        // initializeDatabaseScheme();
+
+
 
 
 
@@ -21,7 +25,7 @@ public class ETLProcess {
         String pathToLeipzigRawXML = "./data/raw/xml/leipzig_transformed.xml";
         List<String> leipzig = new ArrayList<>();
         leipzig.add("LEIPZIG");
-        // List<HashMap<String, List<String>>> parsedXMLProductDataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigRawXML, leipzig);
+        List<HashMap<String, List<String>>> parsedXMLProductDataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigRawXML, leipzig);
         // Parse Dresden
         String pathToDresdenRawXML = "./data/raw/xml/dresden.xml";
         List<String> dresden = new ArrayList<>();
