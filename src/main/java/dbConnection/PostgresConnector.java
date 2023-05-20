@@ -30,11 +30,11 @@ public class PostgresConnector {
             statement.executeUpdate(sql);
             connection.commit();
             statement.close();
-            System.out.println("Query executed successfully: " + sql);
+            System.out.println("\u001B[32mQuery executed successfully: " + sql + "\u001B[0m");
         } catch (SQLException e) {
             try {
                 connection.rollback();
-                System.out.println(e.getMessage());
+                System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
                 writeErrorToFile(sql, e.getMessage(), pathToLogFile);
             } catch (SQLException ex) {
                 ex.printStackTrace();
