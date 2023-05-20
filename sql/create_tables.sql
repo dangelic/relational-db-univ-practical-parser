@@ -66,7 +66,7 @@ CREATE TABLE priceinfos (
   PRIMARY KEY (priceinfo_id)
 );
 
-CREATE TABLE map_products_priceinfos_stores (
+CREATE TABLE junction_products_priceinfos_stores (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),
   stores_store_id VARCHAR(9)  REFERENCES stores(store_id),
@@ -103,7 +103,7 @@ CREATE TABLE purchases (
   stores_store_id VARCHAR(9),
   users_username VARCHAR(30)  REFERENCES users(username),
   purchase_date DATE,
-  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, stores_store_id) REFERENCES map_products_priceinfos_stores(products_asin, priceinfos_priceinfo_id, stores_store_id),
+  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, stores_store_id) REFERENCES junction_products_priceinfos_stores(products_asin, priceinfos_priceinfo_id, stores_store_id),
   PRIMARY KEY (purchase_id)
 );
 
@@ -178,7 +178,7 @@ CREATE TABLE cds (
   PRIMARY KEY (asin)
 );
 
-CREATE TABLE map_cds_labels (
+CREATE TABLE junction_cds_labels (
   cds_asin VARCHAR(12)  REFERENCES cds(asin),
   labels_label_id VARCHAR(9)  REFERENCES labels(label_id),
   PRIMARY KEY (cds_asin, labels_label_id)
@@ -195,31 +195,31 @@ CREATE TABLE dvds (
   PRIMARY KEY (asin)
 );
 
-CREATE TABLE map_books_authors (
+CREATE TABLE junction_books_authors (
   books_asin VARCHAR(12)  REFERENCES books(asin),
   authors_author_id VARCHAR(9)  REFERENCES authors(author_id),
   PRIMARY KEY (books_asin, authors_author_id)
 );
 
-CREATE TABLE map_books_publishers (
+CREATE TABLE junction_books_publishers (
   books_asin VARCHAR(12)  REFERENCES books(asin),
   publishers_publisher_id VARCHAR(9)  REFERENCES publishers(publisher_id),
   PRIMARY KEY (books_asin, publishers_publisher_id)
 );
 
-CREATE TABLE map_dvds_actors (
+CREATE TABLE junction_dvds_actors (
   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),
   actors_actor_id VARCHAR(9)  REFERENCES actors(actor_id),
   PRIMARY KEY (dvds_asin, actors_actor_id)
 );
 
-CREATE TABLE map_dvds_studios (
+CREATE TABLE junction_dvds_studios (
   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),
   studios_studio_id VARCHAR(9)  REFERENCES studios(studio_id),
   PRIMARY KEY (dvds_asin, studios_studio_id)
 );
 
-CREATE TABLE map_dvds_audiotexts (
+CREATE TABLE junction_dvds_audiotexts (
   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),
   audiotexts_audiotext_id VARCHAR(9)  REFERENCES audiotexts(audiotext_id),
   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id)
@@ -239,25 +239,25 @@ CREATE TABLE products_similars (
   PRIMARY KEY (products_asin, similar_product_asin)
 );
 
-CREATE TABLE map_products_categories (
+CREATE TABLE junction_products_categories (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   categories_category_id VARCHAR(9)  REFERENCES categories(category_id),
   PRIMARY KEY (products_asin, categories_category_id)
 );
 
-CREATE TABLE map_products_listmanialists (
+CREATE TABLE junction_products_listmanialists (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   listmanialists_listmanialist_id VARCHAR(9)  REFERENCES listmanialists(listmanialist_id),
   PRIMARY KEY (products_asin, listmanialists_listmanialist_id)
 );
 
-CREATE TABLE map_products_creators (
+CREATE TABLE junction_products_creators (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   creators_creator_id VARCHAR(9)  REFERENCES creators(creator_id),
   PRIMARY KEY (products_asin, creators_creator_id)
 );
 
-CREATE TABLE map_users_deliveryaddresses (
+CREATE TABLE junction_users_deliveryaddresses (
   users_username VARCHAR(30)  REFERENCES users(username),
   deliveryaddresses_deliveryaddress_id VARCHAR(9)  REFERENCES deliveryaddresses(deliveryaddress_id),
   PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id)

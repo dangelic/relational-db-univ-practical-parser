@@ -75,11 +75,11 @@ ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id);
 ALTER TABLE priceinfos
 ALTER COLUMN priceinfo_id SET NOT NULL;
 
--- #### map_products_priceinfos_stores
-ALTER TABLE map_products_priceinfos_stores
-ADD CONSTRAINT unique_mapping_products_priceinfos_stores UNIQUE (products_asin, priceinfos_priceinfo_id, stores_store_id);
+-- #### junction_products_priceinfos_stores
+ALTER TABLE junction_products_priceinfos_stores
+ADD CONSTRAINT unique_junction_products_priceinfos_stores UNIQUE (products_asin, priceinfos_priceinfo_id, stores_store_id);
 
-ALTER TABLE map_products_priceinfos_stores
+ALTER TABLE junction_products_priceinfos_stores
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
 ALTER COLUMN stores_store_id SET NOT NULL;
@@ -196,51 +196,51 @@ ADD CONSTRAINT unique_dvds_asin UNIQUE (asin);
 ALTER TABLE dvds
 ALTER COLUMN asin SET NOT NULL;
 
--- #### map_books_authors
-ALTER TABLE map_books_authors
-ADD CONSTRAINT unique_mapping_books_authors UNIQUE (books_asin, authors_author_id);
+-- #### junction_books_authors
+ALTER TABLE junction_books_authors
+ADD CONSTRAINT unique_junction_books_authors UNIQUE (books_asin, authors_author_id);
 
-ALTER TABLE map_books_authors
+ALTER TABLE junction_books_authors
 ALTER COLUMN books_asin SET NOT NULL,
 ALTER COLUMN authors_author_id SET NOT NULL;
 
--- #### map_books_publishers
-ALTER TABLE map_books_publishers
-ADD CONSTRAINT unique_mapping_books_publishers UNIQUE (books_asin, publishers_publisher_id);
+-- #### junction_books_publishers
+ALTER TABLE junction_books_publishers
+ADD CONSTRAINT unique_junction_books_publishers UNIQUE (books_asin, publishers_publisher_id);
 
-ALTER TABLE map_books_publishers
+ALTER TABLE junction_books_publishers
 ALTER COLUMN books_asin SET NOT NULL,
 ALTER COLUMN publishers_publisher_id SET NOT NULL;
 
--- #### map_dvds_actors
-ALTER TABLE map_dvds_actors
-ADD CONSTRAINT unique_mapping_dvds_actors UNIQUE (dvds_asin, actors_actor_id);
+-- #### junction_dvds_actors
+ALTER TABLE junction_dvds_actors
+ADD CONSTRAINT unique_junction_dvds_actors UNIQUE (dvds_asin, actors_actor_id);
 
-ALTER TABLE map_dvds_actors
+ALTER TABLE junction_dvds_actors
 ALTER COLUMN dvds_asin SET NOT NULL,
 ALTER COLUMN actors_actor_id SET NOT NULL;
 
--- #### map_dvds_studios
-ALTER TABLE map_dvds_studios
-ADD CONSTRAINT unique_mapping_dvds_studios UNIQUE (dvds_asin, studios_studio_id);
+-- #### junction_dvds_studios
+ALTER TABLE junction_dvds_studios
+ADD CONSTRAINT unique_junction_dvds_studios UNIQUE (dvds_asin, studios_studio_id);
 
-ALTER TABLE map_dvds_studios
+ALTER TABLE junction_dvds_studios
 ALTER COLUMN dvds_asin SET NOT NULL,
 ALTER COLUMN studios_studio_id SET NOT NULL;
 
--- #### map_dvds_audiotexts
-ALTER TABLE map_dvds_audiotexts
-ADD CONSTRAINT unique_mapping_dvds_audiotexts UNIQUE (dvds_asin, audiotexts_audiotext_id);
+-- #### junction_dvds_audiotexts
+ALTER TABLE junction_dvds_audiotexts
+ADD CONSTRAINT unique_junction_dvds_audiotexts UNIQUE (dvds_asin, audiotexts_audiotext_id);
 
-ALTER TABLE map_dvds_audiotexts
+ALTER TABLE junction_dvds_audiotexts
 ALTER COLUMN dvds_asin SET NOT NULL,
 ALTER COLUMN audiotexts_audiotext_id SET NOT NULL;
 
--- #### map_cds_labels
-ALTER TABLE map_cds_labels
-ADD CONSTRAINT unique_mapping_cds_labels UNIQUE (cds_asin, labels_label_id);
+-- #### junction_cds_labels
+ALTER TABLE junction_cds_labels
+ADD CONSTRAINT unique_junction_cds_labels UNIQUE (cds_asin, labels_label_id);
 
-ALTER TABLE map_cds_labels
+ALTER TABLE junction_cds_labels
 ALTER COLUMN cds_asin SET NOT NULL,
 ALTER COLUMN labels_label_id SET NOT NULL;
 
@@ -254,7 +254,7 @@ ALTER COLUMN cds_asin SET NOT NULL;
 
 -- #### products_similars
 ALTER TABLE products_similars
-ADD CONSTRAINT unique_mapping_product_similarproduct UNIQUE (products_asin, similar_product_asin);
+ADD CONSTRAINT unique_junction_product_similarproduct UNIQUE (products_asin, similar_product_asin);
 
 ALTER TABLE products_similars
 ALTER COLUMN products_asin SET NOT NULL,
