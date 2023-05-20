@@ -5,14 +5,15 @@ import xmlParsingProducts.XMLParsingProducts;
 import queryBuilder.QueryBuilder;
 import helper.sqlParser;
 import dbConnection.PostgresConnector;
+import java.io.File;
+
 
 public class ETLProcess {
     public static void main(String[] args) {
 
         initializeDatabaseScheme();
 
-        String sqlFilePath = "./sql/add_constraints.sql";
-        List<String> sqlStatements = sqlParser.parseSQLFile(sqlFilePath);
+
 
         //initializeDatabaseScheme(sqlStatementTableDeletion, sqlStatementTableCreation, sqlStatementsConstraints);
 
@@ -44,6 +45,9 @@ public class ETLProcess {
 
         String pathToLogFile = "./logs/setup_database.log";
 
+        File logFile = new File(pathToLogFile);
+        if (logFile.exists()) logFile.delete();
+
         System.out.println("Initialize Database Scheme...");
 
         System.out.println("DROP ALL TABLES...");
@@ -51,6 +55,7 @@ public class ETLProcess {
         List<String> dropSQLStatements = sqlParser.parseSQLFile(dropSQLFilePath);
         PostgresConnector.executeSQLQueryBatch(dropSQLStatements, pathToLogFile);
         System.out.println("DONE.");
+
         System.out.println("CREATE TABLES...");
         String createSQLFilePath = "./sql/create_tables.sql";
         List<String> creationSQLStatements = sqlParser.parseSQLFile(createSQLFilePath);
