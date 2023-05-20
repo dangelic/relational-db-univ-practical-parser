@@ -1,141 +1,83 @@
 package xmlParsingCategories;
 
-import java.io.File;
-import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.*;
-
-import javax.xml.parsers.*;
-
-
-import java.io.File;
-import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.*;
-
-import java.io.File;
-import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class XMLParsingCategories {
     public static void main(String[] args) {
         String filePath = "./data/raw/xml/categories.xml";
-        ArrayList<Category> categories = parseCategories(filePath);
-
-        // Print the category structure
-        printCategories(categories, 0);
-    }
-
-    public static ArrayList<Category> parseCategories(String filePath) {
-        ArrayList<Category> categories = new ArrayList<>();
 
         try {
-            // Read the XML file
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File(filePath));
-            document.getDocumentElement().normalize();
+            // Etree-Package initialisieren
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(filePath);
 
-            // Parse the categories recursively
-            Element root = document.getDocumentElement();
-            parseCategory(root, null, categories);
+            // Tabellen leeren vor erneutem Einfuegen
+            System.out.println("DELETE FROM Produkt_Kategorie;");
+            System.out.println("DELETE FROM Kategorie;");
+            System.out.println("DELETE FROM Produkt;");
+
+            // Einfügen
+            NodeList mainCategories = doc.getDocumentElement().getChildNodes();
+            int idCounter = 0;
+            for (int i = 0; i < mainCategories.getLength(); i++) {
+                Node mainCategoryNode = mainCategories.item(i);
+                if (mainCategoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element mainCategoryElement = (Element) mainCategoryNode;
+                    idCounter++;
+                    int categoryId = Integer.parseInt("1" + idCounter);
+                    String categoryName = mainCategoryElement.getTextContent();
+
+                    System.out.println("INSERT INTO Kategorie (KatID, Kategoriename, Oberkategorie) VALUES (" +
+                            categoryId + ", '" + categoryName + "', NULL);");
+
+                    processSubCategories(mainCategoryElement, categoryId);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return categories;
     }
 
-    public static void parseCategory(Element categoryElement, Category parentCategory, ArrayList<Category> categories) {
-        // Extract the category name
-        String categoryName = categoryElement.getTextContent().trim();
+    private static void processSubCategories(Element categoryElement, int parentCategoryId) {
+        NodeList subCategories = categoryElement.getElementsByTagName("category");
+        int idCounter = 0;
+        for (int i = 0; i < subCategories.getLength(); i++) {
+            Node subCategoryNode = subCategories.item(i);
+            if (subCategoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element subCategoryElement = (Element) subCategoryNode;
+                idCounter++;
+                int categoryId = Integer.parseInt("2" + idCounter);
+                String categoryName = subCategoryElement.getTextContent();
 
-        // Create a new category object
-        Category category = new Category(categoryName, parentCategory);
-        categories.add(category);
+                System.out.println("INSERT INTO Kategorie (KatID, Kategoriename, Oberkategorie) VALUES (" +
+                        categoryId + ", '" + categoryName + "', " + parentCategoryId + ");");
 
-        NodeList childNodes = categoryElement.getChildNodes();
-
-        // Parse the child items and sub-categories
-        for (int i = 0; i < childNodes.getLength(); i++) {
-            Node node = childNodes.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element childElement = (Element) node;
-
-                if (childElement.getTagName().equals("item")) {
-                    // Extract the item value and add it to the category
-                    String itemValue = childElement.getTextContent().trim();
-                    category.addItem(itemValue);
-                } else if (childElement.getTagName().equals("category")) {
-                    // Recursively parse the sub-category
-                    parseCategory(childElement, category, categories);
-                }
+                processItems(subCategoryElement, categoryId);
+                processSubCategories(subCategoryElement, categoryId);
             }
         }
     }
 
-    public static void printCategories(ArrayList<Category> categories, int indentationLevel) {
-        for (Category category : categories) {
-            String indentation = getIndentation(indentationLevel);
-            System.out.println(indentation + category.getName());
+    private static void processItems(Element categoryElement, int categoryId) {
+        NodeList items = categoryElement.getElementsByTagName("item");
+        for (int i = 0; i < items.getLength(); i++) {
+            Node itemNode = items.item(i);
+            if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element itemElement = (Element) itemNode;
+                String itemName = itemElement.getTextContent();
 
-            // Print the items in the category
-            for (String item : category.getItems()) {
-                System.out.println(indentation + "  - " + item);
+                System.out.println("INSERT INTO Produkt (PID, Titel, Rating, Verkaufsrang, Bild) VALUES ('" +
+                        itemName + "', NULL, NULL, NULL, NULL);");
+
+                System.out.println("INSERT INTO Produkt_Kategorie (KatID, PID) VALUES (" +
+                        categoryId + ", '" + itemName + "');");
             }
-
-            // Recursively print the sub-categories
-            printCategories(category.getSubcategories(), indentationLevel + 1);
         }
-    }
-
-    public static String getIndentation(int level) {
-        StringBuilder indentation = new StringBuilder();
-
-        for (int i = 0; i < level; i++) {
-            indentation.append("  ");
-        }
-
-        return indentation.toString();
-    }
-}
-
-class Category {
-    private String name;
-    private Category parentCategory;
-    private ArrayList<String> items;
-    private ArrayList<Category> subcategories;
-
-    public Category(String name, Category parentCategory) {
-        this.name = name;
-        this.parentCategory = parentCategory;
-        this.items = new ArrayList<>();
-        this.subcategories = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public ArrayList<String> getItems() {
-        return items;
-    }
-
-    public ArrayList<Category> getSubcategories() {
-        return subcategories;
-    }
-
-    public void addItem(String item) {
-        items.add(item);
-    }
-
-    public void addSubcategory(Category subcategory) {
-        subcategories.add(subcategory);
     }
 }
