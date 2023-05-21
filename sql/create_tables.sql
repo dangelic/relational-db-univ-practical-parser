@@ -156,6 +156,12 @@ CREATE TABLE labels (
   PRIMARY KEY (label_id)
 );
 
+CREATE TABLE dvdformats (
+  dvdformat_id VARCHAR(9) ,
+  name VARCHAR(255),
+  PRIMARY KEY (dvdformat_id)
+);
+
 CREATE TABLE books (
   asin VARCHAR(12)  REFERENCES products(asin),
   isbn VARCHAR(13),
@@ -223,6 +229,12 @@ CREATE TABLE junction_dvds_audiotexts (
   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),
   audiotexts_audiotext_id VARCHAR(9)  REFERENCES audiotexts(audiotext_id),
   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id)
+);
+
+CREATE TABLE junction_dvds_dvdformats (
+  dvds_asin VARCHAR(12)  REFERENCES dvds(asin),
+  dvdformats_dvdformat_id VARCHAR(9)  REFERENCES dvdformats(dvdformat_id),
+  PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id)
 );
 
 

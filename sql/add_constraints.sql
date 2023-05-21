@@ -175,6 +175,13 @@ ADD CONSTRAINT unique_label_id UNIQUE (label_id);
 ALTER TABLE labels
 ALTER COLUMN label_id SET NOT NULL;
 
+-- #### dvdformats
+ALTER TABLE dvdformats
+ADD CONSTRAINT unique_dvdformat_id UNIQUE (dvdformat_id);
+
+ALTER TABLE dvdformats
+ALTER COLUMN dvdformat_id SET NOT NULL;
+
 -- #### books
 ALTER TABLE books
 ADD CONSTRAINT unique_books_asin UNIQUE (asin);
@@ -227,6 +234,14 @@ ADD CONSTRAINT unique_junction_dvds_studios UNIQUE (dvds_asin, studios_studio_id
 ALTER TABLE junction_dvds_studios
 ALTER COLUMN dvds_asin SET NOT NULL,
 ALTER COLUMN studios_studio_id SET NOT NULL;
+
+-- #### junction_dvds_dvdformats
+ALTER TABLE junction_dvds_dvdformats
+ADD CONSTRAINT unique_junction_dvds_formats UNIQUE (dvds_asin, dvdformats_dvdformat_id);
+
+ALTER TABLE junction_dvds_dvdformats
+ALTER COLUMN dvds_asin SET NOT NULL,
+ALTER COLUMN dvdformats_dvdformat_id SET NOT NULL;
 
 -- #### junction_dvds_audiotexts
 ALTER TABLE junction_dvds_audiotexts

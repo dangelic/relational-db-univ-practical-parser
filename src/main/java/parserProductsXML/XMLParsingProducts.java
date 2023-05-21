@@ -55,8 +55,8 @@ public class XMLParsingProducts {
 
             itemMap.put("musicspec_binding", item.getMusicspecBinding());
             itemMap.put("musicspec_format", item.getMusicspecFormat());
-            itemMap.put("musicspec_num discs", item.getMusicspecNumDiscs());
-            itemMap.put("musicspec_release date", item.getMusicspecReleaseDate());
+            itemMap.put("musicspec_num_discs", item.getMusicspecNumDiscs());
+            itemMap.put("musicspec_release_date", item.getMusicspecReleaseDate());
             itemMap.put("musicspec_upc", item.getMusicspecUpc());
 
             itemMap.put("audiotext_type", item.getAudiotextType());

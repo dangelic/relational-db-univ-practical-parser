@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.text.DecimalFormat;
+
 
 
 public class QueryBuilderCommon {
@@ -145,6 +147,8 @@ public class QueryBuilderCommon {
                     return convertToDate(value);
                 } else if ("integer".equalsIgnoreCase(dataType)) {
                     return convertToInteger(value);
+                } else if ("float".equalsIgnoreCase(dataType)) {
+                    return convertToFloat(value);
                 } else {
                     return value;
                 }
@@ -167,6 +171,17 @@ public class QueryBuilderCommon {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static Float convertToFloat(String value) {
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            decimalFormat.setParseBigDecimal(true);
+            return decimalFormat.parse(value).floatValue();
+        } catch (NumberFormatException | ParseException e) {
             e.printStackTrace();
             return null;
         }
