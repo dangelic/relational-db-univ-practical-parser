@@ -1,4 +1,4 @@
-package queryBuilderCommonSQL;
+package queryBuilderCommonEntities;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import java.text.DecimalFormat;
-
-
 
 public class QueryBuilderCommon {
 
@@ -62,7 +60,7 @@ public class QueryBuilderCommon {
                         List<String> columnData = hashMap.get(column);
 
                         if (column.equals(fieldName)) {
-                            values[i + 1] = fieldItem;
+                            values[i + 1] = escapeString(fieldItem); // Escape the fieldItem
                         } else {
                             values[i + 1] = getColumnValue(columnData, dataType);
                         }
@@ -109,7 +107,7 @@ public class QueryBuilderCommon {
                         List<String> columnData = hashMap.get(column);
 
                         if (column.equals(fieldName)) {
-                            values[i + 1] = fieldItem;
+                            values[i + 1] = escapeString(fieldItem); // Escape the fieldItem
                         } else {
                             values[i + 1] = getColumnValue(columnData, dataType);
                         }
@@ -129,7 +127,12 @@ public class QueryBuilderCommon {
         return queryList;
     }
 
-
+    private static String escapeString(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value.replace("\"", "\"\"").replace("'", "''");
+    }
 
     private static String getColumnName(String dataType) {
         int index = dataType.indexOf('@');
@@ -150,7 +153,7 @@ public class QueryBuilderCommon {
                 } else if ("float".equalsIgnoreCase(dataType)) {
                     return convertToFloat(value);
                 } else {
-                    return value;
+                    return escapeString(value); // Escape the value
                 }
             }
         }

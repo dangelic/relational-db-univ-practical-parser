@@ -50,22 +50,22 @@ ALTER TABLE listmanialists
 ALTER COLUMN listmanialist_id SET NOT NULL,
 ALTER COLUMN name SET NOT NULL;
 
--- #### storeaddresses
-ALTER TABLE storeaddresses
-ADD CONSTRAINT unique_address_id UNIQUE (storeaddress_id);
+-- #### shopaddresses
+ALTER TABLE shopaddresses
+ADD CONSTRAINT unique_address_id UNIQUE (shopaddress_id);
 
-ALTER TABLE storeaddresses
-ALTER COLUMN storeaddress_id SET NOT NULL,
+ALTER TABLE shopaddresses
+ALTER COLUMN shopaddress_id SET NOT NULL,
 ALTER COLUMN street SET NOT NULL,
 ALTER COLUMN zip SET NOT NULL;
 
--- #### stores
-ALTER TABLE stores
-ADD CONSTRAINT unique_store_id UNIQUE (store_id);
+-- #### shops
+ALTER TABLE shops
+ADD CONSTRAINT unique_shop_id UNIQUE (shop_id);
 
-ALTER TABLE stores
-ALTER COLUMN store_id SET NOT NULL,
-ALTER COLUMN storeaddresses_storeaddress_id SET NOT NULL,
+ALTER TABLE shops
+ALTER COLUMN shop_id SET NOT NULL,
+ALTER COLUMN shopaddresses_shopaddress_id SET NOT NULL,
 ALTER COLUMN name SET NOT NULL;
 
 -- #### priceinfos
@@ -75,14 +75,14 @@ ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id);
 ALTER TABLE priceinfos
 ALTER COLUMN priceinfo_id SET NOT NULL;
 
--- #### junction_products_priceinfos_stores
-ALTER TABLE junction_products_priceinfos_stores
-ADD CONSTRAINT unique_junction_products_priceinfos_stores UNIQUE (products_asin, priceinfos_priceinfo_id, stores_store_id);
+-- #### junction_products_priceinfos_shops
+ALTER TABLE junction_products_priceinfos_shops
+ADD CONSTRAINT unique_junction_products_priceinfos_shops UNIQUE (products_asin, priceinfos_priceinfo_id, shops_shop_id);
 
-ALTER TABLE junction_products_priceinfos_stores
+ALTER TABLE junction_products_priceinfos_shops
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
-ALTER COLUMN stores_store_id SET NOT NULL;
+ALTER COLUMN shops_shop_id SET NOT NULL;
 
 -- #### userreviews
 ALTER TABLE userreviews
@@ -121,7 +121,7 @@ ALTER TABLE purchases
 ALTER COLUMN purchase_id SET NOT NULL,
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
-ALTER COLUMN stores_store_id SET NOT NULL,
+ALTER COLUMN shops_shop_id SET NOT NULL,
 ALTER COLUMN users_username SET NOT NULL;
 
 -- #### deliveryaddresses

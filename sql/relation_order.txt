@@ -1,7 +1,7 @@
 creators
 listmanialists
 priceinfos
-stores
+shops
 categories
 audiotexts
 labels
@@ -22,7 +22,7 @@ junction_products_categories
 junction_products_listmanialists
 junction_products_creators
 products_similars
-junction_products_priceinfos_stores
+junction_products_priceinfos_shops
 reviews
 purchases
 junction_customers_deliveraddresses

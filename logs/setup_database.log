@@ -1,0 +1,284 @@
+SQL Statement: SET CONSTRAINTS ALL DEFERRED;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_users_deliveraddresses CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_products_creators CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_products_listmanialists CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_products_categories CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS products_similars CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS tracks CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_cds_labels CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_audiotexts CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_studios CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_actors CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_books_publishers CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_books_authors CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS dvds CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS cds CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS books CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS labels CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS audiotexts CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS dvdformats CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS studios CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS actors CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS publishers CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS authors CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS deliveryaddresses CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS purchases CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS userreviews CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS guestreviews CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_products_priceinfos_shops CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_dvdformats CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS priceinfos CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS shops CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS shopaddresses CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS listmanialists CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS creators CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS categories CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS users CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS bankinfos CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS products CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: DROP TABLE IF EXISTS junction_users_deliveryaddresses CASCADE;
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE products (   asin VARCHAR(15) ,   ptitle VARCHAR(255) ,   pgroup VARCHAR(5) ,   ean VARCHAR(15),   image_url TEXT,   detailpage_url TEXT,   salesrank INTEGER,   upc VARCHAR(15),   PRIMARY KEY (asin) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE bankinfos (   bankinfo_id VARCHAR(9) ,   account_number VARCHAR(255) ,   PRIMARY KEY (bankinfo_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE users (   username VARCHAR(30) ,   banks_bankinfo_id VARCHAR(9)  REFERENCES bankinfos(bankinfo_id),   PRIMARY KEY (username) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE categories (   category_id VARCHAR(9) ,   parent_category_id VARCHAR(9) REFERENCES categories(category_id),   name VARCHAR(255) ,   PRIMARY KEY (category_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE creators (   creator_id VARCHAR(9) ,   name VARCHAR(255) ,   PRIMARY KEY (creator_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE listmanialists (   listmanialist_id VARCHAR(9) ,   name VARCHAR(255) ,   PRIMARY KEY (listmanialist_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE shopaddresses (   shopaddress_id VARCHAR(9) ,   street VARCHAR(255) ,   zip VARCHAR(255) ,   PRIMARY KEY (shopaddress_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE shops (   shop_id VARCHAR(9) ,   shopaddresses_shopaddress_id VARCHAR(9)  REFERENCES shopaddresses(shopaddress_id),   name VARCHAR(255) ,   PRIMARY KEY (shop_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE priceinfos (   priceinfo_id VARCHAR(9),   price FLOAT(2),   multiplier FLOAT(2),   currency VARCHAR(9),   state VARCHAR(15),   PRIMARY KEY (priceinfo_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_products_priceinfos_shops (   products_asin VARCHAR(15)  REFERENCES products(asin),   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),   shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),   PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE userreviews (   products_asin VARCHAR(15)  REFERENCES products(asin),   users_username VARCHAR(30)  REFERENCES users(username),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (products_asin, users_username) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE guestreviews (   guestreview_id VARCHAR(9),   products_asin VARCHAR(15)  REFERENCES products(asin),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (guestreview_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE purchases (   purchase_id VARCHAR(15),   products_asin VARCHAR(15),   priceinfos_priceinfo_id VARCHAR(9),   shops_shop_id VARCHAR(9),   users_username VARCHAR(30)  REFERENCES users(username),   purchase_date DATE,   FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),   PRIMARY KEY (purchase_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE deliveryaddresses (   deliveryaddress_id VARCHAR(9) ,   street VARCHAR(255),   zip VARCHAR(255),   PRIMARY KEY (deliveryaddress_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE authors (   author_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (author_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE publishers (   publisher_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (publisher_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE actors (   actor_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (actor_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE studios (   studio_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (studio_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE audiotexts (   audiotext_id VARCHAR(9) ,   name VARCHAR(255),   language VARCHAR(30),   language_type VARCHAR(50),   audio_format VARCHAR(50),   PRIMARY KEY (audiotext_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE labels (   label_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (label_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE dvdformats (   dvdformat_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (dvdformat_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE books (   asin VARCHAR(15)  REFERENCES products(asin),   isbn VARCHAR(15),   edition VARCHAR(255),   binding VARCHAR(255),   weight FLOAT(2),   height FLOAT(2),   length FLOAT(2),   pages INTEGER,   publication_date DATE,   PRIMARY KEY (asin) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE cds (   asin VARCHAR(15)  REFERENCES products(asin),   binding VARCHAR(20),   cd_format VARCHAR(20),   num_discs INTEGER,   release_date DATE,   PRIMARY KEY (asin) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_cds_labels (   cds_asin VARCHAR(15)  REFERENCES cds(asin),   labels_label_id VARCHAR(9)  REFERENCES labels(label_id),   PRIMARY KEY (cds_asin, labels_label_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE dvds (   asin VARCHAR(15)  REFERENCES products(asin),   apsect_ratio VARCHAR(7),   running_time INTEGER,   theatr_release DATE,   release_date DATE,   region_code VARCHAR(3),   PRIMARY KEY (asin) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_books_authors (   books_asin VARCHAR(15)  REFERENCES books(asin),   authors_author_id VARCHAR(9)  REFERENCES authors(author_id),   PRIMARY KEY (books_asin, authors_author_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_books_publishers (   books_asin VARCHAR(15)  REFERENCES books(asin),   publishers_publisher_id VARCHAR(9)  REFERENCES publishers(publisher_id),   PRIMARY KEY (books_asin, publishers_publisher_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_dvds_actors (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   actors_actor_id VARCHAR(9)  REFERENCES actors(actor_id),   PRIMARY KEY (dvds_asin, actors_actor_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_dvds_studios (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   studios_studio_id VARCHAR(9)  REFERENCES studios(studio_id),   PRIMARY KEY (dvds_asin, studios_studio_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_dvds_audiotexts (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   audiotexts_audiotext_id VARCHAR(9)  REFERENCES audiotexts(audiotext_id),   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_dvds_dvdformats (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   dvdformats_dvdformat_id VARCHAR(9)  REFERENCES dvdformats(dvdformat_id),   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE tracks (   cds_asin VARCHAR(15)  REFERENCES cds(asin),   name VARCHAR(255),   PRIMARY KEY (cds_asin, name) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE products_similars (   products_asin VARCHAR(15)  REFERENCES products(asin),   similar_product_asin VARCHAR(15)  REFERENCES products(asin),   PRIMARY KEY (products_asin, similar_product_asin) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_products_categories (   products_asin VARCHAR(15)  REFERENCES products(asin),   categories_category_id VARCHAR(9)  REFERENCES categories(category_id),   PRIMARY KEY (products_asin, categories_category_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_products_listmanialists (   products_asin VARCHAR(15)  REFERENCES products(asin),   listmanialists_listmanialist_id VARCHAR(9)  REFERENCES listmanialists(listmanialist_id),   PRIMARY KEY (products_asin, listmanialists_listmanialist_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_products_creators (   products_asin VARCHAR(15)  REFERENCES products(asin),   creators_creator_id VARCHAR(9)  REFERENCES creators(creator_id),   PRIMARY KEY (products_asin, creators_creator_id) );
+Error Message: No results were returned by the query.
+SQL Statement: CREATE TABLE junction_users_deliveryaddresses (   users_username VARCHAR(30)  REFERENCES users(username),   deliveryaddresses_deliveryaddress_id VARCHAR(9)  REFERENCES deliveryaddresses(deliveryaddress_id),   PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id) );
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE products ADD CONSTRAINT unique_asin UNIQUE (asin), ADD CONSTRAINT unique_upc UNIQUE (upc), ADD CONSTRAINT unique_ean UNIQUE (ean);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE products ALTER COLUMN asin SET NOT NULL, ALTER COLUMN ptitle SET NOT NULL, ALTER COLUMN pgroup SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE bankinfos ADD CONSTRAINT unique_bankinfos_id UNIQUE (bankinfo_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE bankinfos ALTER COLUMN bankinfo_id SET NOT NULL, ALTER COLUMN account_number SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE users ADD CONSTRAINT unique_username UNIQUE (username);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE users ALTER COLUMN username SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE categories ADD CONSTRAINT unique_category_id UNIQUE (category_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE categories ALTER COLUMN category_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE creators ADD CONSTRAINT unique_creator_id UNIQUE (creator_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE creators ALTER COLUMN creator_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE listmanialists ADD CONSTRAINT unique_listmanialist_id UNIQUE (listmanialist_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE listmanialists ALTER COLUMN listmanialist_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE shopaddresses ADD CONSTRAINT unique_address_id UNIQUE (shopaddress_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE shopaddresses ALTER COLUMN shopaddress_id SET NOT NULL, ALTER COLUMN street SET NOT NULL, ALTER COLUMN zip SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE shops ADD CONSTRAINT unique_shop_id UNIQUE (shop_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE shops ALTER COLUMN shop_id SET NOT NULL, ALTER COLUMN shopaddresses_shopaddress_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE priceinfos ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE priceinfos ALTER COLUMN priceinfo_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_products_priceinfos_shops ADD CONSTRAINT unique_junction_products_priceinfos_shops UNIQUE (products_asin, priceinfos_priceinfo_id, shops_shop_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_products_priceinfos_shops ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL, ALTER COLUMN shops_shop_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE userreviews ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username), ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE userreviews ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN users_username SET NOT NULL, ALTER COLUMN rating SET NOT NULL, ALTER COLUMN helpful_votes SET NOT NULL, ALTER COLUMN summary SET NOT NULL, ALTER COLUMN content SET NOT NULL, ALTER COLUMN review_date SET NOT NULL, ADD CONSTRAINT check_rating_range_userreviews CHECK (rating >= 0 AND rating <= 5);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE guestreviews ADD CONSTRAINT unique_guestreview_id UNIQUE (guestreview_id), ADD CONSTRAINT check_rating_range_guestreviews CHECK (rating >= 0 AND rating <= 5);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE guestreviews ALTER COLUMN guestreview_id SET NOT NULL, ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN rating SET NOT NULL, ALTER COLUMN helpful_votes SET NOT NULL, ALTER COLUMN summary SET NOT NULL, ALTER COLUMN content SET NOT NULL, ALTER COLUMN review_date SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE purchases ADD CONSTRAINT unique_purchase_id UNIQUE (purchase_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE purchases ALTER COLUMN purchase_id SET NOT NULL, ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL, ALTER COLUMN shops_shop_id SET NOT NULL, ALTER COLUMN users_username SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE deliveryaddresses ADD CONSTRAINT unique_deliveryaddress_id UNIQUE (deliveryaddress_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE deliveryaddresses ALTER COLUMN deliveryaddress_id SET NOT NULL, ALTER COLUMN zip SET NOT NULL, ALTER COLUMN street SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE authors ADD CONSTRAINT unique_author_id UNIQUE (author_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE authors ALTER COLUMN author_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE publishers ADD CONSTRAINT unique_publisher_id UNIQUE (publisher_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE publishers ALTER COLUMN publisher_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE actors ADD CONSTRAINT unique_actor_id UNIQUE (actor_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE actors ALTER COLUMN actor_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE studios ADD CONSTRAINT unique_studio_id UNIQUE (studio_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE studios ALTER COLUMN studio_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE audiotexts ADD CONSTRAINT unique_audiotext_id UNIQUE (audiotext_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE audiotexts ALTER COLUMN audiotext_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE labels ADD CONSTRAINT unique_label_id UNIQUE (label_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE labels ALTER COLUMN label_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE dvdformats ADD CONSTRAINT unique_dvdformat_id UNIQUE (dvdformat_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE dvdformats ALTER COLUMN dvdformat_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE books ADD CONSTRAINT unique_books_asin UNIQUE (asin);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE books ALTER COLUMN asin SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE cds ADD CONSTRAINT unique_cds_asin UNIQUE (asin);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE cds ALTER COLUMN asin SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE dvds ADD CONSTRAINT unique_dvds_asin UNIQUE (asin);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE dvds ALTER COLUMN asin SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_books_authors ADD CONSTRAINT unique_junction_books_authors UNIQUE (books_asin, authors_author_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_books_authors ALTER COLUMN books_asin SET NOT NULL, ALTER COLUMN authors_author_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_books_publishers ADD CONSTRAINT unique_junction_books_publishers UNIQUE (books_asin, publishers_publisher_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_books_publishers ALTER COLUMN books_asin SET NOT NULL, ALTER COLUMN publishers_publisher_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_actors ADD CONSTRAINT unique_junction_dvds_actors UNIQUE (dvds_asin, actors_actor_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_actors ALTER COLUMN dvds_asin SET NOT NULL, ALTER COLUMN actors_actor_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_studios ADD CONSTRAINT unique_junction_dvds_studios UNIQUE (dvds_asin, studios_studio_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_studios ALTER COLUMN dvds_asin SET NOT NULL, ALTER COLUMN studios_studio_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_dvdformats ADD CONSTRAINT unique_junction_dvds_formats UNIQUE (dvds_asin, dvdformats_dvdformat_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_dvdformats ALTER COLUMN dvds_asin SET NOT NULL, ALTER COLUMN dvdformats_dvdformat_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_audiotexts ADD CONSTRAINT unique_junction_dvds_audiotexts UNIQUE (dvds_asin, audiotexts_audiotext_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_dvds_audiotexts ALTER COLUMN dvds_asin SET NOT NULL, ALTER COLUMN audiotexts_audiotext_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_cds_labels ADD CONSTRAINT unique_junction_cds_labels UNIQUE (cds_asin, labels_label_id);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE junction_cds_labels ALTER COLUMN cds_asin SET NOT NULL, ALTER COLUMN labels_label_id SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE tracks ADD CONSTRAINT unique_trackname_cd UNIQUE (cds_asin, name);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE tracks ALTER COLUMN name SET NOT NULL, ALTER COLUMN cds_asin SET NOT NULL;
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE products_similars ADD CONSTRAINT unique_junction_product_similarproduct UNIQUE (products_asin, similar_product_asin);
+Error Message: No results were returned by the query.
+SQL Statement: ALTER TABLE products_similars ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN similar_product_asin SET NOT NULL;
+Error Message: No results were returned by the query.

@@ -43,18 +43,18 @@ CREATE TABLE listmanialists (
 
 
 
-CREATE TABLE storeaddresses (
-  storeaddress_id VARCHAR(9) ,
+CREATE TABLE shopaddresses (
+  shopaddress_id VARCHAR(9) ,
   street VARCHAR(255) ,
   zip VARCHAR(255) ,
-  PRIMARY KEY (storeaddress_id)
+  PRIMARY KEY (shopaddress_id)
 );
 
-CREATE TABLE stores (
-  store_id VARCHAR(9) ,
-  storeaddresses_storeaddress_id VARCHAR(9)  REFERENCES storeaddresses(storeaddress_id),
+CREATE TABLE shops (
+  shop_id VARCHAR(9) ,
+  shopaddresses_shopaddress_id VARCHAR(9)  REFERENCES shopaddresses(shopaddress_id),
   name VARCHAR(255) ,
-  PRIMARY KEY (store_id)
+  PRIMARY KEY (shop_id)
 );
 
 CREATE TABLE priceinfos (
@@ -66,11 +66,11 @@ CREATE TABLE priceinfos (
   PRIMARY KEY (priceinfo_id)
 );
 
-CREATE TABLE junction_products_priceinfos_stores (
+CREATE TABLE junction_products_priceinfos_shops (
   products_asin VARCHAR(12)  REFERENCES products(asin),
   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),
-  stores_store_id VARCHAR(9)  REFERENCES stores(store_id),
-  PRIMARY KEY (products_asin, priceinfos_priceinfo_id, stores_store_id)
+  shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),
+  PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id)
 );
 
 
@@ -100,10 +100,10 @@ CREATE TABLE purchases (
   purchase_id VARCHAR(12),
   products_asin VARCHAR(12),
   priceinfos_priceinfo_id VARCHAR(9),
-  stores_store_id VARCHAR(9),
+  shops_shop_id VARCHAR(9),
   users_username VARCHAR(30)  REFERENCES users(username),
   purchase_date DATE,
-  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, stores_store_id) REFERENCES junction_products_priceinfos_stores(products_asin, priceinfos_priceinfo_id, stores_store_id),
+  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),
   PRIMARY KEY (purchase_id)
 );
 
@@ -192,7 +192,6 @@ CREATE TABLE junction_cds_labels (
 
 CREATE TABLE dvds (
   asin VARCHAR(12)  REFERENCES products(asin),
-  dvd_format VARCHAR(30),
   apsect_ratio VARCHAR(7),
   running_time INTEGER,
   theatr_release DATE,
