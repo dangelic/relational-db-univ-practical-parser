@@ -30,6 +30,8 @@ public class XMLParsingProducts {
             itemMap.put("pgroup", item.getPgroup());
             itemMap.put("asin", item.getAsin());
             itemMap.put("ptitle", item.getProductTitle());
+            itemMap.put("upc", item.getUpc());
+
 
             itemMap.put("price", item.getPrice());
             itemMap.put("price_multiplier", item.getPriceMult());
@@ -200,9 +202,16 @@ public class XMLParsingProducts {
                         similars = getTagAttributeDataVal(itemElement, "similars/item", "asin");
                     }
 
+                    // Combine UPC from CDs and DVDs to normalize the values in products table
+                    List<String> upc = new ArrayList<>();
+                    upc.addAll(dvdspecUpc);
+                    upc.addAll(musicspecUpc);
+
+
                     Item item = new Item(pgroup,
                             asin,
                             productTitle,
+                            upc,
                             price,
                             priceMult,
                             priceState,
@@ -262,15 +271,17 @@ public class XMLParsingProducts {
         return escapedStrings;
     }
 
-    private static String escapeString(String string) {
-        string = string.replace("'", "\\'");
-        string = string.replace("\"", "\\\"");
-        string = string.replace("[", "\\[");
-        string = string.replace("]", "\\]");
-        string = string.replace("&", "\\&");
-        string = string.replace(";", "\\;");
-        // return "\"" + string + "\"";
-        return string;
+    private static String escapeString(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value
+                .replace("\"", "\"\"")
+                .replace("'", "''")
+                .replace("\\[", "[")
+                .replace("\\]", "]")
+                .replace("\\;", ";")
+                .replace("\\&", "&");
     }
 
 
@@ -358,6 +369,8 @@ class Item {
 
     private List<String> productTitle;
 
+    private List<String> upc;
+
     private List<String> price;
     private List<String> priceMult;
     private List<String> priceState;
@@ -414,6 +427,7 @@ class Item {
     public Item(List<String> pgroup,
                 List<String> asin,
                 List<String> productTitle,
+                List<String> upc,
                 List<String> price,
                 List<String> priceMult,
                 List<String> priceState,
@@ -459,6 +473,7 @@ class Item {
         this.pgroup = pgroup;
         this.asin = asin;
         this.productTitle = productTitle;
+        this.upc = upc;
         this.price = price;
         this.priceMult = priceMult;
         this.priceState = priceState;
@@ -513,6 +528,9 @@ class Item {
 
     public List<String> getProductTitle() {
         return productTitle;
+    }
+    public List<String> getUpc() {
+        return upc;
     }
 
     public List<String> getPrice() {
