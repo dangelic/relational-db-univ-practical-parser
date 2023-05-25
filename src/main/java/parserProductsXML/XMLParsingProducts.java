@@ -9,9 +9,24 @@ import java.util.List;
 import java.util.HashMap;
 
 
+
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.*;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+
 public class XMLParsingProducts {
 
     public static List<HashMap<String, List<String>>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
+
+        convertFileEncoding(filePath, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8);
+
         List<Item> items = parseXML(filePath, SHOP_MODE);
 
         List<HashMap<String, List<String>>> itemList = new ArrayList<>();
@@ -26,7 +41,7 @@ public class XMLParsingProducts {
             indexMap.add(String.valueOf(itemIndex));
 
             itemMap.put("__INDEX__", indexMap);
-            itemMap.put("shop", SHOP_MODE);
+            itemMap.put("shop_id", SHOP_MODE);
             itemMap.put("pgroup", item.getPgroup());
             itemMap.put("asin", item.getAsin());
             itemMap.put("ptitle", item.getProductTitle());
@@ -359,6 +374,37 @@ public class XMLParsingProducts {
                     tagAttributeValues.add(attributeValue);
                 }
             }
+        }
+    }
+
+    private static void convertFileEncoding(String filePath, Charset sourceCharset, Charset targetCharset) {
+        try {
+            File inputFile = new File(filePath);
+            FileInputStream inputStream = new FileInputStream(inputFile);
+            InputStreamReader reader = new InputStreamReader(inputStream, sourceCharset);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+
+            bufferedReader.close();
+            reader.close();
+            inputStream.close();
+
+            FileOutputStream outputStream = new FileOutputStream(inputFile);
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream, targetCharset);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.write(content.toString());
+
+            bufferedWriter.close();
+            writer.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

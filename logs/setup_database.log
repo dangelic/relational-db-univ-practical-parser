@@ -76,13 +76,13 @@ SQL Statement: DROP TABLE IF EXISTS products CASCADE;
 Error Message: No results were returned by the query.
 SQL Statement: DROP TABLE IF EXISTS junction_users_deliveryaddresses CASCADE;
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE products (   asin VARCHAR(15) ,   ptitle VARCHAR(255) ,   pgroup VARCHAR(5) ,   ean VARCHAR(15),   image_url TEXT,   detailpage_url TEXT,   salesrank INTEGER,   upc VARCHAR(15),   PRIMARY KEY (asin) );
+SQL Statement: CREATE TABLE products (   asin VARCHAR(12) ,   ptitle VARCHAR(255) ,   pgroup VARCHAR(5) ,   ean VARCHAR(13),   image_url TEXT,   detailpage_url TEXT,   salesrank INTEGER,   upc VARCHAR(12),   PRIMARY KEY (asin) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE bankinfos (   bankinfo_id VARCHAR(9) ,   account_number VARCHAR(255) ,   PRIMARY KEY (bankinfo_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE users (   username VARCHAR(30) ,   banks_bankinfo_id VARCHAR(9)  REFERENCES bankinfos(bankinfo_id),   PRIMARY KEY (username) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE categories (   category_id VARCHAR(9) ,   parent_category_id VARCHAR(9) REFERENCES categories(category_id),   name VARCHAR(255) ,   PRIMARY KEY (category_id) );
+SQL Statement: CREATE TABLE categories (   category_id VARCHAR(9) ,   parent_category_id VARCHAR(9),   name VARCHAR(255) ,   PRIMARY KEY (category_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE creators (   creator_id VARCHAR(9) ,   name VARCHAR(255) ,   PRIMARY KEY (creator_id) );
 Error Message: No results were returned by the query.
@@ -94,13 +94,13 @@ SQL Statement: CREATE TABLE shops (   shop_id VARCHAR(9) ,   shopaddresses_shopa
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE priceinfos (   priceinfo_id VARCHAR(9),   price FLOAT(2),   multiplier FLOAT(2),   currency VARCHAR(9),   state VARCHAR(15),   PRIMARY KEY (priceinfo_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_products_priceinfos_shops (   products_asin VARCHAR(15)  REFERENCES products(asin),   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),   shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),   PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) );
+SQL Statement: CREATE TABLE junction_products_priceinfos_shops (   products_asin VARCHAR(12)  REFERENCES products(asin),   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),   shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),   PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE userreviews (   products_asin VARCHAR(15)  REFERENCES products(asin),   users_username VARCHAR(30)  REFERENCES users(username),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (products_asin, users_username) );
+SQL Statement: CREATE TABLE userreviews (   products_asin VARCHAR(12)  REFERENCES products(asin),   users_username VARCHAR(30)  REFERENCES users(username),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (products_asin, users_username) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE guestreviews (   guestreview_id VARCHAR(9),   products_asin VARCHAR(15)  REFERENCES products(asin),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (guestreview_id) );
+SQL Statement: CREATE TABLE guestreviews (   guestreview_id VARCHAR(9),   products_asin VARCHAR(12)  REFERENCES products(asin),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (guestreview_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE purchases (   purchase_id VARCHAR(15),   products_asin VARCHAR(15),   priceinfos_priceinfo_id VARCHAR(9),   shops_shop_id VARCHAR(9),   users_username VARCHAR(30)  REFERENCES users(username),   purchase_date DATE,   FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),   PRIMARY KEY (purchase_id) );
+SQL Statement: CREATE TABLE purchases (   purchase_id VARCHAR(12),   products_asin VARCHAR(12),   priceinfos_priceinfo_id VARCHAR(9),   shops_shop_id VARCHAR(9),   users_username VARCHAR(30)  REFERENCES users(username),   purchase_date DATE,   FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),   PRIMARY KEY (purchase_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE deliveryaddresses (   deliveryaddress_id VARCHAR(9) ,   street VARCHAR(255),   zip VARCHAR(255),   PRIMARY KEY (deliveryaddress_id) );
 Error Message: No results were returned by the query.
@@ -118,35 +118,35 @@ SQL Statement: CREATE TABLE labels (   label_id VARCHAR(9) ,   name VARCHAR(255)
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE dvdformats (   dvdformat_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (dvdformat_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE books (   asin VARCHAR(15)  REFERENCES products(asin),   isbn VARCHAR(15),   edition VARCHAR(255),   binding VARCHAR(255),   weight FLOAT(2),   height FLOAT(2),   length FLOAT(2),   pages INTEGER,   publication_date DATE,   PRIMARY KEY (asin) );
+SQL Statement: CREATE TABLE books (   asin VARCHAR(12)  REFERENCES products(asin),   isbn VARCHAR(13),   edition VARCHAR(255),   binding VARCHAR(255),   weight FLOAT(2),   height FLOAT(2),   length FLOAT(2),   pages INTEGER,   publication_date DATE,   PRIMARY KEY (asin) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE cds (   asin VARCHAR(15)  REFERENCES products(asin),   binding VARCHAR(20),   cd_format VARCHAR(20),   num_discs INTEGER,   release_date DATE,   PRIMARY KEY (asin) );
+SQL Statement: CREATE TABLE cds (   asin VARCHAR(12)  REFERENCES products(asin),   binding VARCHAR(20),   cd_format VARCHAR(20),   num_discs INTEGER,   release_date DATE,   PRIMARY KEY (asin) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_cds_labels (   cds_asin VARCHAR(15)  REFERENCES cds(asin),   labels_label_id VARCHAR(9)  REFERENCES labels(label_id),   PRIMARY KEY (cds_asin, labels_label_id) );
+SQL Statement: CREATE TABLE junction_cds_labels (   cds_asin VARCHAR(12)  REFERENCES cds(asin),   labels_label_id VARCHAR(9)  REFERENCES labels(label_id),   PRIMARY KEY (cds_asin, labels_label_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE dvds (   asin VARCHAR(15)  REFERENCES products(asin),   apsect_ratio VARCHAR(7),   running_time INTEGER,   theatr_release DATE,   release_date DATE,   region_code VARCHAR(3),   PRIMARY KEY (asin) );
+SQL Statement: CREATE TABLE dvds (   asin VARCHAR(12)  REFERENCES products(asin),   apsect_ratio VARCHAR(7),   running_time INTEGER,   theatr_release DATE,   release_date DATE,   region_code VARCHAR(3),   PRIMARY KEY (asin) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_books_authors (   books_asin VARCHAR(15)  REFERENCES books(asin),   authors_author_id VARCHAR(9)  REFERENCES authors(author_id),   PRIMARY KEY (books_asin, authors_author_id) );
+SQL Statement: CREATE TABLE junction_books_authors (   books_asin VARCHAR(12)  REFERENCES books(asin),   authors_author_id VARCHAR(9)  REFERENCES authors(author_id),   PRIMARY KEY (books_asin, authors_author_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_books_publishers (   books_asin VARCHAR(15)  REFERENCES books(asin),   publishers_publisher_id VARCHAR(9)  REFERENCES publishers(publisher_id),   PRIMARY KEY (books_asin, publishers_publisher_id) );
+SQL Statement: CREATE TABLE junction_books_publishers (   books_asin VARCHAR(12)  REFERENCES books(asin),   publishers_publisher_id VARCHAR(9)  REFERENCES publishers(publisher_id),   PRIMARY KEY (books_asin, publishers_publisher_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_dvds_actors (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   actors_actor_id VARCHAR(9)  REFERENCES actors(actor_id),   PRIMARY KEY (dvds_asin, actors_actor_id) );
+SQL Statement: CREATE TABLE junction_dvds_actors (   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),   actors_actor_id VARCHAR(9)  REFERENCES actors(actor_id),   PRIMARY KEY (dvds_asin, actors_actor_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_dvds_studios (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   studios_studio_id VARCHAR(9)  REFERENCES studios(studio_id),   PRIMARY KEY (dvds_asin, studios_studio_id) );
+SQL Statement: CREATE TABLE junction_dvds_studios (   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),   studios_studio_id VARCHAR(9)  REFERENCES studios(studio_id),   PRIMARY KEY (dvds_asin, studios_studio_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_dvds_audiotexts (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   audiotexts_audiotext_id VARCHAR(9)  REFERENCES audiotexts(audiotext_id),   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id) );
+SQL Statement: CREATE TABLE junction_dvds_audiotexts (   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),   audiotexts_audiotext_id VARCHAR(9)  REFERENCES audiotexts(audiotext_id),   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_dvds_dvdformats (   dvds_asin VARCHAR(15)  REFERENCES dvds(asin),   dvdformats_dvdformat_id VARCHAR(9)  REFERENCES dvdformats(dvdformat_id),   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id) );
+SQL Statement: CREATE TABLE junction_dvds_dvdformats (   dvds_asin VARCHAR(12)  REFERENCES dvds(asin),   dvdformats_dvdformat_id VARCHAR(9)  REFERENCES dvdformats(dvdformat_id),   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE tracks (   cds_asin VARCHAR(15)  REFERENCES cds(asin),   name VARCHAR(255),   PRIMARY KEY (cds_asin, name) );
+SQL Statement: CREATE TABLE tracks (   cds_asin VARCHAR(12)  REFERENCES cds(asin),   name VARCHAR(255),   PRIMARY KEY (cds_asin, name) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE products_similars (   products_asin VARCHAR(15)  REFERENCES products(asin),   similar_product_asin VARCHAR(15)  REFERENCES products(asin),   PRIMARY KEY (products_asin, similar_product_asin) );
+SQL Statement: CREATE TABLE products_similars (   products_asin VARCHAR(12)  REFERENCES products(asin),   similar_product_asin VARCHAR(12)  REFERENCES products(asin),   PRIMARY KEY (products_asin, similar_product_asin) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_products_categories (   products_asin VARCHAR(15)  REFERENCES products(asin),   categories_category_id VARCHAR(9)  REFERENCES categories(category_id),   PRIMARY KEY (products_asin, categories_category_id) );
+SQL Statement: CREATE TABLE junction_products_categories (   products_asin VARCHAR(12)  REFERENCES products(asin),   categories_category_id VARCHAR(9)  REFERENCES categories(category_id),   PRIMARY KEY (products_asin, categories_category_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_products_listmanialists (   products_asin VARCHAR(15)  REFERENCES products(asin),   listmanialists_listmanialist_id VARCHAR(9)  REFERENCES listmanialists(listmanialist_id),   PRIMARY KEY (products_asin, listmanialists_listmanialist_id) );
+SQL Statement: CREATE TABLE junction_products_listmanialists (   products_asin VARCHAR(12)  REFERENCES products(asin),   listmanialists_listmanialist_id VARCHAR(9)  REFERENCES listmanialists(listmanialist_id),   PRIMARY KEY (products_asin, listmanialists_listmanialist_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_products_creators (   products_asin VARCHAR(15)  REFERENCES products(asin),   creators_creator_id VARCHAR(9)  REFERENCES creators(creator_id),   PRIMARY KEY (products_asin, creators_creator_id) );
+SQL Statement: CREATE TABLE junction_products_creators (   products_asin VARCHAR(12)  REFERENCES products(asin),   creators_creator_id VARCHAR(9)  REFERENCES creators(creator_id),   PRIMARY KEY (products_asin, creators_creator_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE junction_users_deliveryaddresses (   users_username VARCHAR(30)  REFERENCES users(username),   deliveryaddresses_deliveryaddress_id VARCHAR(9)  REFERENCES deliveryaddresses(deliveryaddress_id),   PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id) );
 Error Message: No results were returned by the query.
