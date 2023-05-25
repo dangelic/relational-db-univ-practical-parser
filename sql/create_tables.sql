@@ -24,7 +24,7 @@ CREATE TABLE users (
 
 CREATE TABLE categories (
   category_id VARCHAR(9) ,
-  parent_category_id VARCHAR(9) REFERENCES categories(category_id),
+  parent_category_id VARCHAR(9),
   name VARCHAR(255) ,
   PRIMARY KEY (category_id)
 );

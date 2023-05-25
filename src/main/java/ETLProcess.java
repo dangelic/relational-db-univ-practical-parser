@@ -2,37 +2,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import categoriesLogic.ParserToMapToGenerateSQLCategories;
 import helper.sqlParser;
 import dbConnection.PostgresConnector;
 import java.io.File;
 
 import parserProductsXML.XMLParsingProducts;
 
-import parserCategoriesXML.XMLParsingCategories;
-import parserCategoriesXML.Category;
-import queryBuilderCategories.QueryBuilderCategories;
-
 import queryBuilderCommonEntities.QueryBuilderCommon;
 
 import entityMap.EntityFieldDTMappings;
-import org.xml.sax.SAXException;
+
 import java.sql.SQLException;
-
-
-
-
-import parserShopsXML.XMLParsingShops;
-import queryBuilderJunctions.QueryBuilderJunctions;
 
 
 public class ETLProcess {
     public static void main(String[] args) {
 
-        // initializeDatabaseScheme();
-        List<HashMap<String, List<String>>> parsedXMLProductDataMerged = parseProductsFromShopsMerged();
+        initializeDatabaseScheme();
+        // List<HashMap<String, List<String>>> parsedXMLProductDataMerged = parseProductsFromShopsMerged();
         //loadCommonData(parsedXMLProductDataMerged);
 
-        try {
+        /*try {
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged,
                     "authors",
                     "asin",
@@ -46,7 +37,12 @@ public class ETLProcess {
         } catch (SQLException e) {
             // Handle the SQLException here
             e.printStackTrace();
-        }
+        }*/
+
+        // XMLParsingCategories.parseCategories("./data/raw/xml/categories.xml");
+
+        loadCategoriesData("./data/raw/xml/categories.xml");
+
 
     }
 
@@ -137,6 +133,27 @@ public class ETLProcess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadCategoriesData(String filePath) {
+        String pathToLogFile = "./logs/categories_test.log";
+        File logFile = new File(pathToLogFile);
+        if (logFile.exists()) logFile.delete();
+
+
+        PostgresConnector dbConnection = new PostgresConnector("postgres", "");
+
+        try {
+            dbConnection.connect();
+
+            ParserToMapToGenerateSQLCategories parserToMapToGenerateSQLCategories = new ParserToMapToGenerateSQLCategories();
+            List<String> fillingData = parserToMapToGenerateSQLCategories.generateSQLCategoryEntity(filePath);
+            dbConnection.executeSQLQueryBatch(fillingData, "./logs/categories_test.log");
+
+            dbConnection.disconnect();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }
 
 }
