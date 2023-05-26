@@ -28,7 +28,8 @@ ALTER COLUMN username SET NOT NULL;
 
 -- #### categories
 ALTER TABLE categories
-ADD CONSTRAINT unique_category_id UNIQUE (category_id);
+ADD CONSTRAINT unique_category_id UNIQUE (category_id),
+ADD CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id);
 
 ALTER TABLE categories
 ALTER COLUMN category_id SET NOT NULL,
@@ -70,18 +71,12 @@ ALTER COLUMN name SET NOT NULL;
 
 -- #### priceinfos
 ALTER TABLE priceinfos
-ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id);
+ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id),
+ADD CONSTRAINT unique_priceinfo_id UNIQUE (shops_shop_id, products_asin, multiplier, price, currency, state);
 
 ALTER TABLE priceinfos
-ALTER COLUMN priceinfo_id SET NOT NULL;
-
--- #### junction_products_priceinfos_shops
-ALTER TABLE junction_products_priceinfos_shops
-ADD CONSTRAINT unique_junction_products_priceinfos_shops UNIQUE (products_asin, priceinfos_priceinfo_id, shops_shop_id);
-
-ALTER TABLE junction_products_priceinfos_shops
+ALTER COLUMN priceinfo_id SET NOT NULL,
 ALTER COLUMN products_asin SET NOT NULL,
-ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
 ALTER COLUMN shops_shop_id SET NOT NULL;
 
 -- #### userreviews

@@ -59,20 +59,14 @@ CREATE TABLE shops (
 
 CREATE TABLE priceinfos (
   priceinfo_id VARCHAR(9),
+  products_asin VARCHAR(12)  REFERENCES products(asin),
+  shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),
   price FLOAT(2),
   multiplier FLOAT(2),
   currency VARCHAR(9),
   state VARCHAR(15),
   PRIMARY KEY (priceinfo_id)
 );
-
-CREATE TABLE junction_products_priceinfos_shops (
-  products_asin VARCHAR(12)  REFERENCES products(asin),
-  priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),
-  shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),
-  PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id)
-);
-
 
 CREATE TABLE userreviews (
   products_asin VARCHAR(12)  REFERENCES products(asin),

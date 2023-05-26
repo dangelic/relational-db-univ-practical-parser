@@ -48,447 +48,1874 @@ SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VA
 Error Message: No results were returned by the query.
 SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musik-DVDs', '29', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Electronic & Dance', '30', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative', '30', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hardrock', '32', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Blues', '32', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Heavy Metal', '33', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Electronic & Dance', '33', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musikfilm', '34', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hardrock', '34', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '35', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Heavy Metal', '35', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sampler', '36', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz', '36', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager', '37', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musikfilm', '37', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soul', '38', '31');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '38', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('R&B & Soul', '39', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sampler', '39', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reggae & Ska', '40', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager', '40', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock', '41', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soul', '41', '31');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Austropop& Oldies', '42', '43');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '42', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Box-Sets& Oldies', '44', '43');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('R&B & Soul', '43', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutscher Schlager& Oldies', '45', '43');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reggae & Ska', '44', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liedermacher& Oldies', '46', '43');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock', '45', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Songwriter', '47', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager', '46', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soundtracks', '48', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Austropop& Oldies', '47', '48');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Produktionen', '49', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Box-Sets& Oldies', '49', '48');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Serien', '50', '51');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutscher Schlager& Oldies', '50', '48');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tanz- & Volksmusik', '52', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liedermacher& Oldies', '51', '48');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltmusik', '53', '8');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Songwriter', '52', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('DVD-Audio', '54', '6');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soundtracks', '53', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher', '55', '6');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Produktionen', '54', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abenteuer & Krimi', '56', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Serien', '55', '56');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Belletristik', '58', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tanz- & Volksmusik', '57', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Historische Romane', '59', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltmusik', '58', '8');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren', '61', '62');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('DVD-Audio', '59', '6');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '63', '64');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '60', '61');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hohlbein, Wolfgang& Erzählungen', '65', '66');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock', '62', '61');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Länder, A-Z', '67', '62');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher', '63', '6');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland& Erzählungen', '68', '69');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abenteuer & Krimi', '64', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('USA& Erzählungen', '70', '69');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Belletristik', '66', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen', '71', '62');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Historische Romane', '67', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lyrik & Dramatik', '72', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren', '69', '70');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mitschnitte', '73', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '71', '72');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchen & Sagen', '74', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hohlbein, Wolfgang& Erzählungen', '73', '74');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Herkunft der Autoren', '75', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Länder, A-Z', '75', '70');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische & Kanadische Literatur& Erzählungen', '76', '77');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland& Erzählungen', '76', '77');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische Autoren', '78', '77');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('USA& Erzählungen', '78', '77');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '79', '80');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen', '79', '70');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren, A-Z', '81', '82');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lyrik & Dramatik', '80', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-C', '83', '84');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mitschnitte', '81', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '85', '86');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchen & Sagen', '82', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '87', '84');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Herkunft der Autoren', '83', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eichendorff, Joseph von', '88', '89');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische & Kanadische Literatur& Erzählungen', '84', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('G-H', '90', '84');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische Autoren', '86', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '91', '92');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '87', '88');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L-N', '93', '84');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '89', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('May, Karl', '94', '95');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren, A-Z', '90', '91');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('P-R', '96', '84');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-C', '92', '93');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilke, Rainer M.', '97', '98');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '94', '95');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael& Erzählungen', '99', '82');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '96', '93');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michaelungsliteratur& Erzählungen', '100', '82');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eichendorff, Joseph von', '97', '98');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eschbach, Andreas& Erzählungen', '101', '82');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('G-H', '99', '93');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Englische Autoren', '102', '77');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '100', '101');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Französische Autoren', '103', '77');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L-N', '102', '93');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Noch mehr Autoren', '104', '77');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('May, Karl', '103', '104');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Erzählungen', '105', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('P-R', '105', '93');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Science Fiction, Fantasy', '106', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilke, Rainer M.', '106', '107');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Taschenbücher& Horror', '107', '108');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '108', '91');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Horror', '109', '108');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael& Erzählungen', '109', '91');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '110', '60');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michaelungsliteratur& Erzählungen', '110', '91');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bildung & Wissen', '111', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eschbach, Andreas& Erzählungen', '111', '91');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Biografien & Erinnerungen', '112', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Englische Autoren', '112', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Business & Karriere', '113', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '113', '114');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Entspannung', '114', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Französische Autoren', '115', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erfolg', '115', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '116', '117');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erotik', '116', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Noch mehr Autoren', '118', '85');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichte & Politik', '117', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '119', '120');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichten, Reime', '118', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Erzählungen', '121', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachtsgeschichten& Lieder& Hörspiele', '119', '120');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Science Fiction, Fantasy', '122', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Lieder& Hörspiele', '121', '120');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Taschenbücher& Horror', '123', '124');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesundheit', '122', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Horror', '125', '124');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Harry Potter', '123', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '126', '68');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher nach Alter', '124', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bildung & Wissen', '127', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (12-14 Jahre)& Hörspiele', '125', '126');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Biografien & Erinnerungen', '128', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (8-12 Jahre)& Hörspiele', '127', '126');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Business & Karriere', '129', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (ab 14 Jahren)& Hörspiele', '128', '126');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Entspannung', '130', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kabarett & Humor', '129', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erfolg', '131', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinder', '130', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erotik', '132', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beschäftigungsbücher& Jugendbücher', '131', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichte & Politik', '133', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichten, Romane', '133', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichten, Reime', '134', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abenteuergeschichten& Erzählungen& Jugendbücher', '134', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachtsgeschichten& Lieder& Hörspiele', '135', '136');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alle Romane & Erzählungen& Erzählungen& Jugendbücher', '136', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Lieder& Hörspiele', '137', '136');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Detektiv- & Kriminalgeschichten& Erzählungen& Jugendbücher', '137', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesundheit', '138', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fantasy& Erzählungen& Jugendbücher', '138', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Harry Potter', '139', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fußballgeschichten& Erzählungen& Jugendbücher', '139', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher nach Alter', '140', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gespenster- & Gruselgeschichten& Erzählungen& Jugendbücher', '140', '135');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (12-14 Jahre)& Hörspiele', '141', '142');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele nach Alter', '141', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (8-12 Jahre)& Hörspiele', '143', '142');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (12-14 Jahre)& Jugendbücher', '142', '143');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (ab 14 Jahren)& Hörspiele', '144', '142');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (8-12 Jahre)& Jugendbücher', '144', '143');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kabarett & Humor', '145', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (ab 14 Jahren)& Jugendbücher', '145', '143');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinder', '146', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Jugendbücher', '146', '143');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beschäftigungsbücher& Jugendbücher', '147', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik für Kinder& Jugendbücher', '147', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichten, Romane', '149', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Alter', '148', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abenteuergeschichten& Erzählungen& Jugendbücher', '150', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('10-12 Jahre& Jugendbücher', '149', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alle Romane & Erzählungen& Erzählungen& Jugendbücher', '152', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('12-14 Jahre& Jugendbücher', '151', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Detektiv- & Kriminalgeschichten& Erzählungen& Jugendbücher', '153', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('4 bis 8 Jahre& Jugendbücher', '152', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fantasy& Erzählungen& Jugendbücher', '154', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8 bis 12 Jahre& Jugendbücher', '153', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fußballgeschichten& Erzählungen& Jugendbücher', '155', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8-10 Jahre& Jugendbücher', '154', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gespenster- & Gruselgeschichten& Erzählungen& Jugendbücher', '156', '151');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ab 12 Jahre& Jugendbücher', '155', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele nach Alter', '157', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ab 14 Jahren& Jugendbücher', '156', '150');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (12-14 Jahre)& Jugendbücher', '158', '159');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reime & Lieder& Jugendbücher', '157', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (8-12 Jahre)& Jugendbücher', '160', '159');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Erzählungen& Jugendbücher', '158', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörspiele (ab 14 Jahren)& Jugendbücher', '161', '159');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Geschichten& Jugendbücher', '159', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Jugendbücher', '162', '159');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sachbücher & Wissen für Kinder& Jugendbücher', '160', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik für Kinder& Jugendbücher', '163', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sachbücher& Jugendbücher', '161', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Alter', '164', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Titel& Jugendbücher', '162', '132');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('10-12 Jahre& Jugendbücher', '165', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik für Kinder', '163', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('12-14 Jahre& Jugendbücher', '167', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestimmte Komponisten', '164', '165');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('4 bis 8 Jahre& Jugendbücher', '168', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wolfgang Amadeus Mozart', '166', '167');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8 bis 12 Jahre& Jugendbücher', '169', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oper', '168', '165');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8-10 Jahre& Jugendbücher', '170', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Barockoper', '169', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ab 12 Jahre& Jugendbücher', '171', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hasse, Joh. Adolf', '171', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ab 14 Jahren& Jugendbücher', '172', '166');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lully, Jean-Baptiste', '173', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reime & Lieder& Jugendbücher', '173', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Monteverdi, Claudio', '174', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Erzählungen& Jugendbücher', '174', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Purcell, Henry', '175', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane & Geschichten& Jugendbücher', '175', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rameau, Jean-Philippe', '176', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sachbücher & Wissen für Kinder& Jugendbücher', '176', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Telemann, Georg Ph.', '177', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sachbücher& Jugendbücher', '177', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Vivaldi, Antonio', '178', '172');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Titel& Jugendbücher', '178', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bellini, Vincenzo', '179', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Jugendbücher', '179', '148');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Donizetti, Gaetano', '180', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik für Kinder', '180', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L''elisir d''amore', '181', '182');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestimmte Komponisten', '181', '182');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lucia di Lammermoor', '183', '182');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wolfgang Amadeus Mozart', '183', '184');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern', '184', '182');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oper', '185', '182');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Händel, Georg Fr.', '185', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Barockoper', '186', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musiktheater (20. Jh.)', '186', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hasse, Joh. Adolf', '188', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Berg, Alban', '187', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lully, Jean-Baptiste', '190', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dessau, Paul', '189', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Monteverdi, Claudio', '191', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pfitzner, Hans', '190', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Purcell, Henry', '192', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Prokofjew, Sergej', '191', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rameau, Jean-Philippe', '193', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ravel, Maurice', '192', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Telemann, Georg Ph.', '194', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Strawinsky, Igor', '193', '188');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Vivaldi, Antonio', '195', '189');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oper (Überblick)', '194', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bellini, Vincenzo', '196', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Puccini, Giacomo', '195', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Donizetti, Gaetano', '197', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Bohème', '196', '197');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L''elisir d''amore', '198', '199');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Madame Butterfly', '198', '197');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lucia di Lammermoor', '200', '199');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tosca', '199', '197');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern', '201', '199');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rossini, Gioacchino', '200', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Händel, Georg Fr.', '202', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Strauss, Richard', '201', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musiktheater (20. Jh.)', '203', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ariadne', '202', '203');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Berg, Alban', '204', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Der Rosenkavalier', '204', '203');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dessau, Paul', '206', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Elektra', '205', '203');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pfitzner, Hans', '207', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Salome', '206', '203');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Prokofjew, Sergej', '208', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Werke', '207', '203');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ravel, Maurice', '209', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Verdi, Giuseppe', '208', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Strawinsky, Igor', '210', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aidaerdi, Giuseppe', '209', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern', '211', '205');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Falstaff', '211', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oper (Überblick)', '212', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesamtaufnahmen', '212', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Puccini, Giacomo', '213', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Il Trovatore', '213', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Bohème', '214', '215');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Traviata', '214', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Madame Butterfly', '216', '215');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nabucco', '215', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tosca', '217', '215');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Opernchöre', '216', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern', '218', '215');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ouvertüren & Ballettmusik', '217', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rossini, Gioacchino', '219', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Querschnitte', '218', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Strauss, Richard', '220', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rigoletto', '219', '210');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ariadne', '221', '222');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wagner, Richard', '220', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Der Rosenkavalier', '223', '222');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Chöre', '221', '222');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Elektra', '224', '222');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sängerporträts', '223', '222');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Salome', '225', '222');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opernkomponisten', '224', '170');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Werke', '226', '222');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Berlioz, Hector', '225', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Verdi, Giuseppe', '227', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Britten, Benjamin', '227', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aidaerdi, Giuseppe', '228', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gluck, Christoph W.', '228', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Falstaff', '230', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gounod, Charles', '229', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesamtaufnahmen', '231', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Haydn, Joseph', '230', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Il Trovatore', '232', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Humperdinck, Engelbert', '231', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Traviata', '233', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Janácek, Leos', '232', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nabucco', '234', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Korngold, Erich W.', '233', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Opernchöre', '235', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lortzing, Albert', '234', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ouvertüren & Ballettmusik', '236', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mascagni, Pietro', '235', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Querschnitte', '237', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Massenet, Jules', '236', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rigoletto', '238', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Paisiello, Giovanni', '237', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern', '239', '229');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Saint-Saëns, Camille', '238', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wagner, Richard', '240', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schreker, Franz', '239', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Chöre', '241', '242');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tschaikowsky, Peter', '240', '226');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Querschnitte', '243', '242');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('LyrikCD', '241', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sängerporträts', '244', '242');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Anthologien', '242', '243');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opernkomponisten', '245', '187');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lyriker, A-Z', '244', '243');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Berlioz, Hector', '246', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('B', '245', '246');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Britten, Benjamin', '248', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland', '247', '248');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gluck, Christoph W.', '249', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Flüsse', '249', '250');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gounod, Charles', '250', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rhein& Regionen& Pläne& Sport', '251', '252');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Haydn, Joseph', '251', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Regionen& Pläne& Sport', '253', '250');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Humperdinck, Engelbert', '252', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('O-Q', '254', '255');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Janácek, Leos', '253', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Österreich', '256', '257');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Korngold, Erich W.', '254', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Themen', '258', '243');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lortzing, Albert', '255', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Arztromane& Erzählungen', '259', '260');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mascagni, Pietro', '256', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Familie', '261', '260');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Massenet, Jules', '257', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mann & Familie& Freundschaft& Erzählungen', '262', '263');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Paisiello, Giovanni', '258', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liebe', '264', '260');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Saint-Saëns, Camille', '259', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachten& Erzählungenn', '265', '260');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schreker, Franz', '260', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchen', '266', '57');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tschaikowsky, Peter', '261', '247');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bücher', '267', '268');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('LyrikCD', '262', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aufklärung', '269', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Anthologien', '263', '264');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aids& Ratgeber& Wissen', '271', '272');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lyriker, A-Z', '265', '264');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aufklärung für Jugendliche& Ratgeber& Wissen', '273', '272');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('B', '266', '267');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ausreißer& Ratgeber& Wissen', '274', '272');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '268', '269');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Behinderung& Ratgeber& Wissen', '275', '272');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Länder, A-Z', '270', '264');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gebrüder Grimm', '276', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '271', '272');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geld & Wirtschaft& Wissen', '277', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland', '273', '274');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichte', '278', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Flüsse', '275', '276');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Drittes Reich& Wissen', '279', '280');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rhein& Regionen& Pläne& Sport', '277', '278');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mittelalter& Wissen', '281', '280');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Regionen& Pläne& Sport', '279', '276');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gespenster& Grusel', '282', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('O-Q', '280', '272');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hans Christian Andersen', '283', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Österreich', '281', '282');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik', '284', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Themen', '283', '264');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein& Kassetten', '285', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Arztromane& Erzählungen', '284', '285');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Instrumental& Kassetten', '287', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Familie', '286', '285');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Karneval der Tiere& Kassetten', '288', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mann & Familie& Freundschaft& Erzählungen', '287', '288');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Komponisten& Kassetten', '289', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liebe', '289', '285');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Leopold Mozart & Sohn& Kassetten', '290', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachten& Erzählungenn', '290', '285');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Noch mehr Klassik& Kassetten', '291', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchen', '291', '65');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Peter und der Wolf& Kassetten', '292', '286');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bücher', '292', '293');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kunst', '293', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aufklärung', '294', '295');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr Kunst& Kultur& Wissen', '294', '295');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aids& Ratgeber& Wissen', '296', '297');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liederbücher', '296', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Aufklärung für Jugendliche& Ratgeber& Wissen', '298', '297');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchenbilderbücher', '297', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ausreißer& Ratgeber& Wissen', '299', '297');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchensammlungen', '298', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Behinderung& Ratgeber& Wissen', '300', '297');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Ländern', '299', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gebrüder Grimm', '301', '295');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Europa', '300', '301');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geld & Wirtschaft& Wissen', '302', '295');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland& Völkern', '302', '303');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichte', '303', '295');
 Error Message: No results were returned by the query.
-SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nachschlagen', '304', '270');
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Drittes Reich& Wissen', '304', '305');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mittelalter& Wissen', '306', '305');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gespenster& Grusel', '307', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hans Christian Andersen', '308', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik', '309', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein& Kassetten', '310', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Instrumental& Kassetten', '312', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Karneval der Tiere& Kassetten', '313', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Komponisten& Kassetten', '314', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Leopold Mozart & Sohn& Kassetten', '315', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Noch mehr Klassik& Kassetten', '316', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Peter und der Wolf& Kassetten', '317', '311');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kunst', '318', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr Kunst& Kultur& Wissen', '319', '320');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liederbücher', '321', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchenbilderbücher', '322', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Märchensammlungen', '323', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Ländern', '324', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Europa', '325', '326');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland& Völkern', '327', '328');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nachschlagen', '329', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lexika& Wissen', '330', '331');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Piraten& Grusel', '332', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Religion', '333', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinderbibeln& Philosophie& Wissen', '334', '335');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Philosophie& Philosophie& Wissen', '336', '335');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Religiöse Bücher', '337', '335');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Philosophie& Wissen', '338', '339');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sachbücher', '340', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dinosaurier', '341', '342');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eisbären, Robben & Seehunde', '343', '342');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pferde', '344', '342');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Julia', '345', '346');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '347', '346');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sagen', '348', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Heldensagen', '349', '350');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sagen für Kinder', '351', '350');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '352', '350');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sprache', '353', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alphabet& Wissen', '354', '355');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tiergeschichten', '356', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Katzen', '357', '358');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pferde', '359', '358');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Julia', '360', '361');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '362', '361');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '363', '358');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Umwelt', '364', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erde & Universum& Erdkunde& Wissen', '365', '366');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Länder', '367', '366');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dritte Welt& Völker& Erdkunde& Wissen', '368', '369');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sonstiges& Völker& Erdkunde& Wissen', '370', '369');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Vampire& Grusel', '371', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachtsgeschichten', '372', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wissenschaft', '373', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Experimente & Forschung& Technik& Wissen', '374', '375');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Technik', '376', '375');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Technik für Kinder& Technik& Wissen', '377', '378');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wie funktioniert das?& Technik& Wissen', '379', '375');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '380', '295');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CDs', '381', '293');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael', '382', '383');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Sprecher', '384', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beck, Rufus', '385', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Becker, Ben', '387', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Brückner, Christian', '388', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '389', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Heidenreich, Elke', '390', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lohmeyer, Peter', '391', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mues, Dietmar', '392', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ponnier, Matthias', '393', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quadflieg, Will', '394', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rowohlt, Harry', '395', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Thalbach, Katharina', '396', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wameling, Gerd', '397', '386');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Positives Denken', '398', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ratgeber & Lebenshilfe', '399', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reise, Sport & Abenteuer', '400', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Religion & Esoterik', '401', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rhetorik & Gespräch', '402', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Romane', '403', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alle Romane & Erzählungen& Erzählungen', '404', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Anthologien& Erzählungen', '406', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fantasy & Science Fiction& Erzählungen& Jugendbücher', '407', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frauen', '408', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frau & Familie& Erzählungen', '409', '410');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fußballgeschichten& Erzählungen& Jugendbücher', '411', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gruselgeschichten& Erzählungen& Jugendbücher', '412', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Historische Romane& Erzählungen& Jugendbücher', '413', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren', '414', '415');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '416', '417');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hohlbein, Wolfgang& Erzählungen', '418', '419');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Länder, A-Z', '420', '415');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland& Erzählungen', '421', '422');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('USA& Erzählungen', '423', '422');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen', '424', '415');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hörbücher (Lesungen)& Erzählungen', '425', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Indianergeschichten& Erzählungen& Jugendbücher', '426', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Krimis', '427', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Fünf Freunde& Erzählungen& Jugendbücher', '428', '429');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geheimhund Bello Bond& Erzählungen& Jugendbücher', '430', '429');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kalle Blomquist& Erzählungen& Jugendbücher', '431', '429');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TKKG& Erzählungen& Jugendbücher', '432', '429');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen& Jugendbücher', '433', '429');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mädchen& Erzählungen& Jugendbücher', '434', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Epochen', '435', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltliteratur', '436', '437');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Renaissance & Barock& Erzählungen', '438', '439');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Herkunft der Autoren', '440', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische & Kanadische Literatur& Erzählungen', '441', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Amerikanische Autoren', '443', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '444', '445');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '446', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren, A-Z', '447', '448');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-C', '449', '450');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '451', '452');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '453', '450');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eichendorff, Joseph von', '454', '455');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('G-H', '456', '450');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '457', '458');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L-N', '459', '450');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('May, Karl', '460', '461');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('P-R', '462', '450');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilke, Rainer M.', '463', '464');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '465', '448');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael& Erzählungen', '466', '448');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michaelungsliteratur& Erzählungen', '467', '448');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eschbach, Andreas& Erzählungen', '468', '448');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Englische Autoren', '469', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '470', '471');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Französische Autoren', '472', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '473', '474');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Noch mehr Autoren', '475', '442');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '476', '477');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Themen', '478', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Arztromane& Erzählungen', '479', '480');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Familie', '481', '480');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mann & Familie& Freundschaft& Erzählungen', '482', '483');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liebe', '484', '480');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachten& Erzählungenn', '485', '480');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Regionen', '486', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Arabien& Erzählungen', '487', '488');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tiergeschichten', '489', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Katzen& Erzählungen& Jugendbücher', '490', '491');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pferde', '492', '491');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Julia& Erzählungen& Jugendbücher', '493', '494');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen& Jugendbücher', '495', '494');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen& Jugendbücher', '496', '491');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Unterhaltungsliteratur', '497', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschsprachige Autoren', '498', '499');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren, A-Z', '500', '501');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-C', '502', '503');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '504', '505');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '506', '503');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eichendorff, Joseph von', '507', '508');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('G-H', '509', '503');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '510', '511');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L-N', '512', '503');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('May, Karl', '513', '514');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('P-R', '515', '503');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilke, Rainer M.', '516', '517');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '518', '501');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael& Erzählungen', '519', '501');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michaelungsliteratur& Erzählungen', '520', '501');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eschbach, Andreas& Erzählungen', '521', '501');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Autoren, A-Z', '522', '501');
+Error Message: ERROR: duplicate key value violates unique constraint "unique_name_parent_id"
+  Detail: Key (name, parent_category_id)=(Autoren, A-Z, 501) already exists.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-C', '523', '524');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bachmann, Ingeborg', '525', '526');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('D-F', '527', '524');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eichendorff, Joseph von', '528', '529');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('G-H', '530', '524');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gernhardt, Robert', '531', '532');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('L-N', '533', '524');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('May, Karl', '534', '535');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('P-R', '536', '524');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilke, Rainer M.', '537', '538');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('CD', '539', '501');
+Error Message: ERROR: duplicate key value violates unique constraint "unique_name_parent_id"
+  Detail: Key (name, parent_category_id)=(CD, 501) already exists.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michael& Erzählungen', '540', '501');
+Error Message: ERROR: duplicate key value violates unique constraint "unique_name_parent_id"
+  Detail: Key (name, parent_category_id)=(Ende, Michael& Erzählungen, 501) already exists.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ende, Michaelungsliteratur& Erzählungen', '541', '501');
+Error Message: ERROR: duplicate key value violates unique constraint "unique_name_parent_id"
+  Detail: Key (name, parent_category_id)=(Ende, Michaelungsliteratur& Erzählungen, 501) already exists.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eschbach, Andreas& Erzählungen', '542', '501');
+Error Message: ERROR: duplicate key value violates unique constraint "unique_name_parent_id"
+  Detail: Key (name, parent_category_id)=(Eschbach, Andreas& Erzählungen, 501) already exists.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Internationale Autoren', '543', '499');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allende, Isabel& Erzählungen', '544', '545');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erzählungen& Jugendbücher', '546', '405');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Selbstmanagement', '547', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sprachkurse', '548', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Englisch& Hörspiele', '549', '550');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Stress', '551', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Vogelstimmen', '552', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Themen', '553', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bildung & Wissen', '554', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Esoterik', '556', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Engel& Jenseits& Esoterik', '557', '558');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Jenseits& Esoterik', '559', '558');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musik', '560', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Religion', '561', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sport', '562', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weihnachten', '563', '555');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wirtschaft', '564', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wirtschaftsmathematik', '565', '566');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein', '567', '568');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick', '569', '566');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Yoga, Meditation & Entspannung', '570', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Zeitgeschichte', '571', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick-2', '572', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick-4', '573', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick-5', '574', '65');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Limited Editions', '575', '6');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative', '576', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Box-Sets', '578', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Country& Country', '579', '580');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Folk& Country', '581', '580');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz& Blues', '582', '580');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Songwriter& Country', '583', '580');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz & Blues', '584', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik', '585', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '586', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock', '587', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager & Oldies', '588', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Songwriter, Folk & Country', '589', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soundtracks & Musicals', '590', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Werbung & Compilations', '591', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltmusik', '592', '577');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Maxi-CDs', '593', '6');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative', '594', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dance & Electronic', '596', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gothic & Wave', '597', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz', '598', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Latin& Blues', '599', '600');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop', '601', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('R&B & Soul', '602', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rap & HipHop', '603', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock', '604', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager & Oldies', '605', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Songwriter, Folk & Country', '606', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltmusik', '607', '595');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Werbung', '608', '6');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative& Compilations', '609', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Blues& Compilations', '611', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Country& Compilations', '612', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dance & Electronic& Compilations', '613', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Easy Listening & Lounge& Compilations', '614', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Folk& Compilations', '615', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gothic & Wave& Compilations', '616', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz& Compilations', '617', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pop& Compilations', '618', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('R&B & Soul& Compilations', '619', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rock& Compilations', '620', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlager & Oldies& Compilations', '621', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Serien', '622', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kuschel Klassik& Compilations', '623', '624');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weltmusik& Compilations', '625', '610');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Formats', '626', NULL);
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Audio CDs', '627', '628');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Authors, A-Z', '629', '630');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('( D )', '631', '632');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dickens, Charles', '633', '634');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hardcover& Fiction', '635', '636');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Doyle, Arthur Conan', '637', '634');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('( T )', '638', '632');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tolkien, J.R.R.& Horror', '639', '640');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General& Fantasy', '641', '642');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Townsend, Sue', '643', '640');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General', '644', '630');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Classics& Fiction', '645', '646');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Contemporary& Fiction', '647', '646');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Literature', '648', '630');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Classics& Fiction', '649', '650');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General& Fiction', '651', '650');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Literary Classics& Fiction', '652', '650');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Short Stories& Fiction', '653', '650');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Unabridged& Fiction', '654', '650');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Music', '655', '630');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General', '656', '657');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mystery & Thrillers', '658', '630');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Audiocassettes', '659', '628');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Authors, A-Z', '660', '661');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('( D )', '662', '663');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dickens, Charles', '664', '665');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hardcover& Fiction', '666', '667');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Doyle, Arthur Conan', '668', '665');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('( T )', '669', '663');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tolkien, J.R.R.& Horror', '670', '671');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General& Fantasy', '672', '673');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Townsend, Sue', '674', '671');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General', '675', '661');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Classics& Fiction', '676', '677');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Contemporary& Fiction', '678', '677');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Literature', '679', '661');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Classics& Fiction', '680', '681');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('General& Fiction', '682', '681');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Literary Classics& Fiction', '683', '681');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Short Stories& Fiction', '684', '681');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Unabridged& Fiction', '685', '681');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mystery', '686', '661');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Authors, A-Z', '687', '688');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('( D )', '689', '690');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Doyle, Sir Arthur Conan& Thrillers', '691', '692');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mystery& Thrillers', '693', '688');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Genres', '694', NULL);
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Action, Thriller', '695', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kriegsfilm& Horror', '697', '698');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Serien', '699', '698');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Band of Brothers', '700', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Befreiung, Die', '702', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Chiefs', '703', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Laurel und Hardy', '704', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr TV-Serien& Horror', '705', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sins', '706', '701');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dokumentationen', '707', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Biografie', '708', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Geschichte', '710', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Erinnerungen', '711', '712');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr Dokumentation', '713', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musik', '714', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein& Hörspiele', '715', '716');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klassik', '717', '716');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein', '718', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bach, Carl Philipp Emmanuel', '720', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bach, Johann Christian', '721', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beethoven, Ludwig van', '722', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Violinkonzert & Romanzenven, Ludwig van', '723', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller, Ludwig van', '725', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Arien & Szenen', '726', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Chorwerke', '727', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kammermusik', '728', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviertrios', '729', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Serenaden', '731', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquartette (Bestseller)', '732', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquartette (Spätwerk)', '733', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquartette (bis op. 95)', '734', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquintette', '735', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Violinsonaten & Variationen', '736', '730');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviermusik', '737', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frühe Sonaten', '738', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Impromptus & Moments musicaux', '740', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klavier zu 4 Händen', '741', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviersonaten (Frühe & Mittlere)', '742', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviersonaten (Spätwerke)', '743', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mittlere Sonaten', '744', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sonaten', '745', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Späte Sonaten', '746', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wandererfantasie', '747', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Klavierwerke', '748', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Werke', '749', '739');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Messen', '750', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ouvertüren', '751', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien', '752', '724');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abschiedssinfonie (Nr. 45)', '753', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '755', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Der Bär (Nr. 82)', '756', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frühwerke (1757-65)', '757', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesamtaufnahmen', '758', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Passione (Nr. 49)', '759', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Londoner Sinf. Nr. 93-98 (1791-2)', '760', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mit dem Paukenschlag (Nr. 94)', '761', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pariser Sinf. Nr. 82-87 (1785-6)', '762', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonia concertante (1792)', '763', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 1 (Frühlingssinfonie)', '764', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 2 (Lobgesang)', '765', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Eroica)', '766', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Rheinische)', '767', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Schottische)', '768', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 4 (Italienische)', '769', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 5 (Reformation)', '770', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 6 (Pastorale)', '771', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 8', '772', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.1 D-dur', '773', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.3 D-dur', '774', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.5 B-dur', '775', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.6 C-dur', '776', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.8 h-moll (Unvollendete)', '777', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 50-75 (1773-81)', '778', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 76-81 (1782-4)', '779', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 88-92 (1787-9)', '780', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichersinfonien', '781', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sturm & Drang (1767-72)', '782', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Trauer-Sinfonie (Nr. 44)', '783', '754');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Benda, Georg Anton', '784', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Boccherini, Luigi', '785', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Cannabich, Johann Christian', '786', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Cherubini, Luigi', '787', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Clementi, Muzio', '788', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Czerny, Carl', '789', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Danzi, Franz', '790', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dittersdorf, Karl Ditters von', '791', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Field, John', '792', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gluck, Christoph Willibald', '793', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Haydn, Franz Joseph', '794', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '795', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bläserkammermusik', '797', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bläserkonzerte', '798', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bühnenwerke', '799', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Cellokonzerte', '800', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Divertimenti', '801', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviermusik', '802', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frühe Sonaten', '803', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Impromptus & Moments musicaux', '805', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klavier zu 4 Händen', '806', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviersonaten (Frühe & Mittlere)', '807', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviersonaten (Spätwerke)', '808', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mittlere Sonaten', '809', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sonaten', '810', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Späte Sonaten', '811', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wandererfantasie', '812', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Klavierwerke', '813', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Werke', '814', '804');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Messen', '815', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oratorium', '816', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Die Jahreszeiten', '817', '818');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Die Schöpfung', '819', '818');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Elias', '820', '818');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Paulus', '821', '818');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Ouvertüren & Tänze', '822', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien', '823', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Abschiedssinfonie (Nr. 45)', '824', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '826', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Der Bär (Nr. 82)', '827', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frühwerke (1757-65)', '828', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gesamtaufnahmen', '829', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Passione (Nr. 49)', '830', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Londoner Sinf. Nr. 93-98 (1791-2)', '831', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mit dem Paukenschlag (Nr. 94)', '832', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pariser Sinf. Nr. 82-87 (1785-6)', '833', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonia concertante (1792)', '834', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 1 (Frühlingssinfonie)', '835', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 2 (Lobgesang)', '836', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Eroica)', '837', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Rheinische)', '838', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 3 (Schottische)', '839', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 4 (Italienische)', '840', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 5 (Reformation)', '841', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 6 (Pastorale)', '842', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr. 8', '843', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.1 D-dur', '844', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.3 D-dur', '845', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.5 B-dur', '846', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.6 C-dur', '847', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonie Nr.8 h-moll (Unvollendete)', '848', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 50-75 (1773-81)', '849', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 76-81 (1782-4)', '850', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sinfonien Nr. 88-92 (1787-9)', '851', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichersinfonien', '852', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sturm & Drang (1767-72)', '853', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Trauer-Sinfonie (Nr. 44)', '854', '825');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquartette', '855', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '856', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kaiserquartett (Nr. 77)', '858', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lerchenquartett (Nr. 63)', '859', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 1 ""La Chasse""', '860', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 38 ""Der Scherz""', '861', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 78 ""L''Aurore""', '862', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quinten-Quartett (Nr. 76)', '863', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reiter-Quartett (Nr. 74)', '864', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Serenaden-Quartett (Nr. 17)', '865', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 1 & 2 (1761)', '866', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 17 (1771, Nr. 25-30)', '867', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 42 (Nr. 43)', '868', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 50 (1787, Nr. 44-49)', '869', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 54 & 55 (1788, Nr. 57-62)', '870', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 64 (1790, Nr. 63-68)', '871', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 71 & 74 (1793, Nr. 69-74)', '872', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 76 (1797, Nr. 75-80)', '873', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 77 & 103 (Nr. 81-83)', '874', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 9 (1770, Nr. 19-24)', '875', '857');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Verschiedene Duos & Trios', '876', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Kirchenmusik', '877', '796');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Haydn, Johann Michaelen', '878', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hummel, Johann Nepomuk', '879', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kraus, Joseph Martin', '880', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lexika & Nachschlagewerke& Comics', '881', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Messen', '882', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bach, Joh. Sebastian', '883', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Andere Aufnahmen', '885', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Gardiner, John Eliot', '887', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('H-Moll Messe& Orgel', '888', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Harnoncourt, Nikolaus', '889', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kantaten (Überblick)', '890', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Koopman, Ton', '891', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Leonhardt, Gustav', '892', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pommer, Max', '893', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Richter, Karl', '894', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rilling, Helmuth', '895', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rotzsch, Hans-Joachim', '896', '886');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beethoven, Ludwig van& Orgel', '897', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bruckner, Anton& Orgel', '898', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Byrd, William& Orgel', '899', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Haydn, Joseph& Orgel', '900', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Josquin Desprez& Orgel', '901', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lasso, Orlando di& Orgel', '902', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Messen (Überblick)& Orgel', '903', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mozart, Wolfgang A.& Orgel', '904', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Palestrina, Giovanni P. da& Orgel', '905', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schubert, Franz& Orgel', '906', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tallis, Thomas& Orgel', '907', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Victoria, Tomás Luis de& Orgel', '908', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Messen& Orgel', '909', '884');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mozart, Leopold', '910', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestsellert, Wolfgang Amadeus', '911', '912');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Divertimenti', '913', '912');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller& Serenaden', '914', '915');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für Bläser& Serenaden', '916', '915');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für Streicher& SerenadenWolfgang Amadeus', '917', '915');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für gemischte Besetzungen& Serenaden', '918', '915');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mozart, Wolfgang Amadeus', '919', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestsellerfgang Amadeus', '920', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestsellerik', '922', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Divertimenti', '923', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller& Serenaden', '924', '925');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für Bläser& Serenaden', '926', '925');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für Streicher& SerenadenWolfgang Amadeus', '927', '925');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Für gemischte Besetzungen& Serenaden', '928', '925');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kantaten', '929', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kirche', '930', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kleinere Werke', '931', '932');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Litaneien & Vespern', '933', '932');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Messen', '934', '932');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Requiem', '935', '932');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klavierlieder & Kanons', '936', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviermusik (2 Pianisten)', '937', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviermusik (Solo)', '938', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Klaviertrio', '939', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Konzertarien & -szenen', '940', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Konzerte für Bläser', '941', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Konzerte für Klavieren', '942', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Konzerte für Violine', '943', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Opern', '944', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Così fan tutte& Singspiele', '945', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Die Entführung aus dem Serail& Singspiele', '947', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Die Zauberflöte& Singspiele', '948', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Don Giovanni& Singspiele', '949', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('La Clemenza di Tito& Singspiele', '950', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Le nozze di Figaro& Singspiele', '951', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Weitere Opern & Singspiele& Singspiele', '952', '946');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquartette', '953', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '954', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kaiserquartett (Nr. 77)', '956', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Lerchenquartett (Nr. 63)', '957', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 1 ""La Chasse""', '958', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 38 ""Der Scherz""', '959', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quartett Nr. 78 ""L''Aurore""', '960', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Quinten-Quartett (Nr. 76)', '961', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reiter-Quartett (Nr. 74)', '962', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Serenaden-Quartett (Nr. 17)', '963', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 1 & 2 (1761)', '964', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 17 (1771, Nr. 25-30)', '965', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 42 (Nr. 43)', '966', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 50 (1787, Nr. 44-49)', '967', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 54 & 55 (1788, Nr. 57-62)', '968', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 64 (1790, Nr. 63-68)', '969', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 71 & 74 (1793, Nr. 69-74)', '970', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 76 (1797, Nr. 75-80)', '971', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 77 & 103 (Nr. 81-83)', '972', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('op. 9 (1770, Nr. 19-24)', '973', '955');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Streichquintette', '974', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Symphonien', '975', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Violinsonaten', '976', '921');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Oper', '977', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Paisiello, Giovanni', '978', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pergolesi, Giovanni Battistaen', '979', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reichardt, Johann Friedrich', '980', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Salieri, Antonio', '981', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schulz, Johann Abraham Peter', '982', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soler, Antonio', '983', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Solokonzerte', '984', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Stamitz, Carl', '985', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Stamitz, Johann', '986', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wagenseil, Johann Christoph', '987', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Zelter, Carl Friedrich', '988', '719');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rolf Zuckowski& Hörspiele', '989', '716');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Comics', '990', '716');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wissenschaft & Technik', '991', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Zeitgeschichte', '992', '709');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Drama', '993', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kriegsfilm', '994', '995');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinder', '996', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Filme für die ganze Familie', '997', '998');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Slapstick& Familie', '999', '1000');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinderlieder& Familie', '1001', '998');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr Filme für Kinder& Familie', '1002', '998');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Nach Alter', '1003', '998');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('0-4 Jahre& Familie', '1004', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('0-4 Jahre& Hörspiele', '1006', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('10-12 Jahre& Familie', '1007', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('10-12 Jahre& Hörspiele', '1008', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('12-14 Jahre& Hörspiele', '1009', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('4-8 Jahre& Familie', '1010', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('4-8 Jahre& Hörspiele', '1011', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8-10 Jahre& Familie', '1012', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('8-10 Jahre& Hörspiele', '1013', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Erstes Lesealter (4-8 Jahre)& Jugendbücher', '1014', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jugendbücher (12-14 Jahre)& Jugendbücher', '1015', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jugendbücher (ab 14 Jahren)& Jugendbücher', '1016', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinderbücher (1-4 Jahre)& Jugendbücher', '1017', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinderbücher (10-12 Jahre)& Jugendbücher', '1018', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kinderbücher (8-10 Jahre)& Jugendbücher', '1019', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Jugendbücher', '1020', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblickder- & Jugendbücher', '1021', '1005');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Serienhits für Kids', '1022', '998');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tabaluga& Familie', '1023', '1024');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Komödie', '1025', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Slapstick-Komödie', '1026', '1027');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musik-DVDs', '1028', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlagerk-DVDs', '1029', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('PopDVDs', '1031', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative', '1032', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Blues', '1033', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Country & Folk', '1034', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('DVD-Singles', '1035', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Electronic & Dance', '1036', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hardrock', '1037', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Heavy Metal', '1038', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Jazz', '1039', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Karaoke', '1040', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr Musik', '1041', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musikfilm', '1042', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musical', '1043', '1044');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Reggae', '1045', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rockes', '1046', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sammlereditionen', '1047', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sampler', '1048', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schlageres', '1049', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Austropop& Oldies', '1050', '1051');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Box-Sets& Oldies', '1052', '1051');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutscher Schlager& Oldies', '1053', '1051');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Liedermacher& Oldies', '1054', '1051');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Soul', '1055', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Volksmusik', '1056', '1030');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein& Oldies', '1057', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Blasmusik& Oldies', '1059', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Instrumental& Oldies', '1060', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Neue Volksmusik& Oldies', '1061', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Staade Zeit& Oldies', '1062', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Tanzlmusi& Oldies', '1063', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Volkssänger& Oldies', '1064', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Wienerlied& Oldies', '1065', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Zither& Oldies', '1066', '1058');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Produktionsländer', '1067', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Australien', '1068', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Hawaii & Pazifik', '1070', '1071');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('BRD', '1072', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Belgien', '1073', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Brasilien', '1074', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('China', '1075', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Deutschland', '1076', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dänemark', '1077', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Frankreich', '1078', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Großbritannien', '1079', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Indien', '1080', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Irland', '1081', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Italien', '1082', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Japan', '1083', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kanada', '1084', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Niederlande', '1085', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Russland', '1086', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schweden', '1087', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schweiz', '1088', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Spanien', '1089', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Südafrika', '1090', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('USA', '1091', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Österreich', '1092', '1069');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sprachfassungen', '1093', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dänisch', '1094', '1095');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Englisch', '1096', '1095');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Dokus', '1097', '1098');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Komödie', '1099', '1098');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musikfilm', '1100', '1098');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Niederländisch', '1101', '1095');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Portugiesisch', '1102', '1095');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Schwedisch', '1103', '1095');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Produktionen', '1104', '696');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('TV-Serien', '1105', '1106');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Band of Brothers', '1107', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Befreiung, Die', '1109', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Chiefs', '1110', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Laurel und Hardy', '1111', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Mehr TV-Serien& Horror', '1112', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Sins', '1113', '1108');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Interpreten', '1114', NULL);
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('A-ha', '1115', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('ACDC', '1117', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Beatles', '1118', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bruce Springsteen', '1119', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Celine Dion', '1120', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Depeche Mode', '1121', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Eric Clapton', '1122', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Madonna', '1123', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Metallica', '1124', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Michael Jackson', '1125', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Neil Young', '1126', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Prince', '1127', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Pur', '1128', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('R.E.M.', '1129', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Robbie Williams', '1130', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Rolling Stones', '1131', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('The Who', '1132', '1116');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Kategorien', '1133', NULL);
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Börse', '1134', '1135');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bauen', '1136', '1137');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Verdingungsordnung für Bauleistungen (VOB)& Immobilien& Geld', '1138', '1139');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Überblick& Geld', '1140', '1137');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative', '1141', '1135');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemeine', '1142', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative Rock', '1144', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Alternative deutsch', '1145', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Bestseller', '1146', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('British Alternative', '1147', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Crossover', '1148', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Grunge', '1149', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Industrial', '1150', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Musikkassetten', '1151', '1143');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Allgemein& Oldies', '1152', '1153');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Blues& Blues', '1154', '1153');
+Error Message: No results were returned by the query.
+SQL Statement: INSERT INTO categories (name, category_id, parent_category_id) VALUES ('Country& Country', '1155', '1153');
 Error Message: No results were returned by the query.

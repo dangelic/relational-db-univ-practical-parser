@@ -112,9 +112,14 @@ public class PostgresConnector {
                     statement.close();
                     System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");
                 } catch (SQLException e) {
-                    if (e.getMessage().contains("No results were returned by the query")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}
-                    else {System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement +"\u001B[0m");}
-                    writeErrorToFile(sqlStatement, e.getMessage(), pathToLogFile);
+                    if (!e.getMessage().contains("insert or update on table \"books\" violates foreign key constraint \"books_asin_fkey") &&
+                            !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"dvds_asin_fkey") &&
+                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"cds_asin_fkey"))
+                    {
+                        if (e.getMessage().contains("No results were returned by the query")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}
+                        else {System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement +"\u001B[0m");}
+                        writeErrorToFile(sqlStatement, e.getMessage(), pathToLogFile);
+                    }
                 }
             }
         } catch (Exception e) {

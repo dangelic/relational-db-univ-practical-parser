@@ -38,6 +38,37 @@ public class QueryBuilderCommon {
         return queryList;
     }
 
+    public static List<String> getInsertQueriesForCommonEntityWithGeneratedId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String idName, int idStart) {
+        String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
+        List<String> queryList = new ArrayList<>();
+        int currentId = idStart;
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            Object[] values = new Object[columns.length + 1]; // Add one for the generated id
+            String[] mappedColumns = new String[columns.length + 1]; // Add one for the generated id
+
+            for (int i = 0; i < columns.length; i++) {
+                String column = columns[i];
+                String dataType = dataTypeMapping.get(column);
+                String columnName = getColumnName(dataType);
+                List<String> columnData = hashMap.get(column);
+                values[i] = getColumnValue(columnData, dataType);
+                mappedColumns[i] = columnName; // Store mapped column names
+            }
+
+            // Add generated id column and value
+            String idColumnName = getColumnName(idName);
+            values[columns.length] = String.valueOf(currentId++); // Assuming idStart is an int
+            mappedColumns[columns.length] = idColumnName;
+
+            String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values); // Use mapped column names
+            queryList.add(sql);
+        }
+
+        return queryList;
+    }
+
+
     public static List<String> getInsertQueriesForNestedEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();

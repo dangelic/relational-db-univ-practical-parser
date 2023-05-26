@@ -42,7 +42,7 @@ public class ParserToMapToGenerateSQLCategories {
 
     public List<String> generateSQLCategoryEntity(String xmlFilePath) {
         List<String> categorySQLStrings = new ArrayList<>();
-        Set<String> uniqueCategoryNames = new HashSet<>();
+        // Set<String> uniqueCategoryNames = new HashSet<>();
 
         try {
             File xmlFile = new File(xmlFilePath);
@@ -61,13 +61,12 @@ public class ParserToMapToGenerateSQLCategories {
                 Element category = (Element) categories.item(i);
                 String categoryName = category.getFirstChild().getNodeValue().trim();
 
-                if (uniqueCategoryNames.add(categoryName)) {
                     String categoryId = Integer.toString(categoryIdCounter++);
                     String parentId = generateParentId(category);
 
                     String categorySQL = generateCategorySQL(categoryId, categoryName, parentId);
                     categorySQLStrings.add(categorySQL);
-                }
+
             }
         } catch (SAXException | IOException e) {
             e.printStackTrace();

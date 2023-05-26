@@ -66,18 +66,12 @@ public  class EntityFieldDTMappings {
 
     public static HashMap<String, String> getPriceinfosEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
+        FieldDTMappings.put("asin", "products_asin@stringtext");
+        FieldDTMappings.put("shop_id", "shops_shop_id@stringtext");
         FieldDTMappings.put("price", "price@integer");
         FieldDTMappings.put("price_multiplier", "multiplier@float");
         FieldDTMappings.put("price_currency", "currency@stringtext");
         FieldDTMappings.put("price_state", "state@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionProductsPriceinfosshopsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("products_asin", "products_asin@stringtext");
-        FieldDTMappings.put("priceinfos_priceinfo_id", "priceinfos_priceinfo_id@stringtext");
-        FieldDTMappings.put("shops_shop_id", "shops_shop_id@stringtext");
         return FieldDTMappings;
     }
     public static HashMap<String, String> getUserreviewsEntityFieldDTMappings() {

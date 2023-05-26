@@ -92,16 +92,14 @@ SQL Statement: CREATE TABLE shopaddresses (   shopaddress_id VARCHAR(9) ,   stre
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE shops (   shop_id VARCHAR(9) ,   shopaddresses_shopaddress_id VARCHAR(9)  REFERENCES shopaddresses(shopaddress_id),   name VARCHAR(255) ,   PRIMARY KEY (shop_id) );
 Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE priceinfos (   priceinfo_id VARCHAR(9),   price FLOAT(2),   multiplier FLOAT(2),   currency VARCHAR(9),   state VARCHAR(15),   PRIMARY KEY (priceinfo_id) );
-Error Message: No results were returned by the query.
-SQL Statement: CREATE TABLE junction_products_priceinfos_shops (   products_asin VARCHAR(12)  REFERENCES products(asin),   priceinfos_priceinfo_id VARCHAR(9)  REFERENCES priceinfos(priceinfo_id),   shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),   PRIMARY KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) );
+SQL Statement: CREATE TABLE priceinfos (   priceinfo_id VARCHAR(9),   products_asin VARCHAR(12)  REFERENCES products(asin),   shops_shop_id VARCHAR(9)  REFERENCES shops(shop_id),   price FLOAT(2),   multiplier FLOAT(2),   currency VARCHAR(9),   state VARCHAR(15),   PRIMARY KEY (priceinfo_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE userreviews (   products_asin VARCHAR(12)  REFERENCES products(asin),   users_username VARCHAR(30)  REFERENCES users(username),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (products_asin, users_username) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE guestreviews (   guestreview_id VARCHAR(9),   products_asin VARCHAR(12)  REFERENCES products(asin),   rating INTEGER,   helpful_votes INTEGER,   summary TEXT,   content TEXT,   review_date DATE,   PRIMARY KEY (guestreview_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE purchases (   purchase_id VARCHAR(12),   products_asin VARCHAR(12),   priceinfos_priceinfo_id VARCHAR(9),   shops_shop_id VARCHAR(9),   users_username VARCHAR(30)  REFERENCES users(username),   purchase_date DATE,   FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),   PRIMARY KEY (purchase_id) );
-Error Message: No results were returned by the query.
+Error Message: ERROR: relation "junction_products_priceinfos_shops" does not exist
 SQL Statement: CREATE TABLE deliveryaddresses (   deliveryaddress_id VARCHAR(9) ,   street VARCHAR(255),   zip VARCHAR(255),   PRIMARY KEY (deliveryaddress_id) );
 Error Message: No results were returned by the query.
 SQL Statement: CREATE TABLE authors (   author_id VARCHAR(9) ,   name VARCHAR(255),   PRIMARY KEY (author_id) );
@@ -162,7 +160,7 @@ SQL Statement: ALTER TABLE users ADD CONSTRAINT unique_username UNIQUE (username
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE users ALTER COLUMN username SET NOT NULL;
 Error Message: No results were returned by the query.
-SQL Statement: ALTER TABLE categories ADD CONSTRAINT unique_category_id UNIQUE (category_id);
+SQL Statement: ALTER TABLE categories ADD CONSTRAINT unique_category_id UNIQUE (category_id), ADD CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id);
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE categories ALTER COLUMN category_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
 Error Message: No results were returned by the query.
@@ -182,13 +180,9 @@ SQL Statement: ALTER TABLE shops ADD CONSTRAINT unique_shop_id UNIQUE (shop_id);
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE shops ALTER COLUMN shop_id SET NOT NULL, ALTER COLUMN shopaddresses_shopaddress_id SET NOT NULL, ALTER COLUMN name SET NOT NULL;
 Error Message: No results were returned by the query.
-SQL Statement: ALTER TABLE priceinfos ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id);
-Error Message: No results were returned by the query.
-SQL Statement: ALTER TABLE priceinfos ALTER COLUMN priceinfo_id SET NOT NULL;
-Error Message: No results were returned by the query.
-SQL Statement: ALTER TABLE junction_products_priceinfos_shops ADD CONSTRAINT unique_junction_products_priceinfos_shops UNIQUE (products_asin, priceinfos_priceinfo_id, shops_shop_id);
-Error Message: No results were returned by the query.
-SQL Statement: ALTER TABLE junction_products_priceinfos_shops ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL, ALTER COLUMN shops_shop_id SET NOT NULL;
+SQL Statement: ALTER TABLE priceinfos ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id), ADD CONSTRAINT unique_priceinfo_id UNIQUE (shops_shop_id, products_asin, multiplier, price, currency, state);
+Error Message: ERROR: relation "unique_priceinfo_id" already exists
+SQL Statement: ALTER TABLE priceinfos ALTER COLUMN priceinfo_id SET NOT NULL, ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN shops_shop_id SET NOT NULL;
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE userreviews ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username), ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
 Error Message: No results were returned by the query.
@@ -199,9 +193,9 @@ Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE guestreviews ALTER COLUMN guestreview_id SET NOT NULL, ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN rating SET NOT NULL, ALTER COLUMN helpful_votes SET NOT NULL, ALTER COLUMN summary SET NOT NULL, ALTER COLUMN content SET NOT NULL, ALTER COLUMN review_date SET NOT NULL;
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE purchases ADD CONSTRAINT unique_purchase_id UNIQUE (purchase_id);
-Error Message: No results were returned by the query.
+Error Message: ERROR: relation "purchases" does not exist
 SQL Statement: ALTER TABLE purchases ALTER COLUMN purchase_id SET NOT NULL, ALTER COLUMN products_asin SET NOT NULL, ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL, ALTER COLUMN shops_shop_id SET NOT NULL, ALTER COLUMN users_username SET NOT NULL;
-Error Message: No results were returned by the query.
+Error Message: ERROR: relation "purchases" does not exist
 SQL Statement: ALTER TABLE deliveryaddresses ADD CONSTRAINT unique_deliveryaddress_id UNIQUE (deliveryaddress_id);
 Error Message: No results were returned by the query.
 SQL Statement: ALTER TABLE deliveryaddresses ALTER COLUMN deliveryaddress_id SET NOT NULL, ALTER COLUMN zip SET NOT NULL, ALTER COLUMN street SET NOT NULL;
