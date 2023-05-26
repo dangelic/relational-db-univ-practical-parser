@@ -64,7 +64,6 @@ public class ETLProcess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
     }
 
     private static List<HashMap<String, List<String>>> parseProductsFromShopsMerged(String pathToLeipzigRawXML, String pathToDresdenRawXML) {
