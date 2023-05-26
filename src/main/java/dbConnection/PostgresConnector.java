@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,20 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.sql.ResultSetMetaData;
 
-
-
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.ArrayList;
 
 public class PostgresConnector {
     private static Connection connection;
@@ -49,18 +34,6 @@ public class PostgresConnector {
         }
     }
 
-    public static void executeSQL(String sql, String pathToLogFile) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-            statement.close();
-            System.out.println("\u001B[32mQuery executed successfully: " + sql + "\u001B[0m");
-        } catch (SQLException e) {
-            System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
-            writeErrorToFile(sql, e.getMessage(), pathToLogFile);
-        }
-    }
-
     private static void writeErrorToFile(String sql, String errorMessage, String pathToLogFile) {
         try {
             FileWriter writer = new FileWriter(pathToLogFile, true);
@@ -72,22 +45,6 @@ public class PostgresConnector {
         }
     }
 
-    public ResultSet executeSQLQuerySingle(String sql, List<String> values, String pathToLogFile) {
-        ResultSet resultSet = null;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            // Set parameter values
-            for (int i = 0; i < values.size(); i++) {
-                statement.setString(i + 1, values.get(i));
-            }
-            resultSet = statement.executeQuery();
-            System.out.println("\u001B[32mQuery executed successfully: " + sql + "\u001B[0m");
-        } catch (SQLException e) {
-            System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
-            writeErrorToFile(sql, e.getMessage(), pathToLogFile);
-        }
-        return resultSet;
-    }
 
     public static List<HashMap<String, Object>> executeSQLQueryBatch(List<String> sqlStatements, String pathToLogFile) {
         List<HashMap<String, Object>> results = new ArrayList<>();
@@ -114,19 +71,22 @@ public class PostgresConnector {
                 } catch (SQLException e) {
                     if (!e.getMessage().contains("insert or update on table \"books\" violates foreign key constraint \"books_asin_fkey") &&
                             !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"dvds_asin_fkey") &&
-                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"cds_asin_fkey"))
+                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"cds_asin_fkey") &&
+                            !e.getMessage().contains("null value in column \"name\" of relation \"tracks\" violates not-null constraint") &&
+                            !e.getMessage().contains("insert or update on table \"priceinfos\" violates foreign key constraint \"priceinfos_products_asin_fkey\""))
+
                     {
-                        if (e.getMessage().contains("No results were returned by the query")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}
-                        else {System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement +"\u001B[0m");}
-                        writeErrorToFile(sqlStatement, e.getMessage(), pathToLogFile);
+                        if (e.getMessage().contains("No results were returned by the query.")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}
+                        else {
+                            System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement +"\u001B[0m");
+                            writeErrorToFile(sqlStatement, e.getMessage(), pathToLogFile);
+                        }
                     }
                 }
             }
         } catch (Exception e) {
             System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
-            writeErrorToFile(sqlStatements.toString(), e.getMessage(), pathToLogFile);
         }
         return results;
     }
-
 }

@@ -25,7 +25,7 @@ public class XMLParsingProducts {
 
     public static List<HashMap<String, List<String>>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
 
-        convertFileEncoding(filePath, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8);
+        // if (SHOP_MODE.equals("DRESDEN")) convertFileEncoding(filePath, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8);
 
         List<Item> items = parseXML(filePath, SHOP_MODE);
 
@@ -78,7 +78,7 @@ public class XMLParsingProducts {
 
             itemMap.put("audiotext_type", item.getAudiotextType());
             itemMap.put("audiotext_language", item.getAudiotextLanguage());
-            itemMap.put("audiotext_audio format", item.getAudiotextAudioformat());
+            itemMap.put("audiotext_audio_format", item.getAudiotextAudioformat());
 
             itemMap.put("similars", item.getSimilars());
             itemMap.put("tracks", item.getTracks());

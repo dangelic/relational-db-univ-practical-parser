@@ -4,7 +4,9 @@
 ALTER TABLE products
 ADD CONSTRAINT unique_asin UNIQUE (asin),
 ADD CONSTRAINT unique_upc UNIQUE (upc),
-ADD CONSTRAINT unique_ean UNIQUE (ean);
+ADD CONSTRAINT unique_ean UNIQUE (ean),
+ADD CONSTRAINT check_ean_length CHECK (length(ean) <= 14),
+ADD CONSTRAINT check_upc_length CHECK (length(ean) <= 13);
 
 ALTER TABLE products
 ALTER COLUMN asin SET NOT NULL,
@@ -57,6 +59,7 @@ ADD CONSTRAINT unique_address_id UNIQUE (shopaddress_id);
 
 ALTER TABLE shopaddresses
 ALTER COLUMN shopaddress_id SET NOT NULL,
+ALTER COLUMN shops_shop_id SET NOT NULL,
 ALTER COLUMN street SET NOT NULL,
 ALTER COLUMN zip SET NOT NULL;
 
@@ -66,13 +69,12 @@ ADD CONSTRAINT unique_shop_id UNIQUE (shop_id);
 
 ALTER TABLE shops
 ALTER COLUMN shop_id SET NOT NULL,
-ALTER COLUMN shopaddresses_shopaddress_id SET NOT NULL,
 ALTER COLUMN name SET NOT NULL;
 
 -- #### priceinfos
 ALTER TABLE priceinfos
 ADD CONSTRAINT unique_priceinfo_id UNIQUE (priceinfo_id),
-ADD CONSTRAINT unique_priceinfo_id UNIQUE (shops_shop_id, products_asin, multiplier, price, currency, state);
+ADD CONSTRAINT unique_priceinfo_constellation UNIQUE (shops_shop_id, products_asin, multiplier, price, currency, state);
 
 ALTER TABLE priceinfos
 ALTER COLUMN priceinfo_id SET NOT NULL,
@@ -81,6 +83,7 @@ ALTER COLUMN shops_shop_id SET NOT NULL;
 
 -- #### userreviews
 ALTER TABLE userreviews
+ADD CONSTRAINT unique_userreview_id UNIQUE (userreview_id),
 ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username),
 ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
 
@@ -91,8 +94,7 @@ ALTER COLUMN rating SET NOT NULL,
 ALTER COLUMN helpful_votes SET NOT NULL,
 ALTER COLUMN summary SET NOT NULL,
 ALTER COLUMN content SET NOT NULL,
-ALTER COLUMN review_date SET NOT NULL,
-ADD CONSTRAINT check_rating_range_userreviews CHECK (rating >= 0 AND rating <= 5);
+ALTER COLUMN review_date SET NOT NULL;
 
 -- #### guestreviews
 ALTER TABLE guestreviews
@@ -116,7 +118,6 @@ ALTER TABLE purchases
 ALTER COLUMN purchase_id SET NOT NULL,
 ALTER COLUMN products_asin SET NOT NULL,
 ALTER COLUMN priceinfos_priceinfo_id SET NOT NULL,
-ALTER COLUMN shops_shop_id SET NOT NULL,
 ALTER COLUMN users_username SET NOT NULL;
 
 -- #### deliveryaddresses
@@ -256,7 +257,8 @@ ALTER COLUMN labels_label_id SET NOT NULL;
 
 -- #### tracks
 ALTER TABLE tracks
-ADD CONSTRAINT unique_trackname_cd UNIQUE (cds_asin, name);
+ADD CONSTRAINT unique_track_id UNIQUE (track_id),
+ADD CONSTRAINT unique_trackname_cd UNIQUE (name, cds_asin);
 
 ALTER TABLE tracks
 ALTER COLUMN name SET NOT NULL,

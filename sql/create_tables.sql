@@ -1,12 +1,14 @@
 CREATE TABLE products (
   asin VARCHAR(12) ,
   ptitle VARCHAR(255) ,
-  pgroup VARCHAR(5) ,
-  ean VARCHAR(13),
+  pgroup VARCHAR(5),
+  -- Set this to max length on purpose to get specific log information. Too long ean is rejected by constrain.
+  ean VARCHAR(255),
   image_url TEXT,
   detailpage_url TEXT,
   salesrank INTEGER,
-  upc VARCHAR(12),
+  -- Set this to max length on purpose to get specific log information. Too long upc is rejected by constrain.
+  upc VARCHAR(255),
   PRIMARY KEY (asin)
 );
 
@@ -41,21 +43,21 @@ CREATE TABLE listmanialists (
   PRIMARY KEY (listmanialist_id)
 );
 
-
+CREATE TABLE shops (
+  shop_id VARCHAR(9) ,
+  name VARCHAR(255) ,
+  PRIMARY KEY (shop_id)
+);
 
 CREATE TABLE shopaddresses (
   shopaddress_id VARCHAR(9) ,
+  shops_shop_id VARCHAR(9) REFERENCES shops(shop_id),
   street VARCHAR(255) ,
   zip VARCHAR(255) ,
   PRIMARY KEY (shopaddress_id)
 );
 
-CREATE TABLE shops (
-  shop_id VARCHAR(9) ,
-  shopaddresses_shopaddress_id VARCHAR(9)  REFERENCES shopaddresses(shopaddress_id),
-  name VARCHAR(255) ,
-  PRIMARY KEY (shop_id)
-);
+
 
 CREATE TABLE priceinfos (
   priceinfo_id VARCHAR(9),
@@ -69,6 +71,7 @@ CREATE TABLE priceinfos (
 );
 
 CREATE TABLE userreviews (
+  userreview_id VARCHAR(9),
   products_asin VARCHAR(12)  REFERENCES products(asin),
   users_username VARCHAR(30)  REFERENCES users(username),
   rating INTEGER,
@@ -76,7 +79,7 @@ CREATE TABLE userreviews (
   summary TEXT,
   content TEXT,
   review_date DATE,
-  PRIMARY KEY (products_asin, users_username)
+  PRIMARY KEY (userreview_id)
 );
 
 CREATE TABLE guestreviews (
@@ -92,12 +95,10 @@ CREATE TABLE guestreviews (
 
 CREATE TABLE purchases (
   purchase_id VARCHAR(12),
-  products_asin VARCHAR(12),
-  priceinfos_priceinfo_id VARCHAR(9),
-  shops_shop_id VARCHAR(9),
+  products_asin VARCHAR(12) REFERENCES products(asin),
+  priceinfos_priceinfo_id VARCHAR(9) REFERENCES priceinfos(priceinfo_id),
   users_username VARCHAR(30)  REFERENCES users(username),
   purchase_date DATE,
-  FOREIGN KEY (products_asin, priceinfos_priceinfo_id, shops_shop_id) REFERENCES junction_products_priceinfos_shops(products_asin, priceinfos_priceinfo_id, shops_shop_id),
   PRIMARY KEY (purchase_id)
 );
 
@@ -232,9 +233,10 @@ CREATE TABLE junction_dvds_dvdformats (
 
 
 CREATE TABLE tracks (
+  track_id VARCHAR(9),
   cds_asin VARCHAR(12)  REFERENCES cds(asin),
   name VARCHAR(255),
-  PRIMARY KEY (cds_asin, name)
+  PRIMARY KEY (track_id)
 );
 
 

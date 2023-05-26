@@ -60,6 +60,7 @@ public  class EntityFieldDTMappings {
     // TODO: Rework!
     public static HashMap<String, String> getShopsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
+        FieldDTMappings.put("shop_id", "shop_id@stringtext");
         FieldDTMappings.put("name", "name@stringtext");
         return FieldDTMappings;
     }
@@ -77,19 +78,19 @@ public  class EntityFieldDTMappings {
     public static HashMap<String, String> getUserreviewsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("reviewdate", "review_date@date");
-        FieldDTMappings.put("review_rating", "review_rating@float");
+        FieldDTMappings.put("rating", "rating@float");
         FieldDTMappings.put("helpful", "helpful_votes@integer");
         FieldDTMappings.put("product", "products_asin@stringtext");
         FieldDTMappings.put("summary", "summary@stringtext");
         FieldDTMappings.put("content", "content@stringtext");
-        FieldDTMappings.put("user", "username@stringtext");
+        FieldDTMappings.put("user", "users_username@stringtext");
         return FieldDTMappings;
     }
 
     public static HashMap<String, String> getGuestReviewsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("reviewdate", "review_date@date");
-        FieldDTMappings.put("review_rating", "review_rating@float");
+        FieldDTMappings.put("rating", "rating@float");
         FieldDTMappings.put("helpful", "helpful_votes@integer");
         FieldDTMappings.put("product", "products_asin@stringtext");
         FieldDTMappings.put("summary", "summary@stringtext");
@@ -144,7 +145,9 @@ public  class EntityFieldDTMappings {
     public static HashMap<String, String> getAudiotextsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("audiotext_id", "audiotext_id@stringtext");
-        FieldDTMappings.put("name", "name@stringtext");
+        FieldDTMappings.put("audiotext_type", "type@stringtext");
+        FieldDTMappings.put("audiotext_audio_format", "format@stringtext");
+        FieldDTMappings.put("audiotext_language", "language@stringtext");
         return FieldDTMappings;
     }
 
@@ -172,10 +175,9 @@ public  class EntityFieldDTMappings {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "asin@stringtext");
         FieldDTMappings.put("musicspec_binding", "binding@stringtext");
-        FieldDTMappings.put("musicspec_format", "format@integer");
+        FieldDTMappings.put("musicspec_format", "cd_format@integer");
         FieldDTMappings.put("musicspec_num_discs", "num_discs@integer");
         FieldDTMappings.put("musicspec_release_date", "release_date@date");
-        FieldDTMappings.put("musicspec_upc", "upc@integer"); // TODO: How to solve this?
         return FieldDTMappings;
     }
     // TODO: Rework!
@@ -193,7 +195,6 @@ public  class EntityFieldDTMappings {
         FieldDTMappings.put("dvdspec_region_code", "region_code@stringtext");
         FieldDTMappings.put("dvdspec_release_date", "release_date@date");
         FieldDTMappings.put("dvdspec_running_time", "running_time@integer");
-        FieldDTMappings.put("dvdspec_upc", "upc@stringtext"); // TODO: Normalize this.
         return FieldDTMappings;
     }
 
@@ -249,7 +250,7 @@ public  class EntityFieldDTMappings {
     public static HashMap<String, String> getTracksEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "cds_asin@stringtext");
-        FieldDTMappings.put("name", "name@stringtext");
+        FieldDTMappings.put("tracks", "name@stringtext");
         return FieldDTMappings;
     }
 

@@ -1,10 +1,14 @@
 package parserShopsXML;
 
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +17,17 @@ import java.util.List;
 public class XMLParsingShops {
 
     public static List<HashMap<String, List<String>>> parseXMLFile(String filePath) {
+
         List<Shop> shops = parseXML(filePath);
         List<HashMap<String, List<String>>> shopList = new ArrayList<>();
 
+
+
+
         for (Shop shop : shops) {
             HashMap<String, List<String>> shopMap = new HashMap<>();
+
+            shopMap.put("shop_id", shop.getShopId());
             shopMap.put("name", shop.getName());
             shopMap.put("zip", shop.getZip());
             shopMap.put("street", shop.getStreet());
@@ -34,7 +44,10 @@ public class XMLParsingShops {
             File inputFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
+
+            // Specify the character encoding when reading the XML file
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8);
+            Document doc = dBuilder.parse(new InputSource(reader));
             doc.getDocumentElement().normalize();
 
             NodeList shopList = doc.getElementsByTagName("shop");
@@ -43,12 +56,13 @@ public class XMLParsingShops {
                 Node shopNode = shopList.item(0);
                 if (shopNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element shopElement = (Element) shopNode;
-
+                    List<String> shopId = getTagAttributeDataVal(shopElement, "", "name");
+                    shopId.add(0, shopId.get(0).toString().toUpperCase());
                     List<String> name = getTagAttributeDataVal(shopElement, "", "name");
                     List<String> zip = getTagAttributeDataVal(shopElement, "", "zip");
                     List<String> street = getTagAttributeDataVal(shopElement, "", "street");
 
-                    Shop shop = new Shop(name, zip, street);
+                    Shop shop = new Shop(shopId, name, zip, street);
                     shops.add(shop);
                 }
             }
@@ -115,14 +129,21 @@ public class XMLParsingShops {
 }
 
 class Shop {
+
+    private List<String> shopId;
     private List<String> name;
     private List<String> zip;
     private List<String> street;
 
-    public Shop(List<String> name, List<String> zip, List<String> street) {
+    public Shop(List<String> shopId, List<String> name, List<String> zip, List<String> street) {
+        this.shopId = shopId;
         this.name = name;
         this.zip = zip;
         this.street = street;
+    }
+
+    public List<String> getShopId() {
+        return shopId;
     }
 
     public List<String> getName() {

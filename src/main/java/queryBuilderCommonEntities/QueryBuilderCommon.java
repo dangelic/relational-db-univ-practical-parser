@@ -15,30 +15,50 @@ import java.text.DecimalFormat;
 
 public class QueryBuilderCommon {
 
-    public static List<String> getInsertQueriesForCommonEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName) {
+    public static List<String> getInsertQueriesForCommonEntity(
+            List<HashMap<String, List<String>>> data,
+            HashMap<String, String> dataTypeMapping,
+            String entityName,
+            String idName
+    ) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
+        HashSet<String> uniqueIds = new HashSet<>(); // Track unique ids
 
         for (HashMap<String, List<String>> hashMap : data) {
+            List<String> idValues = hashMap.get(idName); // Get values for idName
+
+            String idValue = (idValues != null && !idValues.isEmpty()) ? idValues.get(0) : null; // Assume single value for idName
+
+            if (idValue == null || idValue.isEmpty() || !uniqueIds.contains(idValue)) {
+                // Add idValue to set of unique ids if it's null, empty, or not already present
+                uniqueIds.add(idValue);
+            } else {
+                continue; // Skip if idValue is already added
+            }
+
             Object[] values = new Object[columns.length];
-            String[] mappedColumns = new String[columns.length]; // New array to store mapped column names
+            String[] mappedColumns = new String[columns.length];
+
             for (int i = 0; i < columns.length; i++) {
                 String column = columns[i];
                 String dataType = dataTypeMapping.get(column);
                 String columnName = getColumnName(dataType);
                 List<String> columnData = hashMap.get(column);
                 values[i] = getColumnValue(columnData, dataType);
-                mappedColumns[i] = columnName; // Store mapped column names
+                mappedColumns[i] = columnName;
             }
 
-            String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values); // Use mapped column names
+            String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
             queryList.add(sql);
         }
 
         return queryList;
     }
 
-    public static List<String> getInsertQueriesForCommonEntityWithGeneratedId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String idName, int idStart) {
+
+
+    public static List<String> getInsertQueriesForCommonEntityGenId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String idName, int idStart) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
         int currentId = idStart;
@@ -69,7 +89,7 @@ public class QueryBuilderCommon {
     }
 
 
-    public static List<String> getInsertQueriesForNestedEntity(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
+    public static List<String> getInsertQueriesForNestedEntityGenId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
 
@@ -111,7 +131,7 @@ public class QueryBuilderCommon {
     }
 
 
-    public static List<String> getInsertQueriesForNestedEntitySuppressDuplicates(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
+    public static List<String> getInsertQueriesForNestedEntitySuppressDuplicatesGenId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String fieldName, Integer idStart, String idName) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
         Set<String> insertedTitles = new HashSet<>();
@@ -157,6 +177,82 @@ public class QueryBuilderCommon {
 
         return queryList;
     }
+
+
+
+    public static List<String> getInsertQueriesForNestedEntitySuppressDuplicatesMultipleValuesGenId(
+            List<HashMap<String, List<String>>> data,
+            HashMap<String, String> dataTypeMapping,
+            String entityName,
+            List<String> fieldNames,
+            Integer idStart,
+            String idName
+    ) {
+        String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
+        List<String> queryList = new ArrayList<>();
+        Set<List<String>> insertedItems = new HashSet<>();
+        int id = idStart;
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> combinedFieldItems = new ArrayList<>();
+            for (String fieldName : fieldNames) {
+                List<String> fieldItems = hashMap.get(fieldName);
+                if (fieldItems != null) {
+                    combinedFieldItems.addAll(fieldItems);
+                }
+            }
+
+            if (!combinedFieldItems.isEmpty()) {
+                for (String fieldItem : combinedFieldItems) {
+                    List<String> key = new ArrayList<>();
+                    key.add(fieldItem);
+                    if (insertedItems.contains(key)) {
+                        continue; // Skip duplicate item
+                    }
+
+                    Object[] values = new Object[columns.length + fieldNames.size() + 1];
+                    String[] mappedColumns = new String[columns.length + fieldNames.size() + 1];
+                    values[0] = id;
+                    mappedColumns[0] = idName;
+
+                    int columnIndex = 1;
+                    for (int i = 0; i < columns.length; i++) {
+                        String column = columns[i];
+                        String dataType = dataTypeMapping.get(column);
+                        String columnName = getColumnName(dataType);
+                        List<String> columnData = hashMap.get(column);
+
+                        if (fieldNames.contains(column)) {
+                            values[columnIndex] = escapeString(fieldItem); // Escape the fieldItem
+                            mappedColumns[columnIndex] = columnName;
+                            columnIndex++;
+                        } else {
+                            values[columnIndex + fieldNames.size()] = getColumnValue(columnData, dataType);
+                            mappedColumns[columnIndex + fieldNames.size()] = columnName;
+                        }
+                    }
+
+                    for (String fieldName : fieldNames) {
+                        values[columnIndex] = getColumnValue(hashMap.get(fieldName), dataTypeMapping.get(fieldName));
+                        mappedColumns[columnIndex] = getColumnName(dataTypeMapping.get(fieldName));
+                        columnIndex++;
+                    }
+
+                    String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
+                    queryList.add(sql);
+
+                    insertedItems.add(key); // Add inserted field item to the set
+                    id++;
+                }
+            }
+        }
+
+        return queryList;
+    }
+
+
+
+
 
     private static String escapeString(String value) {
         if (value == null) {
