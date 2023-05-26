@@ -25,10 +25,10 @@ public class ETLProcess {
         List<HashMap<String, List<String>>> parsedShops = XMLParsingShops.parseXMLFile("./data/raw/xml/dresden.xml");
         loadShopData(parsedShops);
 
-        List<HashMap<String, List<String>>> parsedDataProductsMerged = parseProductsFromShopsMerged("./data/raw/xml/leipzig_transformed.xml", "./data/raw/xml/dresden.xml");
-        loadCommonData(parsedDataProductsMerged);
-        // loadCategoriesData("./data/raw/xml/categories.xml");
-        
+        //List<HashMap<String, List<String>>> parsedDataProductsMerged = parseProductsFromShopsMerged("./data/raw/xml/leipzig_transformed.xml", "./data/raw/xml/dresden.xml");
+        //loadCommonData(parsedDataProductsMerged);
+        loadCategoriesData("./data/raw/xml/categories.xml");
+
 
         List<HashMap<String, List<String>>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews("./data/raw/csv/reviews.csv");
         out.println(parsedCSVReviewsFromUsers);

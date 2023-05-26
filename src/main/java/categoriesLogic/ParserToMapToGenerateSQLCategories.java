@@ -42,7 +42,7 @@ public class ParserToMapToGenerateSQLCategories {
 
     public List<String> generateSQLCategoryEntity(String xmlFilePath) {
         List<String> categorySQLStrings = new ArrayList<>();
-        // Set<String> uniqueCategoryNames = new HashSet<>();
+        Set<String> uniqueCategories = new HashSet<>();
 
         try {
             File xmlFile = new File(xmlFilePath);
@@ -60,13 +60,23 @@ public class ParserToMapToGenerateSQLCategories {
             for (int i = 0; i < categories.getLength(); i++) {
                 Element category = (Element) categories.item(i);
                 String categoryName = category.getFirstChild().getNodeValue().trim();
+                String categoryId = Integer.toString(categoryIdCounter++);
+                String parentId = generateParentId(category);
 
-                    String categoryId = Integer.toString(categoryIdCounter++);
-                    String parentId = generateParentId(category);
+                String categorySQL = generateCategorySQL(categoryId, categoryName, parentId);
 
-                    String categorySQL = generateCategorySQL(categoryId, categoryName, parentId);
+                // Check if the category already exists before adding it
+                String uniqueCategoryKey = categoryName + "_" + parentId;
+                if (uniqueCategories.add(uniqueCategoryKey)) {
                     categorySQLStrings.add(categorySQL);
 
+                    // Recursive call to handle child categories
+                    NodeList childCategories = category.getElementsByTagName("category");
+                    if (childCategories.getLength() > 0) {
+                        List<String> childCategorySQLStrings = generateSQLCategoryEntityHelper(childCategories, categoryId, uniqueCategories);
+                        categorySQLStrings.addAll(childCategorySQLStrings);
+                    }
+                }
             }
         } catch (SAXException | IOException e) {
             e.printStackTrace();
@@ -74,6 +84,33 @@ public class ParserToMapToGenerateSQLCategories {
 
         return categorySQLStrings;
     }
+
+    private List<String> generateSQLCategoryEntityHelper(NodeList categories, String parentId, Set<String> uniqueCategories) {
+        List<String> categorySQLStrings = new ArrayList<>();
+
+        for (int i = 0; i < categories.getLength(); i++) {
+            Element category = (Element) categories.item(i);
+            String categoryName = category.getFirstChild().getNodeValue().trim();
+            String categoryId = Integer.toString(categoryIdCounter++);
+            String categorySQL = generateCategorySQL(categoryId, categoryName, parentId);
+
+            // Check if the category already exists before adding it
+            String uniqueCategoryKey = categoryName + "_" + parentId;
+            if (uniqueCategories.add(uniqueCategoryKey)) {
+                categorySQLStrings.add(categorySQL);
+
+                // Recursive call to handle child categories
+                NodeList childCategories = category.getElementsByTagName("category");
+                if (childCategories.getLength() > 0) {
+                    List<String> childCategorySQLStrings = generateSQLCategoryEntityHelper(childCategories, categoryId, uniqueCategories);
+                    categorySQLStrings.addAll(childCategorySQLStrings);
+                }
+            }
+        }
+
+        return categorySQLStrings;
+    }
+
 
 
     public List<String> generateSQLJunction(String xmlFilePath) {
