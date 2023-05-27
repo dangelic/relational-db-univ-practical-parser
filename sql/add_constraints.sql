@@ -266,7 +266,7 @@ ALTER COLUMN cds_asin SET NOT NULL;
 
 -- #### products_similars
 ALTER TABLE products_similars
-ADD CONSTRAINT unique_junction_product_similarproduct UNIQUE (products_asin, similar_product_asin);
+ADD CONSTRAINT symmetrical_uniqueness_similars UNIQUE (products_asin, similar_product_asin);
 
 ALTER TABLE products_similars
 ALTER COLUMN products_asin SET NOT NULL,

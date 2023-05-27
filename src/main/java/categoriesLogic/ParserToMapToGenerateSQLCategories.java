@@ -47,7 +47,7 @@ public class ParserToMapToGenerateSQLCategories {
 
         try {
             File xmlFile = new File(xmlFilePath);
-            Charset latin1Charset = Charset.forName("UTF-8");
+            Charset latin1Charset = Charset.forName("ISO-8859-1"); // Specify Latin-1 encoding
             FileInputStream inputStream = new FileInputStream(xmlFile);
             InputStreamReader reader = new InputStreamReader(inputStream, latin1Charset);
             InputSource inputSource = new InputSource(reader);

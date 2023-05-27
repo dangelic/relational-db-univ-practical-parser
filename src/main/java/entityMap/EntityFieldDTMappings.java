@@ -26,7 +26,7 @@ public  class EntityFieldDTMappings {
 
     public static HashMap<String, String> getUsersEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("username", "username@stringtext");
+        FieldDTMappings.put("user", "username@stringtext");
         FieldDTMappings.put("banks_bankinfo_id", "banks_bankinfo_id@stringtext");
         return FieldDTMappings;
     }
@@ -53,6 +53,7 @@ public  class EntityFieldDTMappings {
     // TODO: Rework!
     public static HashMap<String, String> getShopaddressesEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
+        FieldDTMappings.put("shop_id", "shops_shop_id@stringtext");
         FieldDTMappings.put("street", "street@stringtext");
         FieldDTMappings.put("zip", "zip@stringtext");
         return FieldDTMappings;

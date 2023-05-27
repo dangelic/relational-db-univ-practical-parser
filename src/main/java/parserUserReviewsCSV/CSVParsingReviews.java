@@ -28,7 +28,7 @@ public class CSVParsingReviews {
                     dataEntry.put(headers[i], valueList);
                 }
 
-                List<String> userList = dataEntry.get("\"user\"");
+                List<String> userList = dataEntry.get("user");
                 if (userList == null || !userList.contains("guest")) {
                     customerData.add(dataEntry);
                 }
@@ -58,7 +58,7 @@ public class CSVParsingReviews {
                     dataEntry.put(headers[i], valueList);
                 }
 
-                List<String> userList = dataEntry.get("\"user\"");
+                List<String> userList = dataEntry.get("user");
                 if (userList == null || userList.contains("guest")) {
                     customerData.add(dataEntry);
                 }

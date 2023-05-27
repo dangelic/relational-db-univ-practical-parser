@@ -173,7 +173,7 @@ CREATE TABLE books (
 CREATE TABLE cds (
   asin VARCHAR(12)  REFERENCES products(asin),
   binding VARCHAR(20),
-  cd_format VARCHAR(20),
+  cd_format VARCHAR(50),
   num_discs INTEGER,
   release_date DATE,
   PRIMARY KEY (asin)
@@ -187,7 +187,7 @@ CREATE TABLE junction_cds_labels (
 
 CREATE TABLE dvds (
   asin VARCHAR(12)  REFERENCES products(asin),
-  apsect_ratio VARCHAR(7),
+  aspect_ratio VARCHAR(7),
   running_time INTEGER,
   theatr_release DATE,
   release_date DATE,

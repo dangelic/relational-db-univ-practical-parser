@@ -73,6 +73,15 @@ public class PostgresConnector {
                             !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"dvds_asin_fkey") &&
                             !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"cds_asin_fkey") &&
                             !e.getMessage().contains("null value in column \"name\" of relation \"tracks\" violates not-null constraint") &&
+                            !e.getMessage().contains("null value in column \"asin\" of relation \"books\" violates not-null constraint") &&
+                            !e.getMessage().contains("null value in column \"asin\" of relation \"cds\" violates not-null constraint") &&
+                            !e.getMessage().contains("null value in column \"asin\" of relation \"dvds\" violates not-null constraint") &&
+                            !e.getMessage().contains("duplicate key value violates unique constraint \"users_pkey\"") &&
+                            !e.getMessage().contains("duplicate key value violates unique constraint \"unique_trackname_cd\"") &&
+                            !e.getMessage().contains("duplicate key value violates unique constraint \"products_similars_pkey") &&
+                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"products_similars_similar_product_asin_fkey\"") &&
+                            !e.getMessage().contains("insert or update on table \"tracks\" violates foreign key constraint \"tracks_cds_asin_fkey\"") &&
+                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"products_similars_products_asin_fkey\"") &&
                             !e.getMessage().contains("insert or update on table \"priceinfos\" violates foreign key constraint \"priceinfos_products_asin_fkey\""))
 
                     {
