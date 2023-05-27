@@ -76,3 +76,4 @@ public class CleanUpOperations {
         return originalValue.equals(comparisonValueWithoutVowels);
     }
 }
+
