@@ -69,9 +69,9 @@ public class PostgresConnector {
                     statement.close();
                     System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");
                 } catch (SQLException e) {
-                    if (!e.getMessage().contains("insert or update on table \"books\" violates foreign key constraint \"books_asin_fkey") &&
-                            !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"dvds_asin_fkey") &&
-                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"cds_asin_fkey") &&
+                    if (!e.getMessage().contains("insert or update on table \"books\" violates foreign key constraint \"fk_book_products_asin") &&
+                            !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"fk_dvds_products_asin") &&
+                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"fk_cds_products_asin") &&
                             !e.getMessage().contains("null value in column \"name\" of relation \"tracks\" violates not-null constraint") &&
                             !e.getMessage().contains("null value in column \"asin\" of relation \"books\" violates not-null constraint") &&
                             !e.getMessage().contains("null value in column \"asin\" of relation \"cds\" violates not-null constraint") &&
@@ -81,13 +81,14 @@ public class PostgresConnector {
                             !e.getMessage().contains("null value in column \"products_asin\" of relation \"products_similars\" violates not-null constraint") &&
                             !e.getMessage().contains("duplicate key value violates unique constraint \"users_pkey\"") &&
                             !e.getMessage().contains("duplicate key value violates unique constraint \"unique_trackname_cd\"") &&
-                            !e.getMessage().contains("duplicate key value violates unique constraint \"products_similars_pkey") &&
-                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"products_similars_similar_product_asin_fkey\"") &&
-                            !e.getMessage().contains("insert or update on table \"tracks\" violates foreign key constraint \"tracks_cds_asin_fkey\"") &&
-                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"products_similars_products_asin_fkey\"") &&
-                            !e.getMessage().contains("insert or update on table \"guestreviews\" violates foreign key constraint \"guestreviews_products_asin_fkey\"") &&
-                            !e.getMessage().contains("insert or update on table \"userreviews\" violates foreign key constraint \"userreviews_products_asin_fkey\"") &&
-                            !e.getMessage().contains("insert or update on table \"priceinfos\" violates foreign key constraint \"priceinfos_products_asin_fkey\""))
+                            !e.getMessage().contains("duplicate key value violates unique constraint \"symmetrical_uniqueness_similars\"") &&
+                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"fk_products_similars_products\"") &&
+                            !e.getMessage().contains("insert or update on table \"tracks\" violates foreign key constraint \"fk_tracks_cds\"") &&
+                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"fk_products_similars_similar_product\"") &&
+                            !e.getMessage().contains("insert or update on table \"guestreviews\" violates foreign key constraint \"fk_guestreviews_products\"") &&
+                            !e.getMessage().contains("insert or update on table \"userreviews\" violates foreign key constraint \"fk_userreviews_products\"") &&
+                            !e.getMessage().contains("duplicate key value violates unique constraint \"unique_username\"") &&
+                            !e.getMessage().contains("insert or update on table \"priceinfos\" violates foreign key constraint \"fk_priceinfos_products\""))
 
                     {
                         if (e.getMessage().contains("No results were returned by the query.")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}

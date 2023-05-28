@@ -4,11 +4,11 @@ import parserProductsXML.XMLParsingProducts;
 import entityMap.EntityFieldDTMappings;
 import parserUserReviewsCSV.CSVParsingReviews;
 import queryBuilderStandardEntities.QueryBuilderStandard;
-import categoriesLogic.ParserToMapToGenerateSQLCategories;
 import helper.sqlParser;
 import dataCleanUp.CleanUpOperations;
 import dbConnection.PostgresConnector;
 import queryBuilderJunctions.QueryBuilderJunctions;
+import categoryHandler.CategoryTransformAndGenerateSQL;
 
 
 import static java.lang.System.out;
@@ -40,7 +40,7 @@ public class ETLProcess {
         //loadShopData();
 
         List < HashMap < String, List < String >>> parsedXMLProductDataMerged = parseProductsFromShopsMerged();
-        // List < HashMap < String, List < String >>> parsedXMLProductDataMergedCleanPre = runCleanUpTasksPre(parsedXMLProductDataMerged);
+        List < HashMap < String, List < String >>> parsedXMLProductDataMergedCleanPre = runCleanUpTasksPre(parsedXMLProductDataMerged);
 
         List < HashMap < String, List < String >>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews(pathToUserReviewsCSV);
         List < HashMap < String, List < String >>> parsedCSVReviewsFromGuests = CSVParsingReviews.parseCSVGuestReviews(pathToUserReviewsCSV);
@@ -49,15 +49,15 @@ public class ETLProcess {
         List < HashMap < String, List < String >>> parsedCSVReviewsDataMerged = parsedCSVReviewsFromUsers;
 
 
-        LogGenerator.check(parsedXMLProductDataMerged, parsedCSVReviewsDataMerged);
+        // LogGenerator.check(parsedXMLProductDataMerged, parsedCSVReviewsDataMerged);
 
-        //loadCommonData(parsedXMLProductDataMergedCleanPre);
+        //loadCommonData(parsedXMLProductDataMergedCleanPre); // CHANGE TO CLEAN!
         //loadNormalizationTablesData(parsedXMLProductDataMergedCleanPre);
         //loadJunctionData(parsedXMLProductDataMergedCleanPre);
 
-        //loadCategoriesData("./data/raw/xml/categories.xml");
+        loadCategoriesData();
 
-        //loadUsersAndReviewsData();
+       // loadUsersAndReviewsData();
 
     }
 
@@ -66,14 +66,12 @@ public class ETLProcess {
      *
      * @param dropSQLFilePath         The file path to the SQL file that contains the DROP commands for all tables.
      * @param createSQLFilePath       The file path to the SQL file that contains the CREATE commands for all tables.
-     * @param constraintsSQLFilePath  The file path to the SQL file that contains the CONSTRAINT commands for all tables.
      *                                add
      */
     private static void initializeDatabaseScheme() {
 
         String dropSQLFilePath = "./sql/drop_tables_casc.sql";
         String createSQLFilePath = "./sql/create_tables.sql";
-        String constraintsSQLFilePath = "./sql/add_constraints.sql";
         String indexSQLFilePath = "./sql/add_index.sql";
 
         try {
@@ -85,14 +83,9 @@ public class ETLProcess {
             dbConnection.executeSQLQueryBatch(dropSQLStatements, pathToLogFileDebugDB);
             out.println("DONE.");
 
-            out.println("CREATE TABLES...");
+            out.println("CREATE TABLES WITH CONSTRAINTS...");
             List < String > creationSQLStatements = sqlParser.parseSQLFile(createSQLFilePath);
             dbConnection.executeSQLQueryBatch(creationSQLStatements, pathToLogFileDebugDB);
-            out.println("DONE.");
-
-            out.println("ADD TABLE CONSTRAINTS...");
-            List < String > constraintSQLStatements = sqlParser.parseSQLFile(constraintsSQLFilePath);
-            dbConnection.executeSQLQueryBatch(constraintSQLStatements, pathToLogFileDebugDB);
             out.println("DONE.");
 
             out.println("ADD INDEXES...");
@@ -150,18 +143,20 @@ public class ETLProcess {
 
         List < HashMap < String, List < String >>> parsedXMLProductDataMergedCleanedPre;
         out.println("Run clean jobs on product data...");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMerged, "title");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "studios");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "similars");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "labels");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "tracks");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "authors");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "publishers");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "listmania_lists");
-        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "creators");
-        out.println("DONE.");
-        out.println(parsedXMLProductDataMergedCleanedPre);
-        return parsedXMLProductDataMergedCleanedPre;
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMerged, "title");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "studios");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "similars");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "labels");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "tracks");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "authors");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "publishers");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "listmania_lists");
+//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "creators");
+//        out.println("DONE.");
+        // out.println(parsedXMLProductDataMergedCleanedPre);
+        // return parsedXMLProductDataMergedCleanedPre;
+        return parsedXMLProductDataMerged;
+
     }
 
     public static void loadShopData() {
@@ -248,7 +243,7 @@ public class ETLProcess {
 
             out.println("Filling dvdformats entity...");
             dataTypeMapping = EntityFieldDTMappings.getDvdformatsEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "dvdformats", "dvdspec_format", 1, "dvdformat_id");
+            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "dvdformats", "dvdspec_format", 1, "dvdformat_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
             out.println("Filling similars entity...");
@@ -308,27 +303,26 @@ public class ETLProcess {
     }
     public static void loadJunctionData(List < HashMap < String, List < String >>> parsedXMLProductDataMerged) {
 
-        List < String > fillingData;
 
         try {
 
-            out.println("Filling junction_books_authors entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "authors", "asin", "name", "author_id", "books", "authors", "junction_books_authors", "books_asin", "authors_author_id");
-            out.println("Filling junction_books_publishers entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "publishers", "asin", "name", "publisher_id", "books", "publishers", "junction_books_publishers", "books_asin", "publishers_publisher_id");
-            out.println("Filling junction_dvds_actors entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "actors", "asin", "name", "actor_id", "dvds", "actors", "junction_dvds_actors", "dvds_asin", "actors_actor_id");
-            out.println("Filling junction_dvds_studios entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "studios", "asin", "name", "studio_id", "dvds", "studios", "junction_dvds_studios", "dvds_asin", "studios_studio_id");
+//            out.println("Filling junction_books_authors entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "authors", "asin", "name", "author_id", "books", "authors", "junction_books_authors", "books_asin", "authors_author_id");
+//            out.println("Filling junction_books_publishers entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "publishers", "asin", "name", "publisher_id", "books", "publishers", "junction_books_publishers", "books_asin", "publishers_publisher_id");
+//            out.println("Filling junction_dvds_actors entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "actors", "asin", "name", "actor_id", "dvds", "actors", "junction_dvds_actors", "dvds_asin", "actors_actor_id");
+//            out.println("Filling junction_dvds_studios entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "studios", "asin", "name", "studio_id", "dvds", "studios", "junction_dvds_studios", "dvds_asin", "studios_studio_id");
             out.println("Filling junction_dvds_formats entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "formats", "asin", "name", "format_id", "dvds", "formats", "junction_dvds_formats", "dvds_asin", "formats_format_id");
-            // TODO: Audiotexts
-            out.println("Filling junction_cds_labels entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "labels", "asin", "name", "label_id", "cds", "labels", "junction_cds_labels", "cds_asin", "labels_label_id");
-            out.println("Filling junction_products_creators entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "creators", "asin", "name", "creator_id", "products", "creators", "junction_products_creators", "products_asin", "creators_creator_id");
-            out.println("Filling junction_products_listmanialists entity...");
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "listmania_lists", "asin", "name", "listmanialist_id", "products", "listmanialists", "junction_products_listmanialists", "products_asin", "listmanialists_listmanialist_id");
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "dvdspec_format", "asin", "name", "dvdformat_id", "dvds", "dvdformats", "junction_dvds_dvdformats", "dvds_asin", "dvdformats_dvdformat_id");
+//            // TODO: Audiotexts
+//            out.println("Filling junction_cds_labels entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "labels", "asin", "name", "label_id", "cds", "labels", "junction_cds_labels", "cds_asin", "labels_label_id");
+//            out.println("Filling junction_products_creators entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "creators", "asin", "name", "creator_id", "products", "creators", "junction_products_creators", "products_asin", "creators_creator_id");
+//            out.println("Filling junction_products_listmanialists entity...");
+//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "listmania_lists", "asin", "name", "listmanialist_id", "products", "listmanialists", "junction_products_listmanialists", "products_asin", "listmanialists_listmanialist_id");
 
 
         } catch (SQLException e) {
@@ -349,15 +343,19 @@ public class ETLProcess {
 
 
             System.out.println("LOAD CATEGORIES DATA...");
-            ParserToMapToGenerateSQLCategories parserToMapToGenerateSQLCategories = new ParserToMapToGenerateSQLCategories();
-            fillingData = parserToMapToGenerateSQLCategories.generateSQLCategoryEntity(pathToCategoriesXML);
+            CategoryTransformAndGenerateSQL categoryHandler = new CategoryTransformAndGenerateSQL();
+            categoryHandler.transformAndCreateFormattedXML(pathToCategoriesXML, "./data/transformed/tagged_cats.xml");
+            fillingData = categoryHandler.buildInsertStatementsForCategories();
+
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+
             System.out.println("DONE.");
 
             System.out.println("LOAD JUNCTIONS DATA PRODUCTS CATEGORIES...");
-            fillingData = parserToMapToGenerateSQLCategories.generateSQLJunction(pathToCategoriesXML);
+
+            fillingData = categoryHandler.buildInsertStatementsForProducts();
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
-            System.out.println("DONE.");
+
 
 
             dbConnection.disconnect();

@@ -8,6 +8,7 @@ import javax.xml.parsers.*;
 import java.io.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -131,6 +132,8 @@ public class XMLParsingProducts {
                     // DVDSpec
                     List<String> dvdspecAspectRatio = getCharacterDataVal(itemElement, "dvdspec/aspectratio");
                     List<String> dvdspecFormat = getCharacterDataVal(itemElement, "dvdspec/format");
+                    dvdspecFormat = CleanUpOperations.splitStringIntoPieces(dvdspecFormat);
+                    // dvdspecFormat = CleanUpOperations.removeInvalidsDvdFormat(dvdspecFormat);
                     List<String> dvdspecRegionCode = getCharacterDataVal(itemElement, "dvdspec/regioncode");
                     List<String> dvdspecReleaseDate = getCharacterDataVal(itemElement, "dvdspec/releasedate");
                     List<String> dvdspecRunningTime = getCharacterDataVal(itemElement, "dvdspec/runningtime");

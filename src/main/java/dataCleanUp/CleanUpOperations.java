@@ -23,6 +23,36 @@ public class CleanUpOperations {
         }
         return distinctStrings;
     }
+
+    public static List<String> splitStringIntoPieces(List<String> strings) {
+        List<String> pieces = new ArrayList<>();
+        for (String str : strings) {
+            String[] splitValues = str.split(",");
+            for (String value : splitValues) {
+                pieces.add(value.trim());
+            }
+        }
+        return pieces;
+    }
+
+    public static List<String> removeInvalidsDvdFormat(List<String> inputList) {
+        List<String> alteredList = new ArrayList<>();
+        for (String str : inputList) {
+            if (str.equals("Sourround Soun")) {
+                str = "Sourround Sound";
+            } else if (str.equals("Sourround")) {
+                str = "Sourround Sound";
+            } else if (str.contains("d") || str.contains("Sound")) {
+                continue;
+            }
+            alteredList.add(str);
+        }
+        return alteredList;
+    }
+
+
+
+
     public static List<HashMap<String, List<String>>> replaceMissingCharacters(List<HashMap<String, List<String>>> hashmapList, String replacementAttribute) {
         System.out.println("\033[34;1m INFO: Execute preprocess clean job to add missing characters on products data HashMap => key: \"" + replacementAttribute + "\". Waiting for the algorithm to finish...\033[0m");
 
