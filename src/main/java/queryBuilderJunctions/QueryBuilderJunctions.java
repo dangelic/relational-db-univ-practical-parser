@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class QueryBuilderJunctions {
 
-    public static List<String> executeQuery(
+    public static void executeQuery(
             List<HashMap<String, List<String>>> inputList,
             String aValueKey,
             String aIdKey,
@@ -63,10 +63,9 @@ public class QueryBuilderJunctions {
                 }
             }
         } finally {
+            connector.executeSQLQueryBatch(creationStatements, "./logs/demolog.log");
             connector.disconnect();
         }
-        System.out.println(creationStatements);
-        return creationStatements;
     }
 
     private static List<String> getValuesForAId(

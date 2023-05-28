@@ -3,6 +3,7 @@
 -- Disable foreign key checks
 SET CONSTRAINTS ALL DEFERRED;
 
+
 -- Drop tables
 DROP TABLE IF EXISTS junction_users_deliveraddresses CASCADE;
 DROP TABLE IF EXISTS junction_products_creators CASCADE;
@@ -44,3 +45,6 @@ DROP TABLE IF EXISTS junction_users_deliveryaddresses CASCADE;
 
 -- Enable foreign key checks (if needed)
 -- SET CONSTRAINTS ALL IMMEDIATE;
+
+-- Drop functions
+-- DROP FUNCTION validate_url(VARCHAR);

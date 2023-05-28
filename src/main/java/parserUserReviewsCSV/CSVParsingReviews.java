@@ -44,7 +44,7 @@ public class CSVParsingReviews {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
             String headerLine = reader.readLine();
-            String[] headers = headerLine.split(",");
+            String[] headers = headerLine.replaceAll("\"", "").split(",");
 
             String line;
             while ((line = reader.readLine()) != null) {

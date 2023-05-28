@@ -1,52 +1,66 @@
+
+
 CREATE TABLE products (
-  asin VARCHAR(12) ,
-  ptitle VARCHAR(255) ,
-  pgroup VARCHAR(5),
-  -- Set this to max length on purpose to get specific log information. Too long ean is rejected by constrain.
+  asin VARCHAR(12) NOT NULL,
+  ptitle VARCHAR(255) NOT NULL,
+  pgroup VARCHAR(5) NOT NULL,
   ean VARCHAR(255),
   image_url TEXT,
   detailpage_url TEXT,
   salesrank INTEGER,
-  -- Set this to max length on purpose to get specific log information. Too long upc is rejected by constrain.
   upc VARCHAR(255),
-  PRIMARY KEY (asin)
+  PRIMARY KEY (asin),
+  CONSTRAINT unique_asin UNIQUE (asin),
+  CONSTRAINT unique_upc UNIQUE (upc),
+  CONSTRAINT unique_ean UNIQUE (ean),
+  CONSTRAINT check_ean_length CHECK (length(ean) <= 14),
+  CONSTRAINT check_upc_length CHECK (length(upc) <= 13)
 );
 
 CREATE TABLE bankinfos (
-  bankinfo_id VARCHAR(9) ,
-  account_number VARCHAR(255) ,
-  PRIMARY KEY (bankinfo_id)
+  bankinfo_id VARCHAR(9) NOT NULL,
+  account_number VARCHAR(255) NOT NULL,
+  PRIMARY KEY (bankinfo_id),
+  CONSTRAINT unique_bankinfo_id UNIQUE (bankinfo_id)
 );
 
 CREATE TABLE users (
-  username VARCHAR(30) ,
-  banks_bankinfo_id VARCHAR(9)  REFERENCES bankinfos(bankinfo_id),
-  PRIMARY KEY (username)
+  username VARCHAR(30) NOT NULL,
+  banks_bankinfo_id VARCHAR(9) REFERENCES bankinfos(bankinfo_id),
+  PRIMARY KEY (username),
+  CONSTRAINT unique_username UNIQUE (username)
 );
+
 
 CREATE TABLE categories (
-  category_id VARCHAR(9) ,
+  category_id VARCHAR(9) NOT NULL,
   parent_category_id VARCHAR(9),
-  name VARCHAR(255) ,
-  PRIMARY KEY (category_id)
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (category_id),
+  CONSTRAINT unique_category_id UNIQUE (category_id),
+  CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id)
 );
 
+
 CREATE TABLE creators (
-  creator_id VARCHAR(9) ,
-  name VARCHAR(255) ,
-  PRIMARY KEY (creator_id)
+  creator_id VARCHAR(9) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (creator_id),
+  CONSTRAINT unique_creator_id UNIQUE (creator_id)
 );
 
 CREATE TABLE listmanialists (
-  listmanialist_id VARCHAR(9) ,
-  name VARCHAR(255) ,
-  PRIMARY KEY (listmanialist_id)
+  listmanialist_id VARCHAR(9) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (listmanialist_id),
+  CONSTRAINT unique_listmanialist_id UNIQUE (listmanialist_id)
 );
 
 CREATE TABLE shops (
-  shop_id VARCHAR(9) ,
-  name VARCHAR(255) ,
-  PRIMARY KEY (shop_id)
+  shop_id VARCHAR(9) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (shop_id),
+  CONSTRAINT unique_shop_id UNIQUE (shop_id)
 );
 
 CREATE TABLE shopaddresses (
@@ -57,7 +71,7 @@ CREATE TABLE shopaddresses (
   PRIMARY KEY (shopaddress_id)
 );
 
-
+--------- HERE :-)
 
 CREATE TABLE priceinfos (
   priceinfo_id VARCHAR(9),

@@ -1,10 +1,11 @@
 package parserProductsXML;
 
+import dataCleanUp.CleanUpOperations;
+
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.*;
 import java.io.*;
-import java.util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -180,7 +181,7 @@ public class XMLParsingProducts {
                         picture = getTagAttributeDataVal(itemElement, "", "picture");
                         detailPage = getTagAttributeDataVal(itemElement, "", "detailpage");
                         musicspecFormat = getTagAttributeDataVal(itemElement, "musicspec/format", "value");
-                        musicspecFormat = removeRedundancies(musicspecFormat);
+                        musicspecFormat = CleanUpOperations.removeRedundancies(musicspecFormat);
                         ean = getTagAttributeDataVal(itemElement, "", "ean");
                         listmanialists = getTagAttributeDataVal(itemElement, "listmania/list", "name");
                         labels =  getTagAttributeDataVal(itemElement, "labels/label", "name");
@@ -196,7 +197,7 @@ public class XMLParsingProducts {
                         picture = getTagAttributeDataVal(itemElement, "details", "img");
                         detailPage = getCharacterDataVal(itemElement, "details");
                         musicspecFormat = getCharacterDataVal(itemElement, "musicspec/format");
-                        musicspecFormat = removeRedundancies(musicspecFormat);
+                        musicspecFormat = CleanUpOperations.removeRedundancies(musicspecFormat);
                         ean = getCharacterDataVal(itemElement, "ean");
                         listmanialists = getCharacterDataVal(itemElement, "listmania/list");
                         labels =  getCharacterDataVal(itemElement, "labels/label");
@@ -367,23 +368,6 @@ public class XMLParsingProducts {
                 }
             }
         }
-    }
-
-    private static List<String> removeRedundancies(List<String> strings) {
-        List<String> distinctStrings = new ArrayList<>();
-        for (String str : strings) {
-            String[] splitValues = str.split(",");
-            Set<String> uniqueValues = new HashSet<>();
-            for (String value : splitValues) {
-                String trimmedValue = value.trim();
-                if (!uniqueValues.contains(trimmedValue)) {
-                    uniqueValues.add(trimmedValue);
-                }
-            }
-            String distinctString = String.join(", ", uniqueValues);
-            distinctStrings.add(distinctString);
-        }
-        return distinctStrings;
     }
 }
 

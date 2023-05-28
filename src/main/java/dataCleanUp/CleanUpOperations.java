@@ -1,11 +1,31 @@
 package dataCleanUp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
+
+import static java.lang.System.out;
 
 public class CleanUpOperations {
+
+    public static List<String> removeRedundancies(List<String> strings) {
+        List<String> distinctStrings = new ArrayList<>();
+        for (String str : strings) {
+            String[] splitValues = str.split(",");
+            Set<String> uniqueValues = new HashSet<>();
+            for (String value : splitValues) {
+                String trimmedValue = value.trim();
+                if (!uniqueValues.contains(trimmedValue)) {
+                    uniqueValues.add(trimmedValue);
+                }
+            }
+            String distinctString = String.join(", ", uniqueValues);
+            distinctStrings.add(distinctString);
+        }
+        return distinctStrings;
+    }
     public static List<HashMap<String, List<String>>> replaceMissingCharacters(List<HashMap<String, List<String>>> hashmapList, String replacementAttribute) {
+        System.out.println("\033[34;1m INFO: Execute preprocess clean job to add missing characters on products data HashMap => key: \"" + replacementAttribute + "\". Waiting for the algorithm to finish...\033[0m");
+
         List<HashMap<String, List<String>>> replacedList = new ArrayList<>();
 
         // Iterate over the hashmapList
@@ -75,5 +95,7 @@ public class CleanUpOperations {
 
         return originalValue.equals(comparisonValueWithoutVowels);
     }
+
+
 }
 

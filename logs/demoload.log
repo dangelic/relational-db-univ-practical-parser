@@ -1,0 +1,387 @@
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07779662440200777966244020', NULL, NULL, '777966244020,777966244020', 'B00005YH0L', 'Classics In The Movies, Vol. 1Classics In The Movies, Vol. 1', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00005YH0L, Classics In The Movies, Vol. 1Classics In The Movies, Vol. 1, Music, 07779662440200777966244020, null, null, null, 777966244020,777966244020).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07622472111290762247211129', NULL, NULL, '762247211129,762247211129', 'B0000061MY', 'SouvenirSouvenir', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000061MY, SouvenirSouvenir, Music, 07622472111290762247211129, null, null, null, 762247211129,762247211129).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07022010029290702201002929', NULL, NULL, '702201002929,702201002929', 'B000006MIG', 'House of OneHouse of One', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000006MIG, House of OneHouse of One, Music, 07022010029290702201002929, null, null, null, 702201002929,702201002929).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, NULL, NULL, '048248211345,048248211345,048248211345', 'B00008F5FA', 'What Does It Mean to Love? [Musikkassette]What Does It Mean to Love? [Musikkassette]What Does It Mean to Love? [Musikkassette]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B00008F5FA, What Does It Mean to Love? [Musikkassette]What Does It Mean to L..., Music, null, null, null, null, 048248211345,048248211345,048248211345).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, NULL, NULL, '048248211321,048248211321,048248211321', 'B000005CRA', 'What Does It Mean to Love?What Does It Mean to Love?What Does It Mean to Love?', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B000005CRA, What Does It Mean to Love?What Does It Mean to Love?What Does It..., Music, null, null, null, null, 048248211321,048248211321,048248211321).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07314531232290731453123229', 'http://images.amazon.com/images/P/B00000DLX7.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00000DLX7.03._SCMZZZZZZZ_.jpg', NULL, '731453123229,731453123229', 'B00000DLX7', 'Mickey One (Verve Master Edition)Mickey One (Verve Master Edition)', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00000DLX7, Mickey One (Verve Master Edition)Mickey One (Verve Master Editio..., Music, 07314531232290731453123229, http://images.amazon.com/images/P/B00000DLX7.03._SCMZZZZZZZ_.jpg..., null, null, 731453123229,731453123229).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00902663319250090266331925', 'http://images.amazon.com/images/P/B00000D9VP.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00000D9VP.03._SCMZZZZZZZ_.jpg', NULL, '090266331925,090266331925', 'B00000D9VP', 'Apt PupilApt Pupil', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00000D9VP, Apt PupilApt Pupil, Music, 00902663319250090266331925, http://images.amazon.com/images/P/B00000D9VP.03._SCMZZZZZZZ_.jpg..., null, null, 090266331925,090266331925).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07033208992850703320899285', NULL, NULL, '703320899285,703320899285', 'B00008G4IU', 'Minnesota HomegrownMinnesota Homegrown', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00008G4IU, Minnesota HomegrownMinnesota Homegrown, Music, 07033208992850703320899285, null, null, null, 703320899285,703320899285).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00289475689710028947568971', 'http://images.amazon.com/images/P/B000AC5B1G.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000AC5B1G.01._SCMZZZZZZZ_.jpg', NULL, '028947568971,028947568971', 'B000AC5B1G', 'Israel in Ägypten / Saul / Salomon / JephtaIsrael in Ägypten / Saul / Salomon / Jephta', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000AC5B1G, Israel in Ägypten / Saul / Salomon / JephtaIsrael in Ägypten /..., Music, 00289475689710028947568971, http://images.amazon.com/images/P/B000AC5B1G.01._SCMZZZZZZZ_.jpg..., null, null, 028947568971,028947568971).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07243483827260724348382726', 'http://images.amazon.com/images/P/B0000506SC.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0000506SC.01._SCMZZZZZZZ_.jpg', NULL, '724348382726,724348382726', 'B0000506SC', 'Songs of the IslandsSongs of the Islands', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000506SC, Songs of the IslandsSongs of the Islands, Music, 07243483827260724348382726, http://images.amazon.com/images/P/B0000506SC.01._SCMZZZZZZZ_.jpg..., null, null, 724348382726,724348382726).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, 'http://images.amazon.com/images/P/B000003D1R.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000003D1R.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000003D1R.03._SCMZZZZZZZ_.jpg', NULL, '089408042423,089408042423,089408042423', 'B000003D1R', 'Music For Plays And MasquesMusic For Plays And MasquesMusic For Plays And Masques', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B000003D1R, Music For Plays And MasquesMusic For Plays And MasquesMusic For ..., Music, null, http://images.amazon.com/images/P/B000003D1R.03._SCMZZZZZZZ_.jpg..., null, null, 089408042423,089408042423,089408042423).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07300990211280730099021128', NULL, NULL, '730099021128,730099021128', 'B000056PR7', 'The Fugitive (The Sweet Cheat Gone) [US-Import]The Fugitive (The Sweet Cheat Gone) [US-Import]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000056PR7, The Fugitive (The Sweet Cheat Gone) [US-Import]The Fugitive (The..., Music, 07300990211280730099021128, null, null, null, 730099021128,730099021128).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00755971420440075597142044', NULL, NULL, '075597142044,075597142044', 'B000005IW3', 'Baroque Beatles Book [Musikkassette]Baroque Beatles Book [Musikkassette]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000005IW3, Baroque Beatles Book [Musikkassette]Baroque Beatles Book [Musikk..., Music, 00755971420440075597142044, null, null, null, 075597142044,075597142044).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '06994873981220699487398122', 'http://images.amazon.com/images/P/B00006GEL7.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00006GEL7.01._SCMZZZZZZZ_.jpg', NULL, '699487398122,699487398122', 'B00006GEL7', 'Le Nozze di Figaro-Salzburg 1937Le Nozze di Figaro-Salzburg 1937', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00006GEL7, Le Nozze di Figaro-Salzburg 1937Le Nozze di Figaro-Salzburg 1937, Music, 06994873981220699487398122, http://images.amazon.com/images/P/B00006GEL7.01._SCMZZZZZZZ_.jpg..., null, null, 699487398122,699487398122).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07313835698450731383569845', 'http://images.amazon.com/images/P/B0000015IZ.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0000015IZ.01._SCMZZZZZZZ_.jpg', NULL, '731383569845,731383569845', 'B0000015IZ', 'Brady Bunch Movie [Musikkassette]Brady Bunch Movie [Musikkassette]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000015IZ, Brady Bunch Movie [Musikkassette]Brady Bunch Movie [Musikkassett..., Music, 07313835698450731383569845, http://images.amazon.com/images/P/B0000015IZ.01._SCMZZZZZZZ_.jpg..., null, null, 731383569845,731383569845).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07984995038420798499503842', 'http://images.amazon.com/images/P/B000003LW1.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000003LW1.01._SCMZZZZZZZ_.jpg', NULL, '798499503842,798499503842', 'B000003LW1', 'Life is the Quest for Joy [Musikkassette]Life is the Quest for Joy [Musikkassette]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000003LW1, Life is the Quest for Joy [Musikkassette]Life is the Quest for J..., Music, 07984995038420798499503842, http://images.amazon.com/images/P/B000003LW1.01._SCMZZZZZZZ_.jpg..., null, null, 798499503842,798499503842).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07984995005200798499500520', 'http://images.amazon.com/images/P/B000003LVO.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000003LVO.01._SCMZZZZZZZ_.jpg', NULL, '798499500520,798499500520', 'B000003LVO', 'Life Is the Quest for JoyLife Is the Quest for Joy', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000003LVO, Life Is the Quest for JoyLife Is the Quest for Joy, Music, 07984995005200798499500520, http://images.amazon.com/images/P/B000003LVO.01._SCMZZZZZZZ_.jpg..., null, null, 798499500520,798499500520).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, NULL, NULL, '723723330529,723723330529,723723330529', 'B000007SLA', 'TV Soundtrack #1TV Soundtrack #1TV Soundtrack #1', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B000007SLA, TV Soundtrack #1TV Soundtrack #1TV Soundtrack #1, Music, null, null, null, null, 723723330529,723723330529,723723330529).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, 'http://images.amazon.com/images/P/B00005NTTQ.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00005NTTQ.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00005NTTQ.01._SCMZZZZZZZ_.jpg', NULL, '798499502623,798499502623,798499502623', 'B00005NTTQ', 'Music for YogaMusic for YogaMusic for Yoga', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B00005NTTQ, Music for YogaMusic for YogaMusic for Yoga, Music, null, http://images.amazon.com/images/P/B00005NTTQ.01._SCMZZZZZZZ_.jpg..., null, null, 798499502623,798499502623,798499502623).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '06994873985280699487398528', 'http://ec1.images-amazon.com/images/P/B00006GEL8.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00006GEL8.01._SCMZZZZZZZ_.jpg', NULL, '699487398528,699487398528', 'B00006GEL8', 'Der Rosenkavalier-Salzburg 1949Der Rosenkavalier-Salzburg 1949', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00006GEL8, Der Rosenkavalier-Salzburg 1949Der Rosenkavalier-Salzburg 1949, Music, 06994873985280699487398528, http://ec1.images-amazon.com/images/P/B00006GEL8.01._SCMZZZZZZZ_..., null, null, 699487398528,699487398528).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('DVD', '0724358034400', 'http://images.amazon.com/images/P/B00007DXEC.03._SCMZZZZZZZ_.jpg', 'http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2%26camp=2025%26creative=165953%26path=http://www.amazon.de/gp/redirect.html%253fASIN=B00007DXEC%2526tag=ws%2526lcode=xm2%2526cID=2025%2526ccmID=165953%2526location=/o/ASIN/B00007DXEC%25253FSubscriptionId=008VAFAFSK8GN837GT02', NULL, 'B00007DXEC', NULL, '2826');
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00007DXEC, null, DVD, 0724358034400, http://images.amazon.com/images/P/B00007DXEC.03._SCMZZZZZZZ_.jpg, http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2..., 2826, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '50139295511215013929551121', NULL, NULL, NULL, 'B0000DZHJD', 'Bronco BullfrogBronco Bullfrog', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000DZHJD, Bronco BullfrogBronco Bullfrog, Music, 50139295511215013929551121, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '06660170126290666017012629', 'http://images.amazon.com/images/P/B00004T9Z1.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00004T9Z1.01._SCMZZZZZZZ_.jpg', NULL, '666017012629,666017012629', 'B00004T9Z1', 'Deep Throat [UK-Import]Deep Throat [UK-Import]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00004T9Z1, Deep Throat [UK-Import]Deep Throat [UK-Import], Music, 06660170126290666017012629, http://images.amazon.com/images/P/B00004T9Z1.01._SCMZZZZZZZ_.jpg..., null, null, 666017012629,666017012629).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, 'http://images.amazon.com/images/P/B000087DTI.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000087DTI.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000087DTI.01._SCMZZZZZZZ_.jpg', NULL, '738572114527,738572114527,738572114527', 'B000087DTI', 'Prisoner:File #2Prisoner:File #2Prisoner:File #2', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B000087DTI, Prisoner:File #2Prisoner:File #2Prisoner:File #2, Music, null, http://images.amazon.com/images/P/B000087DTI.01._SCMZZZZZZZ_.jpg..., null, null, 738572114527,738572114527,738572114527).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07385721146260738572114626', 'http://images.amazon.com/images/P/B000087DT8.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000087DT8.01._SCMZZZZZZZ_.jpg', NULL, '738572114626,738572114626', 'B000087DT8', 'Prisoner:File #3Prisoner:File #3', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000087DT8, Prisoner:File #3Prisoner:File #3, Music, 07385721146260738572114626, http://images.amazon.com/images/P/B000087DT8.01._SCMZZZZZZZ_.jpg..., null, null, 738572114626,738572114626).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00150953422490015095342249', NULL, NULL, '015095342249,015095342249', 'B000000C9M', 'The Best of the Honky-Tonk Piano [Musikkassette]The Best of the Honky-Tonk Piano [Musikkassette]', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000000C9M, The Best of the Honky-Tonk Piano [Musikkassette]The Best of the ..., Music, 00150953422490015095342249, null, null, null, 015095342249,015095342249).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07900516130200790051613020', 'http://images.amazon.com/images/P/B00001NTLK.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00001NTLK.01._SCMZZZZZZZ_.jpg', NULL, '790051613020,790051613020', 'B00001NTLK', 'I Walk the Line/Little Fauss and Big HalseyI Walk the Line/Little Fauss and Big Halsey', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00001NTLK, I Walk the Line/Little Fauss and Big HalseyI Walk the Line/Littl..., Music, 07900516130200790051613020, http://images.amazon.com/images/P/B00001NTLK.01._SCMZZZZZZZ_.jpg..., null, null, 790051613020,790051613020).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '40001271613074000127161307', 'http://images.amazon.com/images/P/B0000300MP.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0000300MP.03._SCMZZZZZZZ_.jpg', NULL, '4000127161307,4000127161307', 'B0000300MP', 'I Walk the Line/Little Fauss &I Walk the Line/Little Fauss &', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000300MP, I Walk the Line/Little Fauss &I Walk the Line/Little Fauss &, Music, 40001271613074000127161307, http://images.amazon.com/images/P/B0000300MP.03._SCMZZZZZZZ_.jpg..., null, null, 4000127161307,4000127161307).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '5020957214829', 'http://images.amazon.com/images/P/B00001ZWL9.01._SCMZZZZZZZ_.jpg', 'http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2%26camp=2025%26creative=165953%26path=http://www.amazon.de/gp/redirect.html%253fASIN=B00001ZWL9%2526tag=ws%2526lcode=xm2%2526cID=2025%2526ccmID=165953%2526location=/o/ASIN/B00001ZWL9%25253FSubscriptionId=008VAFAFSK8GN837GT02', '5020957214829', NULL, 'Les Paul & Mary Ford Shows: May & June 1950 [UK-Import]', NULL);
+Error Message: ERROR: null value in column "asin" of relation "products" violates not-null constraint
+  Detail: Failing row contains (null, Les Paul & Mary Ford Shows: May & June 1950 [UK-Import], Music, 5020957214829, http://images.amazon.com/images/P/B00001ZWL9.01._SCMZZZZZZZ_.jpg, http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2..., null, 5020957214829).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00440067092220044006709222', 'http://images.amazon.com/images/P/B00008CQOP.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00008CQOP.03._SCMZZZZZZZ_.jpg', NULL, '044006709222,044006709222', 'B00008CQOP', 'Wege zur MusikWege zur Musik', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00008CQOP, Wege zur MusikWege zur Musik, Music, 00440067092220044006709222, http://images.amazon.com/images/P/B00008CQOP.03._SCMZZZZZZZ_.jpg..., null, null, 044006709222,044006709222).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', NULL, 'http://images.amazon.com/images/P/B0000AAL8G.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0000AAL8G.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0000AAL8G.03._SCMZZZZZZZ_.jpg', NULL, '666017066325,666017066325,666017066325', 'B0000AAL8G', 'Unearthed Merseybeat-from ThUnearthed Merseybeat-from ThUnearthed Merseybeat-from Th', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_upc_length"
+  Detail: Failing row contains (B0000AAL8G, Unearthed Merseybeat-from ThUnearthed Merseybeat-from ThUnearthe..., Music, null, http://images.amazon.com/images/P/B0000AAL8G.03._SCMZZZZZZZ_.jpg..., null, null, 666017066325,666017066325,666017066325).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07063017351210706301735121', 'http://images.amazon.com/images/P/B000005E53.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000005E53.03._SCMZZZZZZZ_.jpg', NULL, '706301735121,706301735121', 'B000005E53', 'Purcell: König Arthur (Highlights)Purcell: König Arthur (Highlights)', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000005E53, Purcell: König Arthur (Highlights)Purcell: König Arthur (Highl..., Music, 07063017351210706301735121, http://images.amazon.com/images/P/B000005E53.03._SCMZZZZZZZ_.jpg..., null, null, 706301735121,706301735121).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07314527953280731452795328', 'http://images.amazon.com/images/P/B0000047DA.03._SCMZZZZZZZ_.gifhttp://images.amazon.com/images/P/B0000047DA.03._SCMZZZZZZZ_.gif', NULL, '731452795328,731452795328', 'B0000047DA', 'The Complete Bill Evans on VerThe Complete Bill Evans on Ver', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000047DA, The Complete Bill Evans on VerThe Complete Bill Evans on Ver, Music, 07314527953280731452795328, http://images.amazon.com/images/P/B0000047DA.03._SCMZZZZZZZ_.gif..., null, null, 731452795328,731452795328).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '07300826075200730082607520', 'http://images.amazon.com/images/P/B00003G1O4.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B00003G1O4.03._SCMZZZZZZZ_.jpg', NULL, '730082607520,730082607520', 'B00003G1O4', 'Anna und der König (Anna And The King)Anna und der König (Anna And The King)', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B00003G1O4, Anna und der König (Anna And The King)Anna und der König (Anna..., Music, 07300826075200730082607520, http://images.amazon.com/images/P/B00003G1O4.03._SCMZZZZZZZ_.jpg..., null, null, 730082607520,730082607520).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Book', '07473132650220747313265022', 'http://ec1.images-amazon.com/images/P/B0006OL5DQ.01._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B0006OL5DQ.01._SCMZZZZZZZ_.jpg', NULL, NULL, 'B0006OL5DQ', 'Bach for Meditation. CDBach for Meditation. CD', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0006OL5DQ, Bach for Meditation. CDBach for Meditation. CD, Book, 07473132650220747313265022, http://ec1.images-amazon.com/images/P/B0006OL5DQ.01._SCMZZZZZZZ_..., null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3431035132', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3431035132, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3473521450', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3473521450, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177231', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177231, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3802533968', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3802533968, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3802533976', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3802533976, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '347177274X', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (347177274X, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3937825002', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3937825002, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3937825010', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3937825010, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3937825045', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3937825045, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3937825177', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3937825177, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00002470R', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00002470R, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0000265PK', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0000265PK, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B000025U5T', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B000025U5T, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00004LN02', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00004LN02, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00016UZB2', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00016UZB2, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002DSBXI', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002DSBXI, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002VK5G6', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002VK5G6, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00064RU2Q', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00064RU2Q, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B000266XCQ', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B000266XCQ, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002TB60M', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002TB60M, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0006IGJ2Y', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0006IGJ2Y, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002JZ32E', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002JZ32E, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002Z7K24', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002Z7K24, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3473344273', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3473344273, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3473344702', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3473344702, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B000024A23', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B000024A23, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00002S5DF', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00002S5DF, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0002Z8532', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0002Z8532, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00069JA2Y', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00069JA2Y, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00012HOC4', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00012HOC4, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00012HOCY', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00012HOCY, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B000002G5O', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B000002G5O, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B0000VB2E2', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B0000VB2E2, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00083D4K2', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00083D4K2, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '352210580X', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (352210580X, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522105907', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522105907, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522106202', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522106202, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522115201', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522115201, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '50997053550225099705355022', 'http://images.amazon.com/images/P/B000025FDK.03._SCMZZZZZZZ_.jpghttp://images.amazon.com/images/P/B000025FDK.03._SCMZZZZZZZ_.jpg', NULL, NULL, 'B000025FDK', 'Puccini: Tosca (Highlights)Puccini: Tosca (Highlights)', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B000025FDK, Puccini: Tosca (Highlights)Puccini: Tosca (Highlights), Music, 50997053550225099705355022, http://images.amazon.com/images/P/B000025FDK.03._SCMZZZZZZZ_.jpg..., null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES ('Music', '00746445633200074644563320', NULL, NULL, '074644563320,074644563320', 'B0000026YK', 'Opera AriasOpera Arias', NULL);
+Error Message: ERROR: new row for relation "products" violates check constraint "check_ean_length"
+  Detail: Failing row contains (B0000026YK, Opera AriasOpera Arias, Music, 00746445633200074644563320, null, null, null, 074644563320,074644563320).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3570127753', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3570127753, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3570127761', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3570127761, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3570128032', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3570128032, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789140244', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789140244, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3257008775', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3257008775, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3257008945', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3257008945, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3257800010', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3257800010, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3800020874', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3800020874, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3800020882', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3800020882, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3499205823', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3499205823, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3499208555', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3499208555, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3499212129', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3499212129, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177134', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177134, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177592', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177592, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177606', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177606, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177622', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177622, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789140201', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789140201, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3800050021', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3800050021, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3596803276', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3596803276, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3832712291', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3832712291, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3791504592', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3791504592, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3190028516', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3190028516, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3423622156', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3423622156, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789111252', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789111252, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3440102033', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3440102033, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3440102041', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3440102041, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3440102076', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3440102076, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3440102084', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3440102084, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3440102092', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3440102092, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3473581720', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3473581720, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3473582123', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3473582123, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3423125004', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3423125004, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522119800', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522119800, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3401044923', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3401044923, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3401086472', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3401086472, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789129445', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789129445, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789129461', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789129461, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789129402', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789129402, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '359680342X', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (359680342X, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3937825134', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3937825134, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, 'B00026AD4K', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (B00026AD4K, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3522177509', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3522177509, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3789142514', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3789142514, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3551552835', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3551552835, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3551552851', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3551552851, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '355155286X', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (355155286X, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3423708921', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3423708921, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3821229268', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3821229268, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3831520666', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3831520666, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3833934824', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3833934824, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3821229292', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3821229292, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3401027050', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3401027050, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3898132730', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3898132730, null, null, null, null, null, null, null).
+SQL Statement: INSERT INTO products (pgroup, ean, image_url, detailpage_url, upc, asin, ptitle, salesrank) VALUES (NULL, NULL, NULL, NULL, NULL, '3791530127', NULL, NULL);
+Error Message: ERROR: null value in column "ptitle" of relation "products" violates not-null constraint
+  Detail: Failing row contains (3791530127, null, null, null, null, null, null, null).

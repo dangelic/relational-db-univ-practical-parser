@@ -1,57 +1,15 @@
 -- Add NOT NULL and UNIQUE constraints
 
 -- #### products
-ALTER TABLE products
-ADD CONSTRAINT unique_asin UNIQUE (asin),
-ADD CONSTRAINT unique_upc UNIQUE (upc),
-ADD CONSTRAINT unique_ean UNIQUE (ean),
-ADD CONSTRAINT check_ean_length CHECK (length(ean) <= 14),
-ADD CONSTRAINT check_upc_length CHECK (length(ean) <= 13);
-
-ALTER TABLE products
-ALTER COLUMN asin SET NOT NULL,
-ALTER COLUMN ptitle SET NOT NULL,
-ALTER COLUMN pgroup SET NOT NULL;
 
 -- #### bankinfos
-ALTER TABLE bankinfos
-ADD CONSTRAINT unique_bankinfos_id UNIQUE (bankinfo_id);
-
-ALTER TABLE bankinfos
-ALTER COLUMN bankinfo_id SET NOT NULL,
-ALTER COLUMN account_number SET NOT NULL;
 
 -- #### users
-ALTER TABLE users
-ADD CONSTRAINT unique_username UNIQUE (username);
-
-ALTER TABLE users
-ALTER COLUMN username SET NOT NULL;
 
 -- #### categories
-ALTER TABLE categories
-ADD CONSTRAINT unique_category_id UNIQUE (category_id),
-ADD CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id);
-
-ALTER TABLE categories
-ALTER COLUMN category_id SET NOT NULL,
-ALTER COLUMN name SET NOT NULL;
 
 -- #### creators
-ALTER TABLE creators
-ADD CONSTRAINT unique_creator_id UNIQUE (creator_id);
 
-ALTER TABLE creators
-ALTER COLUMN creator_id SET NOT NULL,
-ALTER COLUMN name SET NOT NULL;
-
--- #### listmanialists
-ALTER TABLE listmanialists
-ADD CONSTRAINT unique_listmanialist_id UNIQUE (listmanialist_id);
-
-ALTER TABLE listmanialists
-ALTER COLUMN listmanialist_id SET NOT NULL,
-ALTER COLUMN name SET NOT NULL;
 
 -- #### shopaddresses
 ALTER TABLE shopaddresses
@@ -63,13 +21,6 @@ ALTER COLUMN shops_shop_id SET NOT NULL,
 ALTER COLUMN street SET NOT NULL,
 ALTER COLUMN zip SET NOT NULL;
 
--- #### shops
-ALTER TABLE shops
-ADD CONSTRAINT unique_shop_id UNIQUE (shop_id);
-
-ALTER TABLE shops
-ALTER COLUMN shop_id SET NOT NULL,
-ALTER COLUMN name SET NOT NULL;
 
 -- #### priceinfos
 ALTER TABLE priceinfos
@@ -85,7 +36,8 @@ ALTER COLUMN shops_shop_id SET NOT NULL;
 ALTER TABLE userreviews
 ADD CONSTRAINT unique_userreview_id UNIQUE (userreview_id),
 ADD CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username),
-ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5);
+ADD CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5),
+ADD CONSTRAINT check_review_date CHECK (review_date > '1994-05-07');
 
 ALTER TABLE userreviews
 ALTER COLUMN products_asin SET NOT NULL,
@@ -99,7 +51,8 @@ ALTER COLUMN review_date SET NOT NULL;
 -- #### guestreviews
 ALTER TABLE guestreviews
 ADD CONSTRAINT unique_guestreview_id UNIQUE (guestreview_id),
-ADD CONSTRAINT check_rating_range_guestreviews CHECK (rating >= 0 AND rating <= 5);
+ADD CONSTRAINT check_rating_range_guestreviews CHECK (rating >= 0 AND rating <= 5),
+ADD CONSTRAINT check_review_date CHECK (review_date > '1994-05-07');
 
 ALTER TABLE guestreviews
 ALTER COLUMN guestreview_id SET NOT NULL,
