@@ -209,7 +209,6 @@ public class LogGenerator {
 
 
 
-
     private static String getAsinString(HashMap<String, List<String>> hashMap) {
         List<String> asinList = hashMap.get("asin");
         if (asinList != null && !asinList.isEmpty()) {
