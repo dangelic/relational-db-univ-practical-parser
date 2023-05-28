@@ -1,15 +1,22 @@
 CREATE TABLE products (
-  asin VARCHAR(12) NOT NULL,
+  asin VARCHAR(10) NOT NULL,
   ptitle VARCHAR(255) NOT NULL,
   pgroup VARCHAR(5) NOT NULL,
-  ean VARCHAR(14),
+  ean VARCHAR(13),
   image_url TEXT,
   detailpage_url TEXT,
   salesrank INTEGER,
-  upc VARCHAR(13),
+  upc VARCHAR(12),
   PRIMARY KEY (asin),
   CONSTRAINT unique_upc UNIQUE (upc),
-  CONSTRAINT unique_ean UNIQUE (ean)
+  CONSTRAINT unique_ean UNIQUE (ean),
+  -- ASIN has to be 10 chars long. This constraint is not necessary to be set overall as PK-FK relation rejects shorter ASIN in other entities.
+  CONSTRAINT check_asin_length CHECK (LENGTH(asin) = 10),
+  -- UPC has to be 12 chars long.
+  CONSTRAINT check_upc_length CHECK (LENGTH(upc) = 12),
+  -- EAN has to be 13 chars long, assuming EAN-13.
+    CONSTRAINT check_ean_length CHECK (LENGTH(ean) = 12)
+
 );
 
 CREATE TABLE users (
@@ -63,7 +70,7 @@ CREATE TABLE shopaddresses (
 
 CREATE TABLE priceinfos (
   priceinfo_id VARCHAR(9) NOT NULL,
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   shops_shop_id VARCHAR(9) NOT NULL,
   price FLOAT(2),
   multiplier FLOAT(2),
@@ -77,7 +84,7 @@ CREATE TABLE priceinfos (
 
 CREATE TABLE userreviews (
   userreview_id VARCHAR(9) NOT NULL,
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   users_username VARCHAR(30) NOT NULL,
   rating INTEGER NOT NULL,
   helpful_votes INTEGER NOT NULL,
@@ -95,7 +102,7 @@ CREATE TABLE userreviews (
 
 CREATE TABLE guestreviews (
   guestreview_id VARCHAR(9) NOT NULL,
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   rating INTEGER NOT NULL,
   helpful_votes INTEGER NOT NULL,
   summary TEXT NOT NULL,
@@ -109,7 +116,7 @@ CREATE TABLE guestreviews (
 
 CREATE TABLE purchases (
   purchase_id VARCHAR(12) NOT NULL,
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   priceinfos_priceinfo_id VARCHAR(9) NOT NULL,
   users_username VARCHAR(30) NOT NULL,
   purchase_date DATE NOT NULL,
@@ -172,7 +179,7 @@ CREATE TABLE dvdformats (
 );
 
 CREATE TABLE dvds (
-  asin VARCHAR(12) NOT NULL,
+  asin VARCHAR(10) NOT NULL,
   aspect_ratio VARCHAR(7),
   running_time INTEGER,
   theatr_release DATE,
@@ -183,7 +190,7 @@ CREATE TABLE dvds (
 );
 
 CREATE TABLE books (
-  asin VARCHAR(12) NOT NULL,
+  asin VARCHAR(10) NOT NULL,
   isbn VARCHAR(13),
   edition VARCHAR(255),
   binding VARCHAR(255),
@@ -193,11 +200,13 @@ CREATE TABLE books (
   pages INTEGER,
   publication_date DATE,
   PRIMARY KEY (asin),
-  CONSTRAINT fk_books_products_asin FOREIGN KEY (asin) REFERENCES products(asin)
+  CONSTRAINT fk_books_products_asin FOREIGN KEY (asin) REFERENCES products(asin),
+  -- ISBN has to be 10 chars long.
+  CONSTRAINT check_isbn_length CHECK (LENGTH(asin) = 13)
 );
 
 CREATE TABLE cds (
-  asin VARCHAR(12) NOT NULL,
+  asin VARCHAR(10) NOT NULL,
   binding VARCHAR(20),
   cd_format VARCHAR(50),
   num_discs INTEGER,
@@ -207,7 +216,7 @@ CREATE TABLE cds (
 );
 
 CREATE TABLE junction_cds_labels (
-  cds_asin VARCHAR(12),
+  cds_asin VARCHAR(10),
   labels_label_id VARCHAR(9),
   PRIMARY KEY (cds_asin, labels_label_id),
   CONSTRAINT fk_junction_cds_labels_cds FOREIGN KEY (cds_asin) REFERENCES cds(asin),
@@ -215,7 +224,7 @@ CREATE TABLE junction_cds_labels (
 );
 
 CREATE TABLE junction_books_authors (
-  books_asin VARCHAR(12) NOT NULL,
+  books_asin VARCHAR(10) NOT NULL,
   authors_author_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (books_asin, authors_author_id),
   CONSTRAINT fk_junction_books_authors_books FOREIGN KEY (books_asin) REFERENCES books(asin),
@@ -223,7 +232,7 @@ CREATE TABLE junction_books_authors (
 );
 
 CREATE TABLE junction_books_publishers (
-  books_asin VARCHAR(12) NOT NULL,
+  books_asin VARCHAR(10) NOT NULL,
   publishers_publisher_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (books_asin, publishers_publisher_id),
   CONSTRAINT fk_junction_books_publishers_books FOREIGN KEY (books_asin) REFERENCES books(asin),
@@ -231,7 +240,7 @@ CREATE TABLE junction_books_publishers (
 );
 
 CREATE TABLE junction_dvds_actors (
-  dvds_asin VARCHAR(12) NOT NULL,
+  dvds_asin VARCHAR(10) NOT NULL,
   actors_actor_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (dvds_asin, actors_actor_id),
   CONSTRAINT fk_junction_dvds_actors_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
@@ -239,7 +248,7 @@ CREATE TABLE junction_dvds_actors (
 );
 
 CREATE TABLE junction_dvds_studios (
-  dvds_asin VARCHAR(12) NOT NULL,
+  dvds_asin VARCHAR(10) NOT NULL,
   studios_studio_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (dvds_asin, studios_studio_id),
   CONSTRAINT fk_junction_dvds_studios_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
@@ -247,7 +256,7 @@ CREATE TABLE junction_dvds_studios (
 );
 
 CREATE TABLE junction_dvds_audiotexts (
-  dvds_asin VARCHAR(12) NOT NULL,
+  dvds_asin VARCHAR(10) NOT NULL,
   audiotexts_audiotext_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id),
   CONSTRAINT fk_junction_dvds_audiotexts_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
@@ -255,7 +264,7 @@ CREATE TABLE junction_dvds_audiotexts (
 );
 
 CREATE TABLE junction_dvds_dvdformats (
-  dvds_asin VARCHAR(12) NOT NULL,
+  dvds_asin VARCHAR(10) NOT NULL,
   dvdformats_dvdformat_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id),
   CONSTRAINT fk_junction_dvds_dvdformats_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
@@ -264,7 +273,7 @@ CREATE TABLE junction_dvds_dvdformats (
 
 CREATE TABLE tracks (
   track_id VARCHAR(9) NOT NULL,
-  cds_asin VARCHAR(12) NOT NULL,
+  cds_asin VARCHAR(10) NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (track_id),
   CONSTRAINT fk_tracks_cds FOREIGN KEY (cds_asin) REFERENCES cds(asin),
@@ -272,15 +281,15 @@ CREATE TABLE tracks (
 );
 
 CREATE TABLE products_similars (
-  products_asin VARCHAR(12) NOT NULL,
-  similar_product_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
+  similar_product_asin VARCHAR(10) NOT NULL,
   PRIMARY KEY (products_asin, similar_product_asin),
   CONSTRAINT fk_products_similars_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_products_similars_similar_product FOREIGN KEY (similar_product_asin) REFERENCES products(asin)
 );
 
 CREATE TABLE junction_products_categories (
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   categories_category_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (products_asin, categories_category_id),
   CONSTRAINT fk_junction_products_categories_products FOREIGN KEY (products_asin) REFERENCES products(asin),
@@ -288,7 +297,7 @@ CREATE TABLE junction_products_categories (
 );
 
 CREATE TABLE junction_products_listmanialists (
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   listmanialists_listmanialist_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (products_asin, listmanialists_listmanialist_id),
   CONSTRAINT fk_junction_products_listmanialists_products FOREIGN KEY (products_asin) REFERENCES products(asin),
@@ -296,7 +305,7 @@ CREATE TABLE junction_products_listmanialists (
 );
 
 CREATE TABLE junction_products_creators (
-  products_asin VARCHAR(12) NOT NULL,
+  products_asin VARCHAR(10) NOT NULL,
   creators_creator_id VARCHAR(9) NOT NULL,
   PRIMARY KEY (products_asin, creators_creator_id),
   CONSTRAINT fk_junction_products_creators_products FOREIGN KEY (products_asin) REFERENCES products(asin),

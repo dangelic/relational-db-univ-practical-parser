@@ -10,7 +10,6 @@ import dbConnection.PostgresConnector;
 import queryBuilderJunctions.QueryBuilderJunctions;
 import categoryHandler.CategoryTransformAndGenerateSQL;
 
-
 import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +18,12 @@ import java.util.List;
 import java.io.File;
 
 public class ETLProcess {
+    // Define Color-Codes for Console-Output.
+    private static String success = "\u001B[32m"; // Green color string for successful queries
+    private static String info = "\u001B[34m"; // Blue color string for info messages
+    private static String end = "\u001B[0m";
 
+    // Define paths.
     private static String pathToLogFile = "./logs/constraint_violations.log";
     private static String pathToLogFileDebugDB = "./logs/debug_db.log";
     private static String pathToLeipzigShopXML = "./data/raw/xml/leipzig_transformed.xml";
@@ -27,71 +31,77 @@ public class ETLProcess {
     private static String pathToCategoriesXML = "./data/raw/xml/categories.xml";
     private static String pathToUserReviewsCSV = "./data/raw/csv/reviews.csv";
 
+    private static String dropSQLFilePath = "./sql/drop_tables_casc.sql";
+    private static String createSQLFilePath = "./sql/create_tables.sql";
+    private static String indexSQLFilePath = "./sql/add_index.sql";
+
     static PostgresConnector dbConnection = new PostgresConnector("postgres", "");
 
     public static void main(String[] args) {
-
-        File logFileConstraintViolations = new File(pathToLogFile);
-        if (logFileConstraintViolations.exists()) logFileConstraintViolations.delete();
-        File logFileDB = new File(pathToLogFileDebugDB);
-        if (logFileDB.exists()) logFileDB.delete();
-
-        //initializeDatabaseScheme();
-        //loadShopData();
-
+        // Resets log files.
+        resetLogFiles();
+        // Initializes the database scheme to start from ETL from zero.
+        initializeDatabaseScheme();
+        // Parses XML product data from both shops, merges data and returns a list of HashMaps containing all parsed values separately in Hashmaps.
         List < HashMap < String, List < String >>> parsedXMLProductDataMerged = parseProductsFromShopsMerged();
-        List < HashMap < String, List < String >>> parsedXMLProductDataMergedCleanPre = runCleanUpTasksPre(parsedXMLProductDataMerged);
-
-        List < HashMap < String, List < String >>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews(pathToUserReviewsCSV);
-        List < HashMap < String, List < String >>> parsedCSVReviewsFromGuests = CSVParsingReviews.parseCSVGuestReviews(pathToUserReviewsCSV);
-        // Merge the two lists
-        parsedCSVReviewsFromUsers.addAll(parsedCSVReviewsFromGuests);
-        List < HashMap < String, List < String >>> parsedCSVReviewsDataMerged = parsedCSVReviewsFromUsers;
-
-
-        // LogGenerator.check(parsedXMLProductDataMerged, parsedCSVReviewsDataMerged);
-
-        //loadCommonData(parsedXMLProductDataMergedCleanPre); // CHANGE TO CLEAN!
-        //loadNormalizationTablesData(parsedXMLProductDataMergedCleanPre);
-        //loadJunctionData(parsedXMLProductDataMergedCleanPre);
-
+        // Run preprocessing on the list of HashMaps. This includes replacement for missing chars if the same product exists again with proper chars in strings.
+        List < HashMap < String, List < String >>> parsedXMLProductDataMergedPreprocessed = runCleanUpTasksPre(parsedXMLProductDataMerged);
+        // Load the Shop Data including Name, Zip, ...
+        loadShopData();
+        // Load common data using the parsed and preprocessed XML product data. Common Data includes Products, CDs, DVDs and Books entities.
+        loadCommonData(parsedXMLProductDataMergedPreprocessed);
+        // Load normalization tables data using the parsed and preprocessed XML product data. Normalitation tables are e.g. Authors, Creators, Studios, or Labels.
+        loadNormalizationTablesData(parsedXMLProductDataMergedPreprocessed);
+        // Load junction data using the parsed and preprocessed XML product data. Junction Data is the data to connect m:m relations.
+        loadJunctionData(parsedXMLProductDataMergedPreprocessed);
+        // Load users and their reviews data.
+        loadUsersAndReviewsData();
+        // Load categories data.
         loadCategoriesData();
-
-       // loadUsersAndReviewsData();
-
+        // Generate a Log File based on rejected data from the parsed files which is written in ./logs directory.
+        generateRejectionsLogFile(); // Generates a log file for rejections
     }
 
     /**
-     * Initializes the database schema based on the specified SQL files in ./sql. Relevant initialization commands are divided into four files.
-     *
-     * @param dropSQLFilePath         The file path to the SQL file that contains the DROP commands for all tables.
-     * @param createSQLFilePath       The file path to the SQL file that contains the CREATE commands for all tables.
-     *                                add
+     * Resets the log files.
+     * If the log files exist, they are deleted.
+     */
+    private static void resetLogFiles() {
+        File logFileConstraintViolations = new File(pathToLogFile);
+        if (logFileConstraintViolations.exists()) {
+            out.println(info + "Log file " + pathToLogFile + " already exists. Deleted it." + end);
+            logFileConstraintViolations.delete();
+        }
+        File logFileDB = new File(pathToLogFileDebugDB);
+        if (logFileDB.exists()) {
+            out.println(info + "Log file " + pathToLogFile + " already exists. Deleted it." + end);
+            logFileDB.delete();
+        }
+    }
+
+    /**
+     * Initializes the database scheme.
+     * Connects to the database, drops all tables, creates tables with constraints, adds indexes, and disconnects from the database.
      */
     private static void initializeDatabaseScheme() {
-
-        String dropSQLFilePath = "./sql/drop_tables_casc.sql";
-        String createSQLFilePath = "./sql/create_tables.sql";
-        String indexSQLFilePath = "./sql/add_index.sql";
-
         try {
             dbConnection.connect();
-            out.println("Initialize Database Scheme...");
+            out.println(info + "Initialize Database Scheme..." + end);
 
-            out.println("DROP ALL TABLES...");
-            List < String > dropSQLStatements = sqlParser.parseSQLFile(dropSQLFilePath); // Parse statements from file with helper method.
+            out.println(info + "DROP ALL TABLES..." + end);
+            List<String> dropSQLStatements = sqlParser.parseSQLFile(dropSQLFilePath); // Parse statements from file with helper method.
             dbConnection.executeSQLQueryBatch(dropSQLStatements, pathToLogFileDebugDB);
-            out.println("DONE.");
+            out.println(info + "DONE." + end);
 
-            out.println("CREATE TABLES WITH CONSTRAINTS...");
-            List < String > creationSQLStatements = sqlParser.parseSQLFile(createSQLFilePath);
+            out.println(info + "CREATE TABLES WITH CONSTRAINTS..." + end);
+            List<String> creationSQLStatements = sqlParser.parseSQLFile(createSQLFilePath);
             dbConnection.executeSQLQueryBatch(creationSQLStatements, pathToLogFileDebugDB);
-            out.println("DONE.");
+            out.println(info + "DONE." + end);
 
-            out.println("ADD INDEXES...");
-            List < String > idxStatements = sqlParser.parseSQLFile(indexSQLFilePath);
+            out.println(info + "ADD INDEXES..." + end);
+            List<String> idxStatements = sqlParser.parseSQLFile(indexSQLFilePath);
             dbConnection.executeSQLQueryBatch(idxStatements, pathToLogFileDebugDB);
-            out.println("DONE.");
+            out.println(info + "DONE." + end);
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -100,83 +110,91 @@ public class ETLProcess {
     }
 
     /**
-     * Parses the product data from both shops and merges them into one single List of HashMaps
-     * The structure of the Lists/ HashMaps is explained in XMLParsingProducts Class.
+     * Parses products from merged shops.
      *
-     * @param pathToLeipzigRawXML   The file path to the raw XML file for Leipzig.
-     * @param pathToDresdenRawXML   The file path to the raw XML file for Dresden.
-     * @return The merged product data parsed from the XML shop files.
+     * @return A list of HashMaps containing parsed XML product data from the merged shops.
      */
-    private static List < HashMap < String, List < String >>> parseProductsFromShopsMerged() {
+    private static List<HashMap<String, List<String>>> parseProductsFromShopsMerged() {
 
-        // Parse Leipzig
-        List < String > leipzig = new ArrayList < > (); // Pass in a ArrayList with one Value (and no simple String) as everything in the parser is handled as a List.
+        // Parse Leipzig.
+        List<String> leipzig = new ArrayList<>(); // Pass in an ArrayList with one value (and no simple String) as everything in the parser is handled as a List.
         leipzig.add("LEIPZIG");
-        List < HashMap < String, List < String >>> parsedXMLProductDataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigShopXML, leipzig);
+        List<HashMap<String, List<String>>> parsedXMLProductDataLeipzig = XMLParsingProducts.parseXMLFile(pathToLeipzigShopXML, leipzig);
 
-        // Parse Dresden
-        List < String > dresden = new ArrayList < > ();
+        // Parse Dresden.
+        List<String> dresden = new ArrayList<>();
         dresden.add("DRESDEN");
-        List < HashMap < String, List < String >>> parsedXMLProductDataDresden = XMLParsingProducts.parseXMLFile(pathToDresdenShopXML, dresden);
+        List<HashMap<String, List<String>>> parsedXMLProductDataDresden = XMLParsingProducts.parseXMLFile(pathToDresdenShopXML, dresden);
 
-        // Merge the two lists
+        // Merge the two lists to process them as unit.
         parsedXMLProductDataLeipzig.addAll(parsedXMLProductDataDresden);
-        List < HashMap < String, List < String >>> parsedXMLProductDataMerged = parsedXMLProductDataLeipzig;
+        List<HashMap<String, List<String>>> parsedXMLProductDataMerged = parsedXMLProductDataLeipzig;
 
         return parsedXMLProductDataMerged;
     }
 
-    private static List < HashMap < String, List < String >>> parseShopDataMerged(String pathToLeipzigRawXML, String pathToDresdenRawXML) {
-        // Parse Leipzig
-        List < HashMap < String, List < String >>> shopDataLeipzig = XMLParsingShops.parseXMLFile(pathToLeipzigRawXML);
-        // Parse Dresden
-        List < HashMap < String, List < String >>> shopDataDresden = XMLParsingShops.parseXMLFile(pathToDresdenRawXML);
+    /**
+     * Parses merged shop data.
+     *
+     * @param pathToLeipzigRawXML  The path to the Leipzig raw XML file.
+     * @param pathToDresdenRawXML The path to the Dresden raw XML file.
+     * @return A list of HashMaps containing parsed shop data from the merged sources.
+     */
+    private static List<HashMap<String, List<String>>> parseShopDataMerged(String pathToLeipzigRawXML, String pathToDresdenRawXML) {
+        // Parse Leipzig.
+        List<HashMap<String, List<String>>> shopDataLeipzig = XMLParsingShops.parseXMLFile(pathToLeipzigRawXML);
+        // Parse Dresden.
+        List<HashMap<String, List<String>>> shopDataDresden = XMLParsingShops.parseXMLFile(pathToDresdenRawXML);
 
-        // Merge the two lists
+        // Merge the two lists to process them as unit.
         shopDataLeipzig.addAll(shopDataDresden);
-        List < HashMap < String, List < String >>> parsedXMLProductDataMerged = shopDataLeipzig;
+        List<HashMap<String, List<String>>> parsedXMLProductDataMerged = shopDataLeipzig;
 
         return parsedXMLProductDataMerged;
     }
 
-    private static List < HashMap < String, List < String >>> runCleanUpTasksPre(List < HashMap < String, List < String >>> parsedXMLProductDataMerged) {
+    /**
+     * Runs clean-up tasks on the merged product data, replacing special characters (such as ö, ä, ü, etc.) in products
+     * that have a sibling with a matching string containing these special characters.
+     *
+     * @param parsedXMLProductDataMerged The merged product data to be cleaned and preprocessed.
+     * @return The cleaned and preprocessed merged product data.
+     */
+    private static List<HashMap<String, List<String>>> runCleanUpTasksPre(List<HashMap<String, List<String>>> parsedXMLProductDataMerged) {
 
-        List < HashMap < String, List < String >>> parsedXMLProductDataMergedCleanedPre;
-        out.println("Run clean jobs on product data...");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMerged, "title");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "studios");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "similars");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "labels");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "tracks");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "authors");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "publishers");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "listmania_lists");
-//        parsedXMLProductDataMergedCleanedPre = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPre, "creators");
-//        out.println("DONE.");
-        // out.println(parsedXMLProductDataMergedCleanedPre);
-        // return parsedXMLProductDataMergedCleanedPre;
-        return parsedXMLProductDataMerged;
-
+        List<HashMap<String, List<String>>> parsedXMLProductDataMergedCleanedPreprocessed;
+        out.println(info + "RUN CLEAN JOBS ON PRODUCT DATA..." + end);
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMerged, "title");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "studios");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "similars");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "labels");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "tracks");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "authors");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "publishers");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "listmania_lists");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "creators");
+        out.println(info + "DONE." + end);
+        return parsedXMLProductDataMergedCleanedPreprocessed;
     }
 
+    /**
+     * Loads shop data (name, zip, ...) into the database. This also fills the shopaddresses table.
+     */
     public static void loadShopData() {
+        List<HashMap<String, List<String>>> shopDataMerged = parseShopDataMerged("./data/raw/xml/leipzig_transformed.xml", "./data/raw/xml/dresden.xml");
 
-        List < HashMap < String, List < String >>> shopDataMerged = parseShopDataMerged("./data/raw/xml/leipzig_transformed.xml", "./data/raw/xml/dresden.xml");
-
-
-        HashMap < String, String > dataTypeMapping;
-        List < String > fillingData;
-
+        HashMap<String, String> dataTypeMapping;
+        List<String> fillingData;
 
         try {
             dbConnection.connect();
 
-            out.println("Filling shops entity...");
+            out.println(info + "FILLING SHOPS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getShopsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(shopDataMerged, dataTypeMapping, "shops", "shop_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling shopaddresses entity...");
+            out.println(info + "FILLING SHOPADDRESSES ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getShopaddressesEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(shopDataMerged, dataTypeMapping, "shopaddresses", "shopaddress_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
@@ -189,42 +207,36 @@ public class ETLProcess {
     }
 
     /**
-     * Loads data for common* entities by applying logic on the merged List - which contains all Products from both shops.
-     * Common entities are products, books, authors, priceinfos, ...
-     * Junction Tables, categories, ... are handled separatly.
+     * Loads common data into the database.
      *
-     * @param parsedXMLProductDataMerged
-     * @return The merged product data parsed from the XML shop files.
+     * @param parsedXMLProductDataMerged The merged product data to be loaded.
      */
-    public static void loadCommonData(List < HashMap < String, List < String >>> parsedXMLProductDataMerged) {
-
-
-        HashMap < String, String > dataTypeMapping;
-        List < String > fillingData;
+    public static void loadCommonData(List<HashMap<String, List<String>>> parsedXMLProductDataMerged) {
+        HashMap<String, String> dataTypeMapping;
+        List<String> fillingData;
 
         try {
             dbConnection.connect();
 
-            out.println("Filling products entity...");
+            out.println(info + "FILLING PRODUCTS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getProductsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "products", "asin");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling books entity...");
+            out.println(info + "FILLING BOOKS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getBooksEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "books", "asin");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling cds entity...");
+            out.println(info + "FILLING CDS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getCdsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "cds", "asin");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling dvds entity...");
+            out.println(info + "FILLING DVDS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getDvdsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "dvds", "asin");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
-
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -232,66 +244,70 @@ public class ETLProcess {
         }
     }
 
-    public static void loadNormalizationTablesData(List < HashMap < String, List < String >>> parsedXMLProductDataMerged) {
 
-        HashMap < String, String > dataTypeMapping;
-        List < String > fillingData;
-
+    /**
+     * Loads normalization tables data into the database.
+     *
+     * @param parsedXMLProductDataMerged The merged product data to be loaded.
+     */
+    public static void loadNormalizationTablesData(List<HashMap<String, List<String>>> parsedXMLProductDataMerged) {
+        HashMap<String, String> dataTypeMapping;
+        List<String> fillingData;
 
         try {
             dbConnection.connect();
 
-            out.println("Filling dvdformats entity...");
+            out.println(info + "FILLING DVDFORMATS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getDvdformatsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "dvdformats", "dvdspec_format", 1, "dvdformat_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling similars entity...");
+            out.println(info + "FILLING SIMILARS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getProductsSimilarsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntity(parsedXMLProductDataMerged, dataTypeMapping, "products_similars", "similars");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling listmanialists entity...");
+            out.println(info + "FILLING LISTMANIALISTS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getListmanialistsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "listmanialists", "listmania_lists", 1, "listmanialist_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling tracks entity...");
+            out.println(info + "FILLING TRACKS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getTracksEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "tracks", "track_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling authors entity...");
+            out.println(info + "FILLING AUTHORS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getAuthorsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "authors", "authors", 1, "author_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling creators entity...");
+            out.println(info + "FILLING CREATORS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getCreatorsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "creators", "creators", 1, "creator_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling labels entity...");
+            out.println(info + "FILLING LABELS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getLabelsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "labels", "labels", 1, "label_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling studios entity...");
+            out.println(info + "FILLING STUDIOS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getStudiosEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "studios", "studios", 1, "studio_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling actors entity...");
+            out.println(info + "FILLING ACTORS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getActorsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "actors", "actors", 1, "actor_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling publishers entity...");
+            out.println(info + "FILLING PUBLISHERS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getPublishersEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "publishers", "publishers", 1, "publisher_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling priceinfos entity...");
+            out.println(info + "FILLING PRICEINFOS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getPriceinfosEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "priceinfos", "priceinfo_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
@@ -301,62 +317,64 @@ public class ETLProcess {
             e.printStackTrace();
         }
     }
-    public static void loadJunctionData(List < HashMap < String, List < String >>> parsedXMLProductDataMerged) {
 
-
+    /**
+     * Loads junction data into the database.
+     *
+     * @param parsedXMLProductDataMerged The merged product data to be loaded.
+     */
+    public static void loadJunctionData(List<HashMap<String, List<String>>> parsedXMLProductDataMerged) {
         try {
+            out.println(info + "FILLING JUNCTION_BOOKS_AUTHORS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "authors", "asin", "name", "author_id", "books", "authors", "junction_books_authors", "books_asin", "authors_author_id");
 
-//            out.println("Filling junction_books_authors entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "authors", "asin", "name", "author_id", "books", "authors", "junction_books_authors", "books_asin", "authors_author_id");
-//            out.println("Filling junction_books_publishers entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "publishers", "asin", "name", "publisher_id", "books", "publishers", "junction_books_publishers", "books_asin", "publishers_publisher_id");
-//            out.println("Filling junction_dvds_actors entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "actors", "asin", "name", "actor_id", "dvds", "actors", "junction_dvds_actors", "dvds_asin", "actors_actor_id");
-//            out.println("Filling junction_dvds_studios entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "studios", "asin", "name", "studio_id", "dvds", "studios", "junction_dvds_studios", "dvds_asin", "studios_studio_id");
-            out.println("Filling junction_dvds_formats entity...");
+            out.println(info + "FILLING JUNCTION_BOOKS_PUBLISHERS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "publishers", "asin", "name", "publisher_id", "books", "publishers", "junction_books_publishers", "books_asin", "publishers_publisher_id");
+
+            out.println(info + "FILLING JUNCTION_DVDS_ACTORS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "actors", "asin", "name", "actor_id", "dvds", "actors", "junction_dvds_actors", "dvds_asin", "actors_actor_id");
+
+            out.println(info + "FILLING JUNCTION_DVDS_STUDIOS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "studios", "asin", "name", "studio_id", "dvds", "studios", "junction_dvds_studios", "dvds_asin", "studios_studio_id");
+
+            out.println(info + "FILLING JUNCTION_DVDS_FORMATS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "dvdspec_format", "asin", "name", "dvdformat_id", "dvds", "dvdformats", "junction_dvds_dvdformats", "dvds_asin", "dvdformats_dvdformat_id");
-//            // TODO: Audiotexts
-//            out.println("Filling junction_cds_labels entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "labels", "asin", "name", "label_id", "cds", "labels", "junction_cds_labels", "cds_asin", "labels_label_id");
-//            out.println("Filling junction_products_creators entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "creators", "asin", "name", "creator_id", "products", "creators", "junction_products_creators", "products_asin", "creators_creator_id");
-//            out.println("Filling junction_products_listmanialists entity...");
-//            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "listmania_lists", "asin", "name", "listmanialist_id", "products", "listmanialists", "junction_products_listmanialists", "products_asin", "listmanialists_listmanialist_id");
 
+            // TODO: Audiotexts
 
+            out.println(info + "FILLING JUNCTION_CDS_LABELS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "labels", "asin", "name", "label_id", "cds", "labels", "junction_cds_labels", "cds_asin", "labels_label_id");
+
+            out.println(info + "FILLING JUNCTION_PRODUCTS_CREATORS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "creators", "asin", "name", "creator_id", "products", "creators", "junction_products_creators", "products_asin", "creators_creator_id");
+
+            out.println(info + "FILLING JUNCTION_PRODUCTS_LISTMANIALISTS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "listmania_lists", "asin", "name", "listmanialist_id", "products", "listmanialists", "junction_products_listmanialists", "products_asin", "listmanialists_listmanialist_id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Loads categories data into the database which are parsed from XML. This method also generates a clean variant of the categories.xml to work with.
+     */
     public static void loadCategoriesData() {
+        List<String> fillingData;
 
-        List < String > fillingData;
-
-
-
-        PostgresConnector dbConnection = new PostgresConnector("postgres", "");
 
         try {
             dbConnection.connect();
 
-
-            System.out.println("LOAD CATEGORIES DATA...");
+            out.println(info + "LOADING CATEGORIES DATA..." + end);
             CategoryTransformAndGenerateSQL categoryHandler = new CategoryTransformAndGenerateSQL();
             categoryHandler.transformAndCreateFormattedXML(pathToCategoriesXML, "./data/transformed/tagged_cats.xml");
             fillingData = categoryHandler.buildInsertStatementsForCategories();
-
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            System.out.println("DONE.");
-
-            System.out.println("LOAD JUNCTIONS DATA PRODUCTS CATEGORIES...");
-
+            out.println(info + "LOADING JUNCTIONS DATA PRODUCTS CATEGORIES..." + end);
             fillingData = categoryHandler.buildInsertStatementsForProducts();
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
-
-
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -364,32 +382,35 @@ public class ETLProcess {
         }
     }
 
-    public static void loadUsersAndReviewsData() {
 
-        List < HashMap < String, List < String >>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews(pathToUserReviewsCSV);
-        List < HashMap < String, List < String >>> parsedCSVReviewsFromGuests = CSVParsingReviews.parseCSVGuestReviews(pathToUserReviewsCSV);
+    /**
+     * Loads users and reviews data into the database which are parsed from CSV in this method.
+     */
+    public static void loadUsersAndReviewsData() {
+        List<HashMap<String, List<String>>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews(pathToUserReviewsCSV);
+        List<HashMap<String, List<String>>> parsedCSVReviewsFromGuests = CSVParsingReviews.parseCSVGuestReviews(pathToUserReviewsCSV);
         out.println(parsedCSVReviewsFromUsers);
 
-        List < String > fillingData;
+        List<String> fillingData;
 
-        HashMap < String, String > dataTypeMapping;
+        HashMap<String, String> dataTypeMapping;
 
         PostgresConnector dbConnection = new PostgresConnector("postgres", "");
 
         try {
             dbConnection.connect();
 
-           out.println("Filling users entity...");
+            out.println(info + "FILLING USERS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getUsersEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedCSVReviewsFromUsers, dataTypeMapping, "users", "username");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling userreviews entity...");
+            out.println(info + "FILLING USERREVIEWS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getUserreviewsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedCSVReviewsFromUsers, dataTypeMapping, "userreviews", "userreview_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
 
-            out.println("Filling questreviews entity...");
+            out.println(info + "FILLING GUESTREVIEWS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getGuestReviewsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedCSVReviewsFromGuests, dataTypeMapping, "guestreviews", "guestreview_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
@@ -398,5 +419,19 @@ public class ETLProcess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Generates the rejections log file.
+     */
+    private static void generateRejectionsLogFile() {
+        List<HashMap<String, List<String>>> parsedCSVReviewsFromUsers = CSVParsingReviews.parseCSVCRegisteredUserReviews(pathToUserReviewsCSV);
+        List<HashMap<String, List<String>>> parsedCSVReviewsFromGuests = CSVParsingReviews.parseCSVGuestReviews(pathToUserReviewsCSV);
+        // Merge the two lists
+        parsedCSVReviewsFromUsers.addAll(parsedCSVReviewsFromGuests);
+        List<HashMap<String, List<String>>> parsedCSVReviewsDataMerged = parsedCSVReviewsFromUsers;
+
+        out.println(info + "GENERATING REJECTIONS LOG FILE..." + end);
+        LogGenerator.check(parseProductsFromShopsMerged(), parsedCSVReviewsDataMerged);
     }
 }

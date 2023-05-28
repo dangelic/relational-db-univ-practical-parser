@@ -23,6 +23,8 @@ public class LogGenerator {
         for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkEANLength(hashMap);
         for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkUPCEntries(hashMap);
         for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkEmptyPgroup(hashMap);
+        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkAsinLength(hashMap);
+
         failureCount += checkDuplicateProductUserReview(parsedCSVDataReviews);
         failureCount += checkASINLengthInReviews(parsedCSVDataReviews);
         failureCount += checkInvalidReviewDate(parsedCSVDataReviews);
@@ -71,8 +73,8 @@ public class LogGenerator {
         List<String> eanList = hashMap.get("ean");
         if (eanList != null && !eanList.isEmpty()) {
             String ean = eanList.get(0);
-            if (ean.length() < 14) {
-                log(getAsinString(hashMap) + " EAN length is smaller than 14! EAN: " + ean);
+            if (ean.length() < 13) {
+                log(getAsinString(hashMap) + " EAN length is smaller than 13! EAN: " + ean);
                 failureCount++;
             }
         }
@@ -86,12 +88,11 @@ public class LogGenerator {
         List<String> upcList = hashMap.get("upc");
         if (upcList != null && !upcList.isEmpty()) {
             String upc = upcList.get(0);
-            if (upc.length() > 13) {
+            if (upc.length() > 12) {
                 log(getAsinString(hashMap) + " UPC has multiple entries! UPC: " + upc);
                 failureCount++;
             }
         }
-
         return failureCount;
     }
 
@@ -202,9 +203,20 @@ public class LogGenerator {
         return failureCount;
     }
 
+    private static int checkAsinLength(HashMap<String, List<String>> hashMap) {
+        int failureCount = 0; // Counter for this check method
 
+        List<String> asinList = hashMap.get("asin");
+        if (asinList != null && !asinList.isEmpty()) {
+            String asin = asinList.get(0);
+            if (asin.length() != 10) {
+                log(getAsinString(hashMap) + " ASIN length is not 10! ASIN: " + asin);
+                failureCount++;
+            }
+        }
 
-
+        return failureCount;
+    }
 
 
 

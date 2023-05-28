@@ -62,8 +62,15 @@ public class CategoryTransformAndGenerateSQL {
             int categoryId = entry.getValue().getId();
             int parentId = entry.getValue().getParentId();
 
-            String insertStatement = "INSERT INTO categories (category_id, parent_category_id, name) VALUES (" +
-                    categoryId + ", " + parentId + ", '" + categoryName + "');";
+            String insertStatement;
+
+            if (parentId != 0) {
+                insertStatement = "INSERT INTO categories (category_id, parent_category_id, name) VALUES (" +
+                        categoryId + ", " + parentId + ", '" + categoryName + "');";
+            } else {
+                insertStatement = "INSERT INTO categories (category_id, parent_category_id, name) VALUES (" +
+                        categoryId + ", " + null + ", '" + categoryName + "');";
+            }
 
             insertStatements.add(insertStatement);
         }
@@ -82,7 +89,7 @@ public class CategoryTransformAndGenerateSQL {
             List<String> asins = productCategory.getAsins();
 
             for (String categoryName : categoryNames) {
-                String insertStatement = "INSERT INTO junction_products_categories (products_asin, category_id) VALUES ";
+                String insertStatement = "INSERT INTO junction_products_categories (products_asin, categories_category_id) VALUES ";
 
                 for (String asin : asins) {
                     insertStatement += "('" + categoryName + "', " + "(SELECT category_id FROM categories WHERE name = '" +
