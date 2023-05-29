@@ -172,6 +172,7 @@ public class ETLProcess {
         List<HashMap<String, List<String>>> parsedXMLProductDataMergedCleanedPreprocessed;
         out.println(info + "RUN CLEAN JOBS ON PRODUCT DATA..." + end);
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMerged, "title");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "artists");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "studios");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "similars");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "labels");
