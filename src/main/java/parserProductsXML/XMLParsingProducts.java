@@ -12,9 +12,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * This class provides methods for parsing XML files containing product data.
+ */
 public class XMLParsingProducts {
-
+    /**
+     * Parses an XML file and returns a list of product data as a list of HashMaps.
+     *
+     * @param filePath  The path to the XML file.
+     * @param SHOP_MODE The shop mode indicating the type of data in the XML file.
+     * @return A list of HashMaps containing the parsed product data.
+     */
     public static List<HashMap<String, List<String>>> parseXMLFile(String filePath, List<String> SHOP_MODE) {
 
         // if (SHOP_MODE.equals("DRESDEN")) convertFileEncoding(filePath, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8);
@@ -71,6 +79,7 @@ public class XMLParsingProducts {
             itemMap.put("audiotext_type", item.getAudiotextType());
             itemMap.put("audiotext_language", item.getAudiotextLanguage());
             itemMap.put("audiotext_audio_format", item.getAudiotextAudioformat());
+            itemMap.put("audiotext", item.getAudiotext());
 
             itemMap.put("similars", item.getSimilars());
             itemMap.put("tracks", item.getTracks());
@@ -97,7 +106,13 @@ public class XMLParsingProducts {
         }
         return itemList;
     }
-
+    /**
+     * Parses the XML file and extracts the product data into a list of Item objects.
+     *
+     * @param filePath  The path to the XML file.
+     * @param SHOP_MODE The shop mode indicating the type of data in the XML file.
+     * @return A list of Item objects containing the parsed product data.
+     */
     private static List<Item> parseXML(String filePath, List<String> SHOP_MODE) {
         List<Item> items = new ArrayList<>();
         try {
@@ -160,6 +175,15 @@ public class XMLParsingProducts {
                     List<String> audiotextType = getTagAttributeDataVal(itemElement, "audiotext/language", "type");
                     List<String> audiotextLanguage = getCharacterDataVal(itemElement, "audiotext/language");
                     List<String> audiotextAudioformat = getCharacterDataVal(itemElement, "audiotext/audioformat");
+                    List<String> audiotext = new ArrayList<>();
+                    audiotext.addAll(audiotextType);
+                    audiotext.addAll(audiotextLanguage);
+                    audiotext.addAll(audiotextAudioformat);
+                    // Combine all values with a semicolon separator
+                    String combinedAudiotext = String.join(";", audiotext);
+                    // Clear the list and add the combined value at index 0
+                    audiotext.clear();
+                    audiotext.add(combinedAudiotext);
 
                     // Tracks
                     List<String> tracks = getCharacterDataVal(itemElement, "tracks/title");
@@ -250,6 +274,7 @@ public class XMLParsingProducts {
                             audiotextType,
                             audiotextLanguage,
                             audiotextAudioformat,
+                            audiotext,
                             similars,
                             tracks,
                             salesRank,
@@ -287,15 +312,20 @@ public class XMLParsingProducts {
             return null;
         }
         return value
-                .replace("\"", "\"\"")
-                .replace("'", "''")
                 .replace("\\[", "[")
                 .replace("\\]", "]")
                 .replace("\\;", ";")
                 .replace("\\&", "&");
     }
 
-
+    /**
+     * Retrieves character data values from an XML element based on the given path.
+     * Use if a tag is between tags, e.g. <tag1>bla</tag1>
+     *
+     * @param element The XML element to extract character data values from.
+     * @param path    The path to navigate through the XML hierarchy.
+     * @return A list of character data values found at the specified path.
+     */
     private static List<String> getCharacterDataVal(Element element, String path) {
         List<String> characterDataValues = new ArrayList<>();
         String[] tags = path.split("/");
@@ -317,6 +347,14 @@ public class XMLParsingProducts {
         return characterDataValues;
     }
 
+    /**
+     * Recursive helper method for traversing the XML hierarchy and collecting character data values.
+     *
+     * @param element              The current XML element being traversed.
+     * @param tags                 An array of tags representing the path to navigate.
+     * @param index                The current index in the tags array.
+     * @param characterDataValues  The list to store the collected character data values.
+     */
     private static void traverseCharacterDataValRecursive(Element element, String[] tags, int index, List<String> characterDataValues) {
         if (index >= tags.length) {
             // Reached the end of the path, collect character data value
@@ -338,6 +376,15 @@ public class XMLParsingProducts {
         }
     }
 
+    /**
+     * Retrieves attribute values of a specific tag from an XML element based on the given path and attribute name.
+     * Use if a value is given as tag itself, e.g. <tag1=foo>...</tag1>
+     *
+     * @param element       The XML element to extract attribute values from.
+     * @param path          The path to navigate through the XML hierarchy.
+     * @param attributeName The name of the attribute to retrieve values from.
+     * @return A list of attribute values found at the specified path and attribute name.
+     */
     private static List<String> getTagAttributeDataVal (Element element, String path, String attributeName) {
         List<String> tagAttributeValues = new ArrayList<>();
         if (path.isEmpty()) {
@@ -353,6 +400,15 @@ public class XMLParsingProducts {
         return tagAttributeValues;
     }
 
+    /**
+     * Recursive helper method for traversing the XML hierarchy and collecting attribute values of a specific tag.
+     *
+     * @param element              The current XML element being traversed.
+     * @param tags                 An array of tags representing the path to navigate.
+     * @param index                The current index in the tags array.
+     * @param attributeName       The name of the attribute to retrieve values from.
+     * @param tagAttributeValues   The list to store the collected attribute values.
+     */
     private static void traversTagAttributeDataValRecursive (Element element, String[] tags, int index, String attributeName, List<String> tagAttributeValues) {
         if (index >= tags.length) {
             return;
@@ -397,6 +453,7 @@ class Item {
     private List<String> audiotextType;
 
     private List<String> audiotextLanguage;
+    private List<String> audiotext;
 
     private List<String> audiotextAudioformat;
     private List<String> dvdspecUpc;
@@ -466,6 +523,7 @@ class Item {
                 List<String> audiotextLanguage,
                 List<String> audiotextType,
                 List<String> audiotextAudioformat,
+                List<String> audiotext,
                 List<String> similars,
                 List<String> tracks,
                 List<String> salesRank,
@@ -513,6 +571,7 @@ class Item {
         this.audiotextLanguage = audiotextLanguage;
         this.audiotextType = audiotextType;
         this.audiotextAudioformat = audiotextAudioformat;
+        this.audiotext = audiotext;
         this.similars = similars;
         this.tracks = tracks;
         this.salesRank = salesRank;
@@ -592,6 +651,9 @@ class Item {
 
     public List<String> getAudiotextAudioformat() {
         return audiotextAudioformat;
+    }
+    public List<String> getAudiotext() {
+        return audiotext;
     }
 
     public List<String> getBookspecBinding() {

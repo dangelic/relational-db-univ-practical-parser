@@ -165,10 +165,9 @@ CREATE TABLE studios (
 
 CREATE TABLE audiotexts (
   audiotext_id VARCHAR(9) NOT NULL,
-  name VARCHAR(255),
-  language VARCHAR(30),
-  language_type VARCHAR(50),
-  audio_format VARCHAR(50),
+  -- This needs to be normalized, but due to time constraints, it is in one column.
+  -- TODO: Split audioformat, languagetype, ... into separate columns instead of one string!
+  media_properties text NOT NULL,
   PRIMARY KEY (audiotext_id)
 );
 

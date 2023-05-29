@@ -7,8 +7,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Parses a CSV file containing registered user reviews and returns a list of customer data.
+ *
+ * @param CSV_FILE_PATH The file path of the CSV file to parse.
+ * @return A list of hash maps representing the parsed customer data.
+ */
 public class CSVParsingReviews {
 
+    /**
+     * Parses a CSV file containing registered user reviews and returns a list of customer data.
+     *
+     * @param CSV_FILE_PATH The file path of the CSV file to parse.
+     * @return A list of hash maps representing the parsed customer data.
+     */
     public static List<HashMap<String, List<String>>> parseCSVCRegisteredUserReviews(String CSV_FILE_PATH) {
         List<HashMap<String, List<String>>> customerData = new ArrayList<>();
 
@@ -39,6 +51,12 @@ public class CSVParsingReviews {
         return customerData;
     }
 
+    /**
+     * Parses a CSV file containing guest reviews and returns a list of customer data.
+     *
+     * @param CSV_FILE_PATH The file path of the CSV file to parse.
+     * @return A list of hash maps representing the parsed customer data.
+     */
     public static List<HashMap<String, List<String>>> parseCSVGuestReviews(String CSV_FILE_PATH) {
         List<HashMap<String, List<String>>> customerData = new ArrayList<>();
 
@@ -69,7 +87,12 @@ public class CSVParsingReviews {
         return customerData;
     }
 
-
+    /**
+     * Escapes special characters in the input string.
+     *
+     * @param input The input string to escape.
+     * @return The escaped string.
+     */
     private static String escapeString(String input) {
         input = input.replace("'", "\\'");
         input = input.replace("\"", "\\\"");

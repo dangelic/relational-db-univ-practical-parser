@@ -295,6 +295,11 @@ public class ETLProcess {
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "creators", "creators", 1, "creator_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
+            out.println(info + "FILLING AUDIOTEXTS ENTITY..." + end);
+            dataTypeMapping = EntityFieldDTMappings.getAudiotextsEntityFieldDTMappings();
+            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "audiotexts", "audiotext", 1, "audiotext_id");
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
+
             out.println(info + "FILLING LABELS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getLabelsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "labels", "labels", 1, "label_id");
@@ -345,7 +350,8 @@ public class ETLProcess {
             out.println(info + "FILLING JUNCTION_DVDS_FORMATS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "dvdspec_format", "asin", "name", "dvdformat_id", "dvds", "dvdformats", "junction_dvds_dvdformats", "dvds_asin", "dvdformats_dvdformat_id");
 
-            // TODO: Audiotexts
+            out.println(info + "FILLING JUNCTION_DVDS_AUDIOTEXTS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "audiotext", "asin", "media_properties", "audiotext_id", "dvds", "audiotexts", "junction_dvds_audiotexts", "dvds_asin", "audiotexts_audiotext_id");
 
             out.println(info + "FILLING JUNCTION_CDS_LABELS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "labels", "asin", "name", "label_id", "cds", "labels", "junction_cds_labels", "cds_asin", "labels_label_id");
@@ -362,7 +368,6 @@ public class ETLProcess {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Loads categories data into the database which are parsed from XML. This method also generates a clean variant of the categories.xml to work with.

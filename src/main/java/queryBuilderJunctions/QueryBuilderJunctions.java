@@ -7,8 +7,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * This class implements the algorithm to match a junction between two tables.
+ */
 public class QueryBuilderJunctions {
 
+    /**
+     * This method implements the algorithm to match a junction between two tables.
+     * @param inputList List of HashMaps, where each HashMap represents a row in the table.
+     * @param aValueKey The key in the hashmap representing the column value
+     * @param aIdKey The ID to put in the junction table as FK1
+     * @param bValueKey The key where the value in b to look up is stored
+     * @param bIdKey The ID to put in the junction table as FK2
+     * @param aTableName Name of the table a
+     * @param bTableName Name of the table b
+     * @param junctionTableName Name of the junction table
+     * @param junctionTableFK1 Name of FK a for the junction table
+     * @param junctionTableFK2 Name of FK b for the junction table
+     * @throws SQLException
+     */
     public static void executeQuery(
             List<HashMap<String, List<String>>> inputList,
             String aValueKey,

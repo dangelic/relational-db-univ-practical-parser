@@ -146,10 +146,7 @@ public  class EntityFieldDTMappings {
     // TODO: Rework!
     public static HashMap<String, String> getAudiotextsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("audiotext_id", "audiotext_id@stringtext");
-        FieldDTMappings.put("audiotext_type", "type@stringtext");
-        FieldDTMappings.put("audiotext_audio_format", "format@stringtext");
-        FieldDTMappings.put("audiotext_language", "language@stringtext");
+        FieldDTMappings.put("audiotext", "media_properties@stringtext");
         return FieldDTMappings;
     }
 

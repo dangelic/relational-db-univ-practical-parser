@@ -13,8 +13,20 @@ import java.util.Set;
 
 import java.text.DecimalFormat;
 
+/**
+ * The QueryBuilderStandard class provides methods for generating insert queries for common and nested entities.
+ */
 public class QueryBuilderStandard {
 
+    /**
+     * Generates insert queries for common entities based on the provided data, data type mapping, entity name, and ID name.
+     *
+     * @param data           The list of hash maps representing the data for the entities.
+     * @param dataTypeMapping The mapping of column names to their corresponding data types.
+     * @param entityName     The name of the entity.
+     * @param idName         The name of the ID column.
+     * @return A list of insert queries for the common entities.
+     */
     public static List<String> getInsertQueriesForCommonEntity(
             List<HashMap<String, List<String>>> data,
             HashMap<String, String> dataTypeMapping,
@@ -56,6 +68,17 @@ public class QueryBuilderStandard {
         return queryList;
     }
 
+    /**
+     * Generates insert queries for common entities with generated IDs based on the provided data, data type mapping,
+     * entity name, ID name, and the starting ID.
+     *
+     * @param data           The list of hash maps representing the data for the entities.
+     * @param dataTypeMapping The mapping of column names to their corresponding data types.
+     * @param entityName     The name of the entity.
+     * @param idName         The name of the ID column.
+     * @param idStart        The starting ID for generated IDs.
+     * @return A list of insert queries for the common entities with generated IDs.
+     */
     public static List<String> getInsertQueriesForCommonEntityFilter(
             List<HashMap<String, List<String>>> data,
             HashMap<String, String> dataTypeMapping,
@@ -101,10 +124,18 @@ public class QueryBuilderStandard {
         return queryList;
     }
 
-
-
-
-
+    /**
+     * Generates insert queries for common entities with generated IDs based on the provided data, data type mapping,
+     * entity name, ID name, the starting ID, and a filter.
+     *
+     * @param data           The list of hash maps representing the data for the entities.
+     * @param dataTypeMapping The mapping of column names to their corresponding data types.
+     * @param entityName     The name of the entity.
+     * @param idName         The name of the ID column.
+     * @param idStart        The starting ID for generated IDs.
+     * @param filter         The filter to apply to the entities.
+     * @return A list of insert queries for the common entities with generated IDs that match the filter.
+     */
     public static List<String> getInsertQueriesForCommonEntityGenId(List<HashMap<String, List<String>>> data, HashMap<String, String> dataTypeMapping, String entityName, String idName, int idStart) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();

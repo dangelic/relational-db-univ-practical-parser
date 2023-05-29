@@ -13,16 +13,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * A simple parser just for the shops addresses, zips, ... matching the logic in the products parser.
+ */
 public class XMLParsingShops {
 
     public static List<HashMap<String, List<String>>> parseXMLFile(String filePath) {
 
         List<Shop> shops = parseXML(filePath);
         List<HashMap<String, List<String>>> shopList = new ArrayList<>();
-
-
-
 
         for (Shop shop : shops) {
             HashMap<String, List<String>> shopMap = new HashMap<>();
