@@ -3,6 +3,8 @@ This readme provides instructions on how to run your Java program,
 which involves generating tables, parsing XML and CSV data, storing the data into hashmaps, 
 generating queries, and filling multiple types of entities in a schema. 
 The program utilizes Maven for build management and requires specific data file locations.
+
+-> See the code comments for further information.
 ## This Java program does the following:
 - Loads a database schema including constraints and indexes into a postgresDB (local database)
 - Parses XML and CSV data plus perform a cleanup for preprocessing (adding missing special characters based on an algorithm)
