@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class LogGenerator {
     private static final Lock lock = new ReentrantLock(); // Lock for this class
-    
+
     /**
      * Checks various constraints in the provided XML and CSV data and generates logs for failures.
      *
@@ -26,23 +26,21 @@ public class LogGenerator {
     public static void check(List<HashMap<String, List<String>>> parsedXMLDataProducts, List<HashMap<String, List<String>>> parsedCSVDataReviews) {
         int failureCount = 0; // Counter to keep track of failures
 
-        System.out.println(parsedCSVDataReviews);
+
+        failureCount += checkMissingAsin(parsedXMLDataProducts);
+        failureCount += checkMissingTitleInProperTags(parsedXMLDataProducts);
+        failureCount += checkEANLength(parsedXMLDataProducts);
+        failureCount += checkUPCEntries(parsedXMLDataProducts);
+        failureCount += checkEmptyPgroup(parsedXMLDataProducts);
+        failureCount += checkDuplicateProductUserReview(parsedCSVDataReviews);
+        failureCount += checkAsinLength(parsedXMLDataProducts);
+        failureCount += checkASINLengthInReviews(parsedCSVDataReviews);
+        failureCount += checkInvalidReviewDate(parsedCSVDataReviews);
+        failureCount += checkInvalidRating(parsedCSVDataReviews);
+        failureCount += checkMissingISBN(parsedXMLDataProducts);
 
 
-        checkMissingAsin(parsedXMLDataProducts);
-        checkMissingTitleInProperTags(parsedXMLDataProducts);
-        checkEANLength(parsedXMLDataProducts);
-        checkUPCEntries(parsedXMLDataProducts);
-        checkEmptyPgroup(parsedXMLDataProducts);
-        checkDuplicateProductUserReview(parsedCSVDataReviews);
-        checkAsinLength(parsedXMLDataProducts);
-        checkASINLengthInReviews(parsedCSVDataReviews);
-        checkInvalidReviewDate(parsedCSVDataReviews);
-        checkInvalidRating(parsedCSVDataReviews);
-        checkMissingISBN(parsedXMLDataProducts);
-
-
-        System.out.println("Total failures: " + failureCount);
+        System.out.println("--------------------Total failures overall: " + failureCount);
     }
 
     private static int checkMissingAsin(List<HashMap<String, List<String>>> data) {
@@ -75,7 +73,7 @@ public class LogGenerator {
                 List<String> asinList = hashMap.get("asin");
                 if (asinList != null && !asinList.isEmpty()) {
                     if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " # violating constraint on entity: PRODUCTS # " + "Product title missing or not in proper tags.");
-                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + "# violating constraint on entity: PRODUCTS #" + "Product title missing or not in proper tags.");
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " # violating constraint on entity: PRODUCTS # " + "Product title missing or not in proper tags.");
                     failureCount++;
                 } else {
                     if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " # violating constraint on entity: PRODUCTS # " + "Product title missing or not in proper tags. No ASIN attribute available.");

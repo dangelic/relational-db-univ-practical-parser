@@ -28,6 +28,7 @@ CREATE TABLE bankinfos (
   bankinfo_id VARCHAR(9) NOT NULL,
   users_username VARCHAR(9),
   account_number VARCHAR(255) NOT NULL,
+  -- More attributes would be added in a real life scenario here of course!
   PRIMARY KEY (bankinfo_id),
   CONSTRAINT fk_bankinfos_users FOREIGN KEY (users_username) REFERENCES users(username)
 );
