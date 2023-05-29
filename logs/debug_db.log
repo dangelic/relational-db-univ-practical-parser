@@ -1,0 +1,4 @@
+SQL Statement: CREATE TABLE artists (   artist_id VARCHAR(9) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (artist_id) );
+Error Message: ERROR: relation "artists" already exists
+SQL Statement: CREATE TABLE junction_products_artists (   products_asin VARCHAR(10) NOT NULL,   artists_artist_id VARCHAR(9) NOT NULL,   PRIMARY KEY (products_asin, artists_artist_id),   CONSTRAINT fk_junction_products_artists_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_artists_artists FOREIGN KEY (artists_artist_id) REFERENCES artists(artist_id) );
+Error Message: ERROR: relation "junction_products_artists" already exists

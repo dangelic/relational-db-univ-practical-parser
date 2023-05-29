@@ -67,7 +67,7 @@ public class LogGenerator {
         int failureCount = 0; // Counter for this check method
 
         for (HashMap<String, List<String>> hashMap : data) {
-            List<String> titleList = hashMap.get("title");
+            List<String> titleList = hashMap.get("ptitle");
             List<String> shopidList = hashMap.get("shop_id");
             if (titleList == null || titleList.isEmpty()) {
                 List<String> asinList = hashMap.get("asin");
