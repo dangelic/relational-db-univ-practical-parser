@@ -36,3 +36,4 @@ bin/
 ./data/raw/csv/reviews.csv
 ./data/transformed/tagged_cats.csv
 
+./housekeeping/*
