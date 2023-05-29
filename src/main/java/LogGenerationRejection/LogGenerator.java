@@ -309,9 +309,9 @@ public class LogGenerator {
     private static String getAsinStringReviews(HashMap<String, List<String>> hashMap) {
         List<String> asinList = hashMap.get("product");
         if (asinList != null && !asinList.isEmpty()) {
-            return "[ASIN: " + asinList.get(0) + "] ";
+            return "[ERROR regarding data with ASIN: " + asinList.get(0) + "] ";
         } else {
-            return "[ASIN: NO ASIN FOUND] ";
+            return "[ERROR regarding data with ASIN: NO ASIN FOUND] ";
         }
     }
 
