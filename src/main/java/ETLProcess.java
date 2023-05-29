@@ -24,8 +24,9 @@ public class ETLProcess {
     private static String end = "\u001B[0m";
 
     // Define paths.
-    private static String pathToLogFile = "./logs/constraint_violations.log";
+    private static String pathToLogFileDebugQueries = "./logs/debug_queries.log";
     private static String pathToLogFileDebugDB = "./logs/debug_db.log";
+    private static String pathToLogFileFinalRejectionsErrors = "./logs/rejections_errors.log";
     private static String pathToLeipzigShopXML = "./data/raw/xml/leipzig_transformed.xml";
     private static String pathToDresdenShopXML = "./data/raw/xml/dresden.xml";
     private static String pathToCategoriesXML = "./data/raw/xml/categories.xml";
@@ -67,16 +68,22 @@ public class ETLProcess {
      * If the log files exist, they are deleted.
      */
     private static void resetLogFiles() {
-        File logFileConstraintViolations = new File(pathToLogFile);
+        File logFileConstraintViolations = new File(pathToLogFileDebugQueries);
         if (logFileConstraintViolations.exists()) {
-            out.println(info + "Log file " + pathToLogFile + " already exists. Deleted it." + end);
+            out.println(info + "Log file " + pathToLogFileDebugQueries + " already exists. Deleted it." + end);
             logFileConstraintViolations.delete();
         }
         File logFileDB = new File(pathToLogFileDebugDB);
         if (logFileDB.exists()) {
-            out.println(info + "Log file " + pathToLogFile + " already exists. Deleted it." + end);
+            out.println(info + "Log file " + pathToLogFileDebugDB + " already exists. Deleted it." + end);
             logFileDB.delete();
         }
+        File logFileFinal = new File(pathToLogFileFinalRejectionsErrors);
+        if (logFileFinal.exists()) {
+            out.println(info + "Log file " + pathToLogFileFinalRejectionsErrors + " already exists. Deleted it." + end);
+            logFileFinal.delete();
+        }
+
     }
 
     /**
@@ -192,12 +199,12 @@ public class ETLProcess {
             out.println(info + "FILLING SHOPS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getShopsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(shopDataMerged, dataTypeMapping, "shops", "shop_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING SHOPADDRESSES ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getShopaddressesEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(shopDataMerged, dataTypeMapping, "shopaddresses", "shopaddress_id", 1);
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
 
@@ -221,22 +228,22 @@ public class ETLProcess {
             out.println(info + "FILLING PRODUCTS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getProductsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "products", "asin");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING BOOKS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getBooksEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "books", "asin");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityFilter(parsedXMLProductDataMerged, dataTypeMapping, "books", "asin", "pgroup", "Book");
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING CDS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getCdsEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "cds", "asin");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityFilter(parsedXMLProductDataMerged, dataTypeMapping, "cds", "asin", "pgroup", "Music");
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING DVDS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getDvdsEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedXMLProductDataMerged, dataTypeMapping, "dvds", "asin");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityFilter(parsedXMLProductDataMerged, dataTypeMapping, "dvds", "asin", "pgroup", "DVD");
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -260,57 +267,57 @@ public class ETLProcess {
             out.println(info + "FILLING DVDFORMATS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getDvdformatsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "dvdformats", "dvdspec_format", 1, "dvdformat_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING SIMILARS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getProductsSimilarsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntity(parsedXMLProductDataMerged, dataTypeMapping, "products_similars", "similars");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING LISTMANIALISTS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getListmanialistsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "listmanialists", "listmania_lists", 1, "listmanialist_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING TRACKS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getTracksEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "tracks", "track_id", 1);
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING AUTHORS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getAuthorsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "authors", "authors", 1, "author_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING CREATORS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getCreatorsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "creators", "creators", 1, "creator_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING LABELS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getLabelsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "labels", "labels", 1, "label_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING STUDIOS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getStudiosEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "studios", "studios", 1, "studio_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
-            out.println(info + "FILLING ACTORS ENTITY..." + end);
-            dataTypeMapping = EntityFieldDTMappings.getActorsEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "actors", "actors", 1, "actor_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            out.println(info + "FILLING ARTISTS ENTITY..." + end);
+            dataTypeMapping = EntityFieldDTMappings.getArtistsEntityFieldDTMappings();
+            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "artists", "artists", 1, "artist_id");
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING PUBLISHERS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getPublishersEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntitySuppressDuplicatesGenId(parsedXMLProductDataMerged, dataTypeMapping, "publishers", "publishers", 1, "publisher_id");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING PRICEINFOS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getPriceinfosEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "priceinfos", "priceinfo_id", 1);
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -331,9 +338,6 @@ public class ETLProcess {
             out.println(info + "FILLING JUNCTION_BOOKS_PUBLISHERS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "publishers", "asin", "name", "publisher_id", "books", "publishers", "junction_books_publishers", "books_asin", "publishers_publisher_id");
 
-            out.println(info + "FILLING JUNCTION_DVDS_ACTORS ENTITY..." + end);
-            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "actors", "asin", "name", "actor_id", "dvds", "actors", "junction_dvds_actors", "dvds_asin", "actors_actor_id");
-
             out.println(info + "FILLING JUNCTION_DVDS_STUDIOS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "studios", "asin", "name", "studio_id", "dvds", "studios", "junction_dvds_studios", "dvds_asin", "studios_studio_id");
 
@@ -347,6 +351,9 @@ public class ETLProcess {
 
             out.println(info + "FILLING JUNCTION_PRODUCTS_CREATORS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "creators", "asin", "name", "creator_id", "products", "creators", "junction_products_creators", "products_asin", "creators_creator_id");
+
+            out.println(info + "FILLING JUNCTION_PRODUCTS_ARTISTS ENTITY..." + end);
+            QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "artists", "asin", "name", "artist_id", "products", "artists", "junction_products_artists", "products_asin", "artists_artist_id");
 
             out.println(info + "FILLING JUNCTION_PRODUCTS_LISTMANIALISTS ENTITY..." + end);
             QueryBuilderJunctions.executeQuery(parsedXMLProductDataMerged, "listmania_lists", "asin", "name", "listmanialist_id", "products", "listmanialists", "junction_products_listmanialists", "products_asin", "listmanialists_listmanialist_id");
@@ -370,11 +377,11 @@ public class ETLProcess {
             CategoryTransformAndGenerateSQL categoryHandler = new CategoryTransformAndGenerateSQL();
             categoryHandler.transformAndCreateFormattedXML(pathToCategoriesXML, "./data/transformed/tagged_cats.xml");
             fillingData = categoryHandler.buildInsertStatementsForCategories();
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "LOADING JUNCTIONS DATA PRODUCTS CATEGORIES..." + end);
-            fillingData = categoryHandler.buildInsertStatementsForProducts();
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            fillingData = categoryHandler.buildInsertStatementsForProductsCatJunction();
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
         } catch (SQLException e) {
@@ -403,17 +410,17 @@ public class ETLProcess {
             out.println(info + "FILLING USERS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getUsersEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntity(parsedCSVReviewsFromUsers, dataTypeMapping, "users", "username");
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING USERREVIEWS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getUserreviewsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedCSVReviewsFromUsers, dataTypeMapping, "userreviews", "userreview_id", 1);
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING GUESTREVIEWS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getGuestReviewsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedCSVReviewsFromGuests, dataTypeMapping, "guestreviews", "guestreview_id", 1);
-            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFile);
+            dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
         } catch (SQLException e) {

@@ -13,9 +13,9 @@ CREATE TABLE products (
   -- ASIN has to be 10 chars long. This constraint is not necessary to be set overall as PK-FK relation rejects shorter ASIN in other entities.
   CONSTRAINT check_asin_length CHECK (LENGTH(asin) = 10),
   -- UPC has to be 12 chars long.
-  CONSTRAINT check_upc_length CHECK (LENGTH(upc) = 12),
+  CONSTRAINT check_upc_length CHECK (LENGTH(upc) = 12 OR upc IS NULL),
   -- EAN has to be 13 chars long, assuming EAN-13.
-    CONSTRAINT check_ean_length CHECK (LENGTH(ean) = 12)
+  CONSTRAINT check_ean_length CHECK (LENGTH(ean) = 13 OR ean IS NULL)
 
 );
 
@@ -45,6 +45,12 @@ CREATE TABLE creators (
   creator_id VARCHAR(9) NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (creator_id)
+);
+
+CREATE TABLE artists (
+  artist_id VARCHAR(9) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (artist_id)
 );
 
 CREATE TABLE listmanialists (
@@ -191,7 +197,7 @@ CREATE TABLE dvds (
 
 CREATE TABLE books (
   asin VARCHAR(10) NOT NULL,
-  isbn VARCHAR(13),
+  isbn VARCHAR(13) NOT NULL,
   edition VARCHAR(255),
   binding VARCHAR(255),
   weight FLOAT(2),
@@ -202,7 +208,7 @@ CREATE TABLE books (
   PRIMARY KEY (asin),
   CONSTRAINT fk_books_products_asin FOREIGN KEY (asin) REFERENCES products(asin),
   -- ISBN has to be 10 chars long.
-  CONSTRAINT check_isbn_length CHECK (LENGTH(asin) = 13)
+  CONSTRAINT check_isbn_length CHECK (LENGTH(isbn) = 10)
 );
 
 CREATE TABLE cds (
@@ -310,6 +316,14 @@ CREATE TABLE junction_products_creators (
   PRIMARY KEY (products_asin, creators_creator_id),
   CONSTRAINT fk_junction_products_creators_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_junction_products_creators_creators FOREIGN KEY (creators_creator_id) REFERENCES creators(creator_id)
+);
+
+CREATE TABLE junction_products_artists (
+  products_asin VARCHAR(10) NOT NULL,
+  artists_artist_id VARCHAR(9) NOT NULL,
+  PRIMARY KEY (products_asin, artists_artist_id),
+  CONSTRAINT fk_junction_products_artists_products FOREIGN KEY (products_asin) REFERENCES products(asin),
+  CONSTRAINT fk_junction_products_artists_artists FOREIGN KEY (artists_artist_id) REFERENCES artists(artist_id)
 );
 
 CREATE TABLE junction_users_deliveryaddresses (

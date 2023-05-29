@@ -2,11 +2,17 @@ package dataCleanUp;
 
 import java.util.*;
 
-
-import static java.lang.System.out;
-
+/**
+ * The CleanUpOperations class provides various operations for data clean-up.
+ */
 public class CleanUpOperations {
 
+    /**
+     * Removes redundancies from a list of strings.
+     *
+     * @param strings The list of strings.
+     * @return A new list of strings without redundancies.
+     */
     public static List<String> removeRedundancies(List<String> strings) {
         List<String> distinctStrings = new ArrayList<>();
         for (String str : strings) {
@@ -24,6 +30,12 @@ public class CleanUpOperations {
         return distinctStrings;
     }
 
+    /**
+     * Splits each string in the list into individual pieces.
+     *
+     * @param strings The list of strings.
+     * @return A new list of individual pieces.
+     */
     public static List<String> splitStringIntoPieces(List<String> strings) {
         List<String> pieces = new ArrayList<>();
         for (String str : strings) {
@@ -35,6 +47,12 @@ public class CleanUpOperations {
         return pieces;
     }
 
+    /**
+     * Removes invalid DVD format strings from the input list.
+     *
+     * @param inputList The input list of strings.
+     * @return A new list with invalid DVD format strings removed or altered.
+     */
     public static List<String> removeInvalidsDvdFormat(List<String> inputList) {
         List<String> alteredList = new ArrayList<>();
         for (String str : inputList) {
@@ -50,9 +68,13 @@ public class CleanUpOperations {
         return alteredList;
     }
 
-
-
-
+    /**
+     * Replaces missing characters in a list of HashMap entries.
+     *
+     * @param hashmapList          The list of HashMap entries.
+     * @param replacementAttribute The attribute to replace missing characters for.
+     * @return A new list of HashMap entries with missing characters replaced.
+     */
     public static List<HashMap<String, List<String>>> replaceMissingCharacters(List<HashMap<String, List<String>>> hashmapList, String replacementAttribute) {
         System.out.println("\033[34;1m INFO: Execute preprocess clean job to add missing characters on products data HashMap => key: \"" + replacementAttribute + "\". Waiting for the algorithm to finish...\033[0m");
 
@@ -125,7 +147,4 @@ public class CleanUpOperations {
 
         return originalValue.equals(comparisonValueWithoutVowels);
     }
-
-
 }
-

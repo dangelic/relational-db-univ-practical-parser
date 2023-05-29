@@ -6,7 +6,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The sqlParser class provides a method to parse an SQL file and extract individual SQL statements.
+ * Helper to get queries out of an SQL file.
+ */
 public class sqlParser {
+    /**
+     * Parses an SQL file and returns a list of individual SQL statements.
+     *
+     * @param filePath The path of the SQL file to parse.
+     * @return A list of individual SQL statements.
+     */
     public static List<String> parseSQLFile(String filePath) {
         List<String> sqlStatements = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

@@ -18,9 +18,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 
+/**
+ * The CategoryTransformAndGenerateSQL class is responsible for transforming XML data and generating SQL statements
+ * for categories and products.
+ */
 public class CategoryTransformAndGenerateSQL {
     private Document document;
 
+    /**
+     * Transforms the XML file at the specified path and creates a formatted XML file.
+     *
+     * @param pathToXMLFile          The path to the XML file to transform.
+     * @param pathToFormattedXMLFile The path to save the formatted XML file.
+     */
     public void transformAndCreateFormattedXML(String pathToXMLFile, String pathToFormattedXMLFile) {
         File xmlFile = new File(pathToXMLFile);
 
@@ -52,6 +62,11 @@ public class CategoryTransformAndGenerateSQL {
         }
     }
 
+    /**
+     * Builds insert statements for categories based on the transformed XML document.
+     *
+     * @return A list of insert statements for categories.
+     */
     public List<String> buildInsertStatementsForCategories() {
         CategoryHierarchyBuilder hierarchyBuilder = new CategoryHierarchyBuilder();
         Map<String, CategoryInfo> categoryIds = hierarchyBuilder.buildCategoryHierarchy(document.getDocumentElement());
@@ -78,7 +93,12 @@ public class CategoryTransformAndGenerateSQL {
         return insertStatements;
     }
 
-    public List<String> buildInsertStatementsForProducts() {
+    /**
+     * Builds insert statements for products based on the transformed XML document.
+     *
+     * @return A list of insert statements for products.
+     */
+    public List<String> buildInsertStatementsForProductsCatJunction() {
         List<ProductCategoryInfo> productCategories = new ArrayList<>();
 
         traverseCategoriesForProducts(document.getDocumentElement(), productCategories);

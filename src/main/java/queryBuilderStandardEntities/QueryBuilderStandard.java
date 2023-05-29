@@ -56,43 +56,51 @@ public class QueryBuilderStandard {
         return queryList;
     }
 
-    public static List<String> getInsertQueriesForCommonEntity2(
+    public static List<String> getInsertQueriesForCommonEntityFilter(
             List<HashMap<String, List<String>>> data,
             HashMap<String, String> dataTypeMapping,
             String entityName,
-            String idName
+            String idName,
+            String filterKey,
+            String filterValue
     ) {
         String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
         List<String> queryList = new ArrayList<>();
+        HashSet<String> uniqueIds = new HashSet<>(); // Track unique ids
 
         for (HashMap<String, List<String>> hashMap : data) {
-            List<String> idValues = hashMap.get(idName); // Get values for idName
+            // Check if the hashmap contains the filter key and its value matches the filter value
+            if (hashMap.containsKey(filterKey) && hashMap.get(filterKey).contains(filterValue)) {
+                List<String> idValues = hashMap.get(idName); // Get values for idName
+                String idValue = (idValues != null && !idValues.isEmpty()) ? idValues.get(0) : null; // Assume single value for idName
 
-            String idValue = (idValues != null && !idValues.isEmpty()) ? idValues.get(0) : null; // Assume single value for idName
+                if (idValue == null || idValue.isEmpty() || !uniqueIds.contains(idValue)) {
+                    // Add idValue to set of unique ids if it's null, empty, or not already present
+                    uniqueIds.add(idValue);
+                } else {
+                    continue; // Skip if idValue is already added
+                }
 
-            if (idValue == null || idValue.isEmpty()) {
-                // Skip the entry if idValue is null or empty
-                continue;
+                Object[] values = new Object[columns.length];
+                String[] mappedColumns = new String[columns.length];
+
+                for (int i = 0; i < columns.length; i++) {
+                    String column = columns[i];
+                    String dataType = dataTypeMapping.get(column);
+                    String columnName = getColumnName(dataType);
+                    List<String> columnData = hashMap.get(column);
+                    values[i] = getColumnValue(columnData, dataType);
+                    mappedColumns[i] = columnName;
+                }
+
+                String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
+                queryList.add(sql);
             }
-
-            Object[] values = new Object[columns.length];
-            String[] mappedColumns = new String[columns.length];
-
-            for (int i = 0; i < columns.length; i++) {
-                String column = columns[i];
-                String dataType = dataTypeMapping.get(column);
-                String columnName = getColumnName(dataType);
-                List<String> columnData = hashMap.get(column);
-                values[i] = getColumnValue(columnData, dataType);
-                mappedColumns[i] = columnName;
-            }
-
-            String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
-            queryList.add(sql);
         }
 
         return queryList;
     }
+
 
 
 

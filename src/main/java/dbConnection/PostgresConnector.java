@@ -12,22 +12,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.sql.ResultSetMetaData;
 
-
+/**
+ * The PostgresConnector class provides methods to connect and interact with a PostgreSQL database.
+ * See debug logfile in ./logs directory for more information on rejected queries. Use this log only for debugging, as most of the fails are intended.
+ */
 public class PostgresConnector {
     private static Connection connection;
     private String username;
     private String password;
 
+    /**
+     * Creates a new instance of the PostgresConnector class with the specified username and password.
+     *
+     * @param username The username for the database connection.
+     * @param password The password for the database connection.
+     */
     public PostgresConnector(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Connects to the PostgreSQL database using the provided username and password.
+     *
+     * @throws SQLException if a database access error occurs.
+     */
     public void connect() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         connection = DriverManager.getConnection(url, username, password);
     }
 
+    /**
+     * Disconnects from the PostgreSQL database.
+     *
+     * @throws SQLException if a database access error occurs.
+     */
     public void disconnect() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
@@ -45,7 +64,14 @@ public class PostgresConnector {
         }
     }
 
-
+    /**
+     * Executes a batch of SQL queries and returns the results as a list of HashMaps.
+     * Important: It processes a batch of statement but sequentially in database as we want to check each query individually.
+     *
+     * @param sqlStatements  The list of SQL statements to execute.
+     * @param pathToLogFile  The path to the log file for error logging.
+     * @return A list of HashMaps representing the query results.
+     */
     public static List<HashMap<String, Object>> executeSQLQueryBatch(List<String> sqlStatements, String pathToLogFile) {
         List<HashMap<String, Object>> results = new ArrayList<>();
         try {
@@ -69,36 +95,14 @@ public class PostgresConnector {
                     statement.close();
                     System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");
                 } catch (SQLException e) {
-                    if (!e.getMessage().contains("insert or update on table \"books\" violates foreign key constraint \"fk_book_products_asin") &&
-                            !e.getMessage().contains("insert or update on table \"dvds\" violates foreign key constraint \"fk_dvds_products_asin") &&
-                            !e.getMessage().contains("insert or update on table \"cds\" violates foreign key constraint \"fk_cds_products_asin") &&
-                            !e.getMessage().contains("null value in column \"name\" of relation \"tracks\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"asin\" of relation \"books\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"asin\" of relation \"cds\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"asin\" of relation \"dvds\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"products_asin\" of relation \"priceinfos\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"cds_asin\" of relation \"tracks\" violates not-null constraint") &&
-                            !e.getMessage().contains("null value in column \"products_asin\" of relation \"products_similars\" violates not-null constraint") &&
-                            !e.getMessage().contains("duplicate key value violates unique constraint \"users_pkey\"") &&
-                            !e.getMessage().contains("duplicate key value violates unique constraint \"unique_trackname_cd\"") &&
-                            !e.getMessage().contains("duplicate key value violates unique constraint \"symmetrical_uniqueness_similars\"") &&
-                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"fk_products_similars_products\"") &&
-                            !e.getMessage().contains("insert or update on table \"tracks\" violates foreign key constraint \"fk_tracks_cds\"") &&
-                            !e.getMessage().contains("insert or update on table \"products_similars\" violates foreign key constraint \"fk_products_similars_similar_product\"") &&
-                            !e.getMessage().contains("insert or update on table \"guestreviews\" violates foreign key constraint \"fk_guestreviews_products\"") &&
-                            !e.getMessage().contains("insert or update on table \"userreviews\" violates foreign key constraint \"fk_userreviews_products\"") &&
-                            !e.getMessage().contains("duplicate key value violates unique constraint \"unique_username\"") &&
-                            !e.getMessage().contains("insert or update on table \"priceinfos\" violates foreign key constraint \"fk_priceinfos_products\""))
-
-                    {
-                        if (e.getMessage().contains("No results were returned by the query.")) {System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");}
-                        else {
-                            System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement +"\u001B[0m");
+                        if (e.getMessage().contains("No results were returned by the query.")) {
+                            System.out.println("\u001B[32mQuery executed successfully: " + sqlStatement + "\u001B[0m");
+                        } else {
+                            // System.out.println("\u001B[31m" + e.getMessage() + " FAILED QUERY: " + sqlStatement + "\u001B[0m");
                             writeErrorToFile(sqlStatement, e.getMessage(), pathToLogFile);
                         }
                     }
                 }
-            }
         } catch (Exception e) {
             System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
         }

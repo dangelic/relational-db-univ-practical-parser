@@ -2,8 +2,10 @@ package entityMap;
 
 import java.util.HashMap;
 
+/**
+ * The EntityFieldDTMappings class provides mappings between entity fields and their corresponding data types for the mapping system.
+ */
 public  class EntityFieldDTMappings {
-    // TODO: Change the source field names appropriately to the parser values
     public static HashMap<String, String> getProductsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "asin@stringtext");
@@ -31,13 +33,6 @@ public  class EntityFieldDTMappings {
         return FieldDTMappings;
     }
 
-    public static HashMap<String, String> getCategoriesEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("category_id", "category_id@stringtext");
-        FieldDTMappings.put("parent_category_id", "parent_category_id@stringtext");
-        FieldDTMappings.put("name", "name@stringtext");
-        return FieldDTMappings;
-    }
 
     public static HashMap<String, String> getCreatorsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
@@ -137,6 +132,12 @@ public  class EntityFieldDTMappings {
         return FieldDTMappings;
     }
 
+    public static HashMap<String, String> getArtistsEntityFieldDTMappings() {
+        HashMap<String, String> FieldDTMappings = new HashMap<>();
+        FieldDTMappings.put("artists", "name@stringtext");
+        return FieldDTMappings;
+    }
+
     public static HashMap<String, String> getStudiosEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("studios", "name@stringtext");
@@ -181,14 +182,7 @@ public  class EntityFieldDTMappings {
         FieldDTMappings.put("musicspec_release_date", "release_date@date");
         return FieldDTMappings;
     }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionCdsLabelsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("cds_cd_id", "cds_cd_id@stringtext");
-        FieldDTMappings.put("labels_label_id", "labels_label_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Create format and junction table!
+
     public static HashMap<String, String> getDvdsEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "asin@stringtext");
@@ -205,49 +199,6 @@ public  class EntityFieldDTMappings {
         return FieldDTMappings;
     }
 
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionDvdsDvdformatsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("books_book_id", "books_book_id@stringtext");
-        FieldDTMappings.put("authors_author_id", "authors_author_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionBooksAuthorsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("books_book_id", "books_book_id@stringtext");
-        FieldDTMappings.put("authors_author_id", "authors_author_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionBooksPublishersEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("books_book_id", "books_book_id@stringtext");
-        FieldDTMappings.put("publishers_publisher_id", "publishers_publisher_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionDvdsActorsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("dvds_dvd_id", "dvds_dvd_id@stringtext");
-        FieldDTMappings.put("actors_actor_id", "actors_actor_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionDvdsStudiosEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("dvds_dvd_id", "dvds_dvd_id@stringtext");
-        FieldDTMappings.put("studios_studio_id", "studios_studio_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionDvdsAudiotextsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("dvds_dvd_id", "dvds_dvd_id@stringtext");
-        FieldDTMappings.put("audiotexts_audiotext_id", "audiotexts_audiotext_id@stringtext");
-        return FieldDTMappings;
-    }
-
     public static HashMap<String, String> getTracksEntityFieldDTMappings() {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "cds_asin@stringtext");
@@ -259,34 +210,6 @@ public  class EntityFieldDTMappings {
         HashMap<String, String> FieldDTMappings = new HashMap<>();
         FieldDTMappings.put("asin", "products_asin@stringtext");
         FieldDTMappings.put("similars", "similar_product_asin@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionProductsCategoriesEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("products_asin", "products_asin@stringtext");
-        FieldDTMappings.put("categories_category_id", "categories_category_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionProductsListmanialistsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("products_asin", "products_asin@stringtext");
-        FieldDTMappings.put("listmanialists_listmanialist_id", "listmanialists_listmanialist_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionProductsCreatorsEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("products_asin", "products_asin@stringtext");
-        FieldDTMappings.put("creators_creator_id", "creators_creator_id@stringtext");
-        return FieldDTMappings;
-    }
-    // TODO: Rework!
-    public static HashMap<String, String> getJunctionUsersDeliveryaddressesEntityFieldDTMappings() {
-        HashMap<String, String> FieldDTMappings = new HashMap<>();
-        FieldDTMappings.put("users_username", "users_username@stringtext");
-        FieldDTMappings.put("deliveryaddresses_deliveryaddress_id", "deliveryaddresses_deliveryaddress_id@stringtext");
         return FieldDTMappings;
     }
 }

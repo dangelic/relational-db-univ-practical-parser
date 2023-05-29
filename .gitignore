@@ -31,4 +31,7 @@ bin/
 ### Output ###
 ./parsedXmlOutput/*
 
-./data/*
+./data/raw/xml/leipzig_transformed.xml
+./data/raw/xml/dresden.xml
+./data/raw/csv/reviews.csv
+./data/transformed/tagged_cats.csv

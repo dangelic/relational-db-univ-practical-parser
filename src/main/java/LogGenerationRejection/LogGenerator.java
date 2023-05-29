@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.time.Month;
 
 
 public class LogGenerator {
@@ -18,97 +17,156 @@ public class LogGenerator {
         System.out.println(parsedCSVDataReviews);
 
 
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkMissingAsin(hashMap);
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkMissingTitleInProperTags(hashMap);
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkEANLength(hashMap);
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkUPCEntries(hashMap);
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkEmptyPgroup(hashMap);
-        for (HashMap<String, List<String>> hashMap : parsedXMLDataProducts) failureCount += checkAsinLength(hashMap);
-
-        failureCount += checkDuplicateProductUserReview(parsedCSVDataReviews);
-        failureCount += checkASINLengthInReviews(parsedCSVDataReviews);
-        failureCount += checkInvalidReviewDate(parsedCSVDataReviews);
-        failureCount += checkInvalidRating(parsedCSVDataReviews);
+        checkMissingAsin(parsedXMLDataProducts);
+        checkMissingTitleInProperTags(parsedXMLDataProducts);
+        checkEANLength(parsedXMLDataProducts);
+        checkUPCEntries(parsedXMLDataProducts);
+        checkEmptyPgroup(parsedXMLDataProducts);
+        checkDuplicateProductUserReview(parsedCSVDataReviews);
+        checkAsinLength(parsedXMLDataProducts);
+        checkASINLengthInReviews(parsedCSVDataReviews);
+        checkInvalidReviewDate(parsedCSVDataReviews);
+        checkInvalidRating(parsedCSVDataReviews);
+        checkMissingISBN(parsedXMLDataProducts);
 
 
         System.out.println("Total failures: " + failureCount);
     }
 
-    private static int checkMissingAsin(HashMap<String, List<String>> hashMap) {
+    private static int checkMissingAsin(List<HashMap<String, List<String>>> data) {
         int failureCount = 0; // Counter for this check method
 
-        if (hashMap.containsKey("asin")) {
-            List<String> asinList = hashMap.get("asin");
-            if (asinList.isEmpty()) {
-                log(getAsinString(hashMap) + " Empty 'asin' found!");
-                failureCount++;
-            }}
-
+        for (HashMap<String, List<String>> hashMap : data) {
+            if (hashMap.containsKey("asin")) {
+                List<String> asinList = hashMap.get("asin");
+                List<String> shopidList = hashMap.get("shop_id");
+                if (asinList.isEmpty()) {
+                    if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + "Missing ASIN.");
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + "Missing ASIN.");
+                    failureCount++;
+                }
+            }
+        }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Missing ASIN in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
-
-    private static int checkMissingTitleInProperTags(HashMap<String, List<String>> hashMap) {
+    private static int checkMissingTitleInProperTags(List<HashMap<String, List<String>>> data) {
         int failureCount = 0; // Counter for this check method
 
-        List<String> titleList = hashMap.get("title");
-        if (titleList == null || titleList.isEmpty()) {
-            List<String> asinList = hashMap.get("asin");
-            if (asinList != null && !asinList.isEmpty()) {
-                String asin = asinList.get(0);
-                log(getAsinString(hashMap) + " Missing or empty 'title' attribute found!");
-                failureCount++;
-            } else {
-                log(getAsinString(hashMap) + " Missing or empty 'title' attribute found! No 'asin' attribute available.");
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> titleList = hashMap.get("title");
+            List<String> shopidList = hashMap.get("shop_id");
+            if (titleList == null || titleList.isEmpty()) {
+                List<String> asinList = hashMap.get("asin");
+                if (asinList != null && !asinList.isEmpty()) {
+                    if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + "Product title missing or not in proper tags.");
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + "Product title missing or not in proper tags.");
+                    failureCount++;
+                } else {
+                    if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + "Product title missing or not in proper tags. No ASIN attribute available.");
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + "Product title missing or not in proper tags. No ASIN attribute available.");
+                    failureCount++;
+                }
+            }
+        }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Missing product title or invalid XML tagging in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
+        return failureCount;
+    }
+
+    private static int checkMissingISBN(List<HashMap<String, List<String>>> data) {
+        int failureCount = 0; // Counter for this check method
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> pgroupList = hashMap.get("pgroup");
+            List<String> isbnList = hashMap.get("bookspec_isbn");
+            List<String> shopidList = hashMap.get("shop_id");
+
+            if (pgroupList != null && !pgroupList.isEmpty() && pgroupList.get(0).equals("Book")) {
+                if (isbnList == null || isbnList.isEmpty()) {
+                    List<String> asinList = hashMap.get("asin");
+                    if (asinList != null && !asinList.isEmpty()) {
+                        if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " Missing ISBN for a book.");
+                        else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " Missing ISBN for a book.");
+                        failureCount++;
+                    } else {
+                        if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "Missing ISBN for a book. NO ASIN attribute available.");
+                        else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + "Missing ISBN for a book. NO ASIN attribute available.");
+                        failureCount++;
+                    }
+                }
+            }
+        }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Missing ISBN (for books) in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
+        return failureCount;
+    }
+
+    private static int checkEANLength(List<HashMap<String, List<String>>> data) {
+        int failureCount = 0; // Counter for this check method
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> shopidList = hashMap.get("shop_id");
+            List<String> eanList = hashMap.get("ean");
+            if (eanList != null && !eanList.isEmpty()) {
+                String ean = eanList.get(0);
+                if (ean.length() != 13) {
+                    if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " EAN-13 length not 13" + ean);
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " EAN-13 length not 13" + ean);
+                    failureCount++;
+                }
+            }
+        }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid EAN-length in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
+        return failureCount;
+    }
+
+    private static int checkUPCEntries(List<HashMap<String, List<String>>> data) {
+        int failureCount = 0; // Counter for this check method
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> shopidList = hashMap.get("shop_id");
+            List<String> upcList = hashMap.get("upc");
+            if (upcList != null && !upcList.isEmpty()) {
+                String upc = upcList.get(0);
+                if (upc.length() > 12) {
+                    if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " Invalid UPC structure with too many entries! UPC: " + upc);
+                    else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " Invalid UPC structure with too many entries! UPC: " + upc);
+                    failureCount++;
+                }
+            }
+        }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid UPC structure in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
+        return failureCount;
+    }
+
+    private static int checkEmptyPgroup(List<HashMap<String, List<String>>> data) {
+        int failureCount = 0; // Counter for this check method
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> pgroupList = hashMap.get("pgroup");
+            List<String> shopidList = hashMap.get("shop_id");
+            if (pgroupList != null && pgroupList.isEmpty()) {
+                if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " Empty product classifier (pgroup) found!");
+                else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " Empty product classifier (pgroup) found!");
                 failureCount++;
             }
         }
-
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Empty product classifier (pgroup) in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
-    private static int checkEANLength(HashMap<String, List<String>> hashMap) {
-        int failureCount = 0; // Counter for this check method
-
-        List<String> eanList = hashMap.get("ean");
-        if (eanList != null && !eanList.isEmpty()) {
-            String ean = eanList.get(0);
-            if (ean.length() < 13) {
-                log(getAsinString(hashMap) + " EAN length is smaller than 13! EAN: " + ean);
-                failureCount++;
-            }
-        }
-
-        return failureCount;
-    }
-
-    private static int checkUPCEntries(HashMap<String, List<String>> hashMap) {
-        int failureCount = 0; // Counter for this check method
-
-        List<String> upcList = hashMap.get("upc");
-        if (upcList != null && !upcList.isEmpty()) {
-            String upc = upcList.get(0);
-            if (upc.length() > 12) {
-                log(getAsinString(hashMap) + " UPC has multiple entries! UPC: " + upc);
-                failureCount++;
-            }
-        }
-        return failureCount;
-    }
-
-    private static int checkEmptyPgroup(HashMap<String, List<String>> hashMap) {
-        int failureCount = 0; // Counter for this check method
-
-        List<String> pgroupList = hashMap.get("pgroup");
-        List<String> shopidList = hashMap.get("shop_id");
-        if (pgroupList != null && pgroupList.isEmpty()) {
-            if (shopidList.get(0).equals("LEIPZIG"))  log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " Empty 'pgroup' attribute found!");
-            else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " Empty 'pgroup' attribute found!");
-            failureCount++;
-        }
-
-        return failureCount;
-    }
 
     private static int checkDuplicateProductUserReview(List<HashMap<String, List<String>>> data) {
         int failureCount = 0; // Counter for this check method
@@ -128,6 +186,9 @@ public class LogGenerator {
                 }
             }
         }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Duplicate reviews from the sam e user in datasets counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
@@ -140,12 +201,15 @@ public class LogGenerator {
             if (productList != null && !productList.isEmpty()) {
                 for (String product : productList) {
                     if (product.length() < 9) {
-                        log(getAsinStringReviews(hashMap) + "[DATA: 'reviews.csv']" + " ASIN length is not valid!");
+                        log(getAsinStringReviews(hashMap) + "[DATA: 'reviews.csv']" + " ASIN length not 10");
                         failureCount++;
                     }
                 }
             }
         }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid ASIN-length in datasets (only reviews.csv) counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
@@ -169,6 +233,9 @@ public class LogGenerator {
                 }
             }
         }
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid reviewdate in datasets (only reviews.csv) counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
@@ -199,22 +266,31 @@ public class LogGenerator {
                 }
             }
         }
-
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid rating in datasets (only reviews.csv) counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
-    private static int checkAsinLength(HashMap<String, List<String>> hashMap) {
+    private static int checkAsinLength(List<HashMap<String, List<String>>> data) {
         int failureCount = 0; // Counter for this check method
 
-        List<String> asinList = hashMap.get("asin");
-        if (asinList != null && !asinList.isEmpty()) {
-            String asin = asinList.get(0);
-            if (asin.length() != 10) {
-                log(getAsinString(hashMap) + " ASIN length is not 10! ASIN: " + asin);
-                failureCount++;
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> asinList = hashMap.get("asin");
+            List<String> shopidList = hashMap.get("shop_id");
+            if (asinList != null && !asinList.isEmpty()) {
+                for (String asin : asinList) {
+                    if (asin.length() != 10) {
+                        if (shopidList.get(0).equals("LEIPZIG")) log(getAsinString(hashMap) + "[DATA: 'leipzig_transformed.xml']" + " ASIN length not 10");
+                        else log(getAsinString(hashMap) + "[DATA: 'dresden.xml']" + " ASIN length not 10");
+                        failureCount++;
+                    }
+                }
             }
         }
-
+        System.out.println("--------------------------------");
+        System.out.println("= TOTAL: Invalid ASIN length (only shops xml) counted "+failureCount);
+        System.out.println("--------------------------------");
         return failureCount;
     }
 
