@@ -410,8 +410,6 @@ public class ETLProcess {
 
         HashMap<String, String> dataTypeMapping;
 
-        PostgresConnector dbConnection = new PostgresConnector("postgres", "");
-
         try {
             dbConnection.connect();
 
