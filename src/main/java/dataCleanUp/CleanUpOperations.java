@@ -68,12 +68,29 @@ public class CleanUpOperations {
         return alteredList;
     }
 
+    public static List<HashMap<String, List<String>>> replaceInvalidPgroup(List<HashMap<String, List<String>>> hashmapList) {
+        System.out.println("\033[34;1m INFO: Execute preprocess clean job to replace wrong pgroup declaration. Waiting for the algorithm to finish...\033[0m");
+        for (HashMap<String, List<String>> hashmap : hashmapList) {
+            if (hashmap.containsKey("pgroup")) {
+                List<String> pgroupList = hashmap.get("pgroup");
+                for (int i = 0; i < pgroupList.size(); i++) {
+                    String pgroup = pgroupList.get(i);
+                    if (pgroup.equals("Buch")) {
+                        pgroupList.set(i, "Book");
+                    }
+                }
+            }
+        }
+        return hashmapList;
+    }
+
     /**
      * Replaces missing characters in a list of HashMap entries.
      *
      * @param hashmapList          The list of HashMap entries.
      * @param replacementAttribute The attribute to replace missing characters for.
      * @return A new list of HashMap entries with missing characters replaced.
+     *
      */
     public static List<HashMap<String, List<String>>> replaceMissingCharacters(List<HashMap<String, List<String>>> hashmapList, String replacementAttribute) {
         System.out.println("\033[34;1m INFO: Execute preprocess clean job to add missing characters on products data HashMap => key: \"" + replacementAttribute + "\". Waiting for the algorithm to finish...\033[0m");

@@ -36,7 +36,7 @@ public class ETLProcess {
     private static String createSQLFilePath = "./sql/create_tables.sql";
     private static String indexSQLFilePath = "./sql/add_index.sql";
 
-    static PostgresConnector dbConnection = new PostgresConnector("postgres", "");
+    static PostgresConnector dbConnection = new PostgresConnector("postgres", "admin");
 
     public static void main(String[] args) {
         // Resets log files.
@@ -163,6 +163,7 @@ public class ETLProcess {
     /**
      * Runs clean-up tasks on the merged product data, replacing special characters (such as ö, ä, ü, etc.) in products
      * that have a sibling with a matching string containing these special characters.
+     * Also, this replaces wrong pgroup properties.
      *
      * @param parsedXMLProductDataMerged The merged product data to be cleaned and preprocessed.
      * @return The cleaned and preprocessed merged product data.
@@ -181,6 +182,7 @@ public class ETLProcess {
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "publishers");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "listmania_lists");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "creators");
+        parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceInvalidPgroup(parsedXMLProductDataMergedCleanedPreprocessed);
         out.println(info + "DONE." + end);
         return parsedXMLProductDataMergedCleanedPreprocessed;
     }
