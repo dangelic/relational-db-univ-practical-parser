@@ -7,6 +7,9 @@ CREATE TABLE products (
   detailpage_url TEXT,
   salesrank INTEGER,
   upc VARCHAR(12),
+  -- The average rating which is dynamically calculated over SQL-functions
+  -- Implements Task 2b)
+  average_rating FLOAT,
   PRIMARY KEY (asin),
   CONSTRAINT unique_upc UNIQUE (upc),
   CONSTRAINT unique_ean UNIQUE (ean),
@@ -16,7 +19,6 @@ CREATE TABLE products (
   CONSTRAINT check_upc_length CHECK (LENGTH(upc) = 12 OR upc IS NULL),
   -- EAN has to be 13 chars long, assuming EAN-13.
   CONSTRAINT check_ean_length CHECK (LENGTH(ean) = 13 OR ean IS NULL)
-
 );
 
 CREATE TABLE users (

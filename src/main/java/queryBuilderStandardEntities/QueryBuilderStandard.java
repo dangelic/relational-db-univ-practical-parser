@@ -408,6 +408,48 @@ public class QueryBuilderStandard {
         return queryList;
     }
 
+    /**
+     * Generates insert queries for common entities based on the provided data, data type mapping, entity name, and ID name.
+     *
+     * @param data           The list of hash maps representing the data for the entities.
+     * @param dataTypeMapping The mapping of column names to their corresponding data types.
+     * @param entityName     The name of the entity.
+     * @param idName         The name of the ID column.
+     * @return A list of insert queries for the common entities.
+     */
+    public static List<String> getInsertQueriesForCommonEntityTracks(
+            List<HashMap<String, List<String>>> data,
+            HashMap<String, String> dataTypeMapping,
+            String entityName,
+            String idName
+    ) {
+        String[] columns = dataTypeMapping.keySet().toArray(new String[0]);
+        List<String> queryList = new ArrayList<>();
+
+        for (HashMap<String, List<String>> hashMap : data) {
+            List<String> idValues = hashMap.get(idName); // Get values for idName
+            String idValue = (idValues != null && !idValues.isEmpty()) ? idValues.get(0) : null; // Assume single value for idName
+
+            Object[] values = new Object[columns.length];
+            String[] mappedColumns = new String[columns.length];
+
+            for (int i = 0; i < columns.length; i++) {
+                String column = columns[i];
+                String dataType = dataTypeMapping.get(column);
+                String columnName = getColumnName(dataType);
+                List<String> columnData = hashMap.get(column);
+                values[i] = getColumnValue(columnData, dataType);
+                mappedColumns[i] = columnName;
+            }
+
+            String sql = InsertQueryStringGenerator.buildInsertStatement(entityName, mappedColumns, values);
+            queryList.add(sql);
+        }
+
+        return queryList;
+    }
+
+
 
 
 

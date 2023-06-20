@@ -39,7 +39,7 @@ public class QueryBuilderJunctions {
             String junctionTableFK2
     ) throws SQLException {
         // Create a new PostgresConnector instance and connect to the database
-        PostgresConnector connector = new PostgresConnector("postgres", "");
+        PostgresConnector connector = new PostgresConnector("postgres", "admin");
         List<String> creationStatements = new ArrayList<>();
 
         try {

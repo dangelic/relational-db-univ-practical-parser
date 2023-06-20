@@ -183,6 +183,7 @@ public class ETLProcess {
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "listmania_lists");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceMissingCharacters(parsedXMLProductDataMergedCleanedPreprocessed, "creators");
         parsedXMLProductDataMergedCleanedPreprocessed = CleanUpOperations.replaceInvalidPgroup(parsedXMLProductDataMergedCleanedPreprocessed);
+        out.println(parsedXMLProductDataMergedCleanedPreprocessed);
         out.println(info + "DONE." + end);
         return parsedXMLProductDataMergedCleanedPreprocessed;
     }
@@ -284,7 +285,7 @@ public class ETLProcess {
 
             out.println(info + "FILLING TRACKS ENTITY..." + end);
             dataTypeMapping = EntityFieldDTMappings.getTracksEntityFieldDTMappings();
-            fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "tracks", "track_id", 1);
+            fillingData = QueryBuilderStandard.getInsertQueriesForNestedEntityGenId(parsedXMLProductDataMerged, dataTypeMapping, "tracks", "tracks", 1, "track_id");
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
 
             out.println(info + "FILLING AUTHORS ENTITY..." + end);
