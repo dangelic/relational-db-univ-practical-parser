@@ -73,7 +73,7 @@ public class CategoryTransformAndGenerateSQL {
 
         List<String> insertStatements = new ArrayList<>();
         for (Map.Entry<String, CategoryInfo> entry : categoryIds.entrySet()) {
-            String categoryName = entry.getKey();
+            String categoryName = getCategoryName(entry.getKey());
             int categoryId = entry.getValue().getId();
             int parentId = entry.getValue().getParentId();
 
@@ -93,11 +93,19 @@ public class CategoryTransformAndGenerateSQL {
         return insertStatements;
     }
 
-    /**
-     * Builds insert statements for products based on the transformed XML document.
-     *
-     * @return A list of insert statements for products.
-     */
+    private String getCategoryName(String categoryId) {
+        NodeList catnameNodes = document.getElementsByTagName("catname");
+        for (int i = 0; i < catnameNodes.getLength(); i++) {
+            Element catnameElement = (Element) catnameNodes.item(i);
+            String catId = catnameElement.getAttribute("cat_id");
+            if (catId.equals(categoryId)) {
+                return catnameElement.getTextContent().trim();
+            }
+        }
+        return "";
+    }
+
+
     public List<String> buildInsertStatementsForProductsCatJunction() {
         List<ProductCategoryInfo> productCategories = new ArrayList<>();
 
@@ -105,15 +113,14 @@ public class CategoryTransformAndGenerateSQL {
 
         List<String> insertStatements = new ArrayList<>();
         for (ProductCategoryInfo productCategory : productCategories) {
-            List<String> categoryNames = productCategory.getCategoryNames();
+            List<String> categoryIds = productCategory.getCategoryIds();
             List<String> asins = productCategory.getAsins();
 
-            for (String categoryName : categoryNames) {
+            for (String categoryId : categoryIds) {
                 String insertStatement = "INSERT INTO junction_products_categories (products_asin, categories_category_id) VALUES ";
 
                 for (String asin : asins) {
-                    insertStatement += "('" + categoryName + "', " + "(SELECT category_id FROM categories WHERE name = '" +
-                            asin + "')), ";
+                    insertStatement += "('" + asin + "', " + categoryId + "), ";
                 }
 
                 // Remove the trailing comma and space
@@ -127,7 +134,7 @@ public class CategoryTransformAndGenerateSQL {
 
     private void traverseCategoriesForProducts(Element element, List<ProductCategoryInfo> productCategories) {
         NodeList childNodes = element.getChildNodes();
-        List<String> categoryNames = new ArrayList<>();
+        List<String> categoryIds = new ArrayList<>();
         List<String> asins = new ArrayList<>();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
@@ -137,9 +144,9 @@ public class CategoryTransformAndGenerateSQL {
                 String tagName = childElement.getTagName();
 
                 if (tagName.equals("catname")) {
-                    String categoryName = childElement.getTextContent().trim();
-                    if (!categoryName.isEmpty()) {
-                        categoryNames.add(categoryName);
+                    String categoryId = childElement.getAttribute("cat_id");
+                    if (!categoryId.isEmpty()) {
+                        categoryIds.add(categoryId);
                     }
                 } else if (tagName.equals("item")) {
                     String asin = childElement.getTextContent().trim();
@@ -152,13 +159,15 @@ public class CategoryTransformAndGenerateSQL {
             }
         }
 
-        if (!categoryNames.isEmpty() && !asins.isEmpty()) {
-            productCategories.add(new ProductCategoryInfo(categoryNames, asins));
+        if (!categoryIds.isEmpty() && !asins.isEmpty()) {
+            productCategories.add(new ProductCategoryInfo(categoryIds, asins));
         }
     }
 
 
 
+
+    private int catIdCounter = 1; // Counter for generating the cat_id
 
     private void addCatnameTags(Node node) {
         if (node instanceof Text) {
@@ -166,16 +175,19 @@ public class CategoryTransformAndGenerateSQL {
             if (parentElement.getTagName().equals("category") && !isNullOrWhitespace(node.getNodeValue())) {
                 // Check if the parent element is <category> and the text is not empty or whitespace
                 Element catnameElement = node.getOwnerDocument().createElement("catname");
+                catnameElement.setAttribute("cat_id", String.valueOf(catIdCounter));
+                catIdCounter++;
                 node.getParentNode().insertBefore(catnameElement, node);
                 catnameElement.appendChild(node);
             }
         } else {
             NodeList childNodes = node.getChildNodes();
-            for (int i = childNodes.getLength() - 1; i >= 0; i--) {
+            for (int i = 0; i < childNodes.getLength(); i++) {
                 addCatnameTags(childNodes.item(i));
             }
         }
     }
+
 
     private boolean isNullOrWhitespace(String value) {
         return value == null || value.trim().isEmpty();
@@ -201,17 +213,17 @@ class CategoryHierarchyBuilder {
             Node node = childNodes.item(i);
             if (node instanceof Element) {
                 Element childElement = (Element) node;
-                String categoryName = getCategoryName(childElement);
+                int categoryId = getCategoryId(childElement);
 
-                if (!categoryName.isEmpty()) {
-                    categoryIds.put(categoryName, new CategoryInfo(currentId, parentId));
-                    currentId++;
+                if (categoryId != -1) {
+                    categoryIds.put(String.valueOf(categoryId), new CategoryInfo(categoryId, parentId));
 
-                    traverseCategories(childElement, categoryIds.get(categoryName).getId());
+                    traverseCategories(childElement, categoryId);
                 }
             }
         }
     }
+
 
     private String getCategoryName(Element element) {
         NodeList catnameNodes = element.getElementsByTagName("catname");
@@ -221,7 +233,27 @@ class CategoryHierarchyBuilder {
         }
         return "";
     }
+
+    private int getCategoryId(Element element) {
+        NodeList catnameNodes = element.getElementsByTagName("catname");
+        if (catnameNodes.getLength() > 0) {
+            Element catnameElement = (Element) catnameNodes.item(0);
+            String categoryId = catnameElement.getAttribute("cat_id");
+            if (!categoryId.isEmpty()) {
+                try {
+                    return Integer.parseInt(categoryId);
+                } catch (NumberFormatException e) {
+                    // Handle parsing error if necessary
+                    e.printStackTrace();
+                }
+            }
+        }
+        // Return a default value or throw an exception if the category ID is not found
+        return -1;
+    }
 }
+
+
 
 class CategoryInfo {
     private int id;
@@ -290,24 +322,22 @@ class ProductCategoryBuilder {
 }
 
 class ProductCategoryInfo {
-    private List<String> categoryNames;
+    private List<String> categoryIds;
     private List<String> asins;
 
-    public ProductCategoryInfo(List<String> asins, List<String> categoryNames) {
+    public ProductCategoryInfo(List<String> categoryIds, List<String> asins) {
+        this.categoryIds = categoryIds;
         this.asins = asins;
-        this.categoryNames = categoryNames;
     }
 
-    public List<String> getCategoryNames() {
-        return categoryNames;
+    public List<String> getCategoryIds() {
+        return categoryIds;
     }
 
     public List<String> getAsins() {
         return asins;
     }
 }
-
-
 
 class CategoryIdGenerator {
     private static int currentId = 1;
