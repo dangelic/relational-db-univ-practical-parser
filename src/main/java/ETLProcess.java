@@ -12,9 +12,7 @@ import categoryHandler.CategoryTransformAndGenerateSQL;
 
 import static java.lang.System.out;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.io.File;
 
 public class ETLProcess {
@@ -110,6 +108,30 @@ public class ETLProcess {
             dbConnection.executeSQLQueryBatch(idxStatements, pathToLogFileDebugDB);
             out.println(info + "DONE." + end);
 
+            // Add function to automatically calculate average ratings.
+            out.println(info + "ADD FUNCS ..." + end);
+            List<String> funcStatements = new ArrayList<>();
+            funcStatements.add("CREATE OR REPLACE FUNCTION calculate_average_ratings()\n" +
+                    "RETURNS void AS $$\n" +
+                    "BEGIN\n" +
+                    "    -- Perform an UPDATE statement on the \"products\" table\n" +
+                    "    UPDATE products\n" +
+                    "    SET average_rating = (\n" +
+                    "        -- Calculate the average rating using a subquery\n" +
+                    "        SELECT AVG(rating)\n" +
+                    "        FROM (\n" +
+                    "            -- Combine the ratings from both \"userreviews\" and \"guestreviews\" tables for a specific product\n" +
+                    "            SELECT rating FROM userreviews WHERE products_asin = products.asin\n" +
+                    "            UNION ALL\n" +
+                    "            SELECT rating FROM guestreviews WHERE products_asin = products.asin\n" +
+                    "        ) AS subquery\n" +
+                    "    );\n" +
+                    "END;\n" +
+                    "$$ LANGUAGE plpgsql;\n");
+
+            dbConnection.executeSQLQueryBatch(funcStatements, pathToLogFileDebugDB);
+            out.println(info + "DONE." + end);
+
             dbConnection.disconnect();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +139,7 @@ public class ETLProcess {
     }
 
     /**
-     * Parses products from merged shops.
+     * Parses products from the merged shops.
      *
      * @return A list of HashMaps containing parsed XML product data from the merged shops.
      */
@@ -428,6 +450,46 @@ public class ETLProcess {
             dataTypeMapping = EntityFieldDTMappings.getGuestReviewsEntityFieldDTMappings();
             fillingData = QueryBuilderStandard.getInsertQueriesForCommonEntityGenId(parsedCSVReviewsFromGuests, dataTypeMapping, "guestreviews", "guestreview_id", 1);
             dbConnection.executeSQLQueryBatch(fillingData, pathToLogFileDebugQueries);
+
+            // Add function to automatically calculate average ratings.
+            out.println(info + "ADD TRIGGER FUNCS AND CALL INITIALLY..." + end);
+            List<String> funcStatements = new ArrayList<>();
+            funcStatements.add("-- Fills the the average_rating column for each product in the \"products\" table\n" +
+                    "-- Fetches data from both \"userreviews\" and \"guestreviews\" tables to calculate the average rating over a UNION.\n" +
+                    "-- This function is called initially to fill the data and also after every UPDATE of the reviews' tables - as defined by triggers\n" +
+                    "CREATE OR REPLACE FUNCTION calculate_average_ratings_totrigger()\n" +
+                    "RETURNS TRIGGER AS $$\n" +
+                    "BEGIN\n" +
+                    "    -- Perform an UPDATE statement on the \"products\" table\n" +
+                    "    UPDATE products\n" +
+                    "    SET average_rating = (\n" +
+                    "        -- Calculate the average rating using a subquery\n" +
+                    "        SELECT AVG(rating)\n" +
+                    "        FROM (\n" +
+                    "            -- Combine the ratings from both \"userreviews\" and \"guestreviews\" tables for a specific product\n" +
+                    "            SELECT rating FROM userreviews WHERE products_asin = products.asin\n" +
+                    "            UNION ALL\n" +
+                    "            SELECT rating FROM guestreviews WHERE products_asin = products.asin\n" +
+                    "        ) AS subquery\n" +
+                    "    );\n" +
+                    "    -- Return the NEW row (required for trigger function)\n" +
+                    "    RETURN NEW;\n" +
+                    "END;\n" +
+                    "$$ LANGUAGE plpgsql;");
+            funcStatements.add("CREATE TRIGGER update_average_rating_on_update_userreviews_trigger\n" +
+                    "AFTER INSERT ON userreviews\n" +
+                    "FOR EACH ROW\n" +
+                    "EXECUTE FUNCTION calculate_average_ratings_totrigger();");
+            funcStatements.add("CREATE TRIGGER update_average_rating_on_update_guestreviews_trigger\n" +
+                    "AFTER INSERT ON guestreviews\n" +
+                    "FOR EACH ROW\n" +
+                    "EXECUTE FUNCTION calculate_average_ratings_totrigger();");
+            dbConnection.executeSQLQueryBatch(funcStatements, pathToLogFileDebugDB);
+
+            // Initially calculate average ratings by triggering the function with an existing asin.
+            List<String> triggerSQL = new ArrayList<>();
+            triggerSQL.add("SELECT calculate_average_ratings()");
+            dbConnection.executeSQLQueryBatch(triggerSQL, pathToLogFileDebugQueries);
 
             dbConnection.disconnect();
         } catch (SQLException e) {
