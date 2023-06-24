@@ -1,56 +1,87 @@
 -- 2 a)
 
--- AUFGABE 1:
--- Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst?
--- Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.
-
--- QUERY:
--- Die folgende Abfrage gruppiert die Produkte nach ihrer Produktgruppe und verwendet die SUM-Funktion, um die Anzahl der Produkte in jeder Gruppe zu zählen.
--- Diese relation gibt wie gewünscht drei Spalten aus.
+-- #1
 SELECT
+    -- Calculate the total count of products in the 'Book' category and label the result as "Anzahl Bücher"
     SUM(CASE WHEN pgroup = 'Book' THEN 1 ELSE 0 END) AS "Anzahl Bücher",
+    
+    -- Calculate the total count of products in the 'Music' category and label the result as "Anzahl Musik-CDs"
     SUM(CASE WHEN pgroup = 'Music' THEN 1 ELSE 0 END) AS "Anzahl Musik-CDs",
+    
+    -- Calculate the total count of products in the 'DVD' category and label the result as "Anzahl DVDs"
     SUM(CASE WHEN pgroup = 'DVD' THEN 1 ELSE 0 END) AS "Anzahl DVDs"
 FROM
     products;
 
--- RESULTAT
+-- Result:
 /*
-   +-----------------+---------------------+-------------+
-   | Anzahl Bücher    | Anzahl Musik-CDs     | Anzahl DVDs |
-   +-----------------+---------------------+-------------+
-   |       586         |         1810             |     665         |
-   +-----------------+---------------------+-------------+
++-------------------+-----------------------+------------------+
+| "Number of Books" | "Number of Musik-CDs" | "Number of DVDs" |
++-------------------+-----------------------+------------------+
+|               586 |                  1810 |              665 |
++-------------------+-----------------------+------------------+
 */
 
 
----------- 2 TODO: Verstehe mich
+-- #2
+
+-- Logic Summary:
+/*
+    1. Create the intermediate table "ranked_products" to store information about products, ratings, and ranking positions.
+    2. Calculate the average ratings for each product, regardless of whether they come from "userreviews" or "guestreviews" table.
+    3. Join the "products" table with the average ratings to retrieve relevant product details.
+    4. Use the "ROW_NUMBER" function to assign a rank position to each product within its product group based on the average rating.
+    5. Retrieve the top 5 products per product group based on the rank position.
+    6. Order the results by product group and ranking.
+*/
 
 WITH ranked_products AS (
-    -- Die Zwischentabelle "ranked_products" enthält Informationen über die Produkte und ihre Bewertungen,
-    -- sowie eine Rangposition für jedes Produkt basierend auf dem Durchschnittsrating.
-    SELECT p.pgroup AS Typ, p.asin AS ProduktNr, r.rating,
-           ROW_NUMBER() OVER (PARTITION BY p.pgroup ORDER BY r.rating DESC) AS ranking
-    FROM products p
+    -- The intermediate table "ranked_products" contains information about the products and their ratings,
+    -- along with a rank position for each product based on the average rating.
+    SELECT products.pgroup AS Type, products.asin AS asin, ROUND(avg_ratings.rating, 2) AS Rating,
+           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS ranking
+    FROM products
     JOIN (
-        -- Die Unterabfrage "r" berechnet den Durchschnitt der Bewertungen für jedes Produkt, unabhängig davon,
-        -- ob es aus der Tabelle "userreviews" oder "guestreviews" stammt.
-        SELECT products_asin, AVG(rating) AS rating
+        -- The subquery "avg_ratings" calculates the average ratings for each product, regardless of whether they come from the "userreviews" or "guestreviews" table.
+        SELECT reviews.products_asin, AVG(reviews.rating) AS rating
         FROM (
-            -- Die Unterabfrage "sub" kombiniert alle Bewertungen aus den Tabellen "userreviews" und "guestreviews".
+            -- The subquery "reviews" combines all the ratings from the "userreviews" and "guestreviews" tables.
             SELECT products_asin, rating FROM userreviews
             UNION ALL
             SELECT products_asin, rating FROM guestreviews
-        ) sub
-        GROUP BY products_asin
-    ) r ON p.asin = r.products_asin
+        ) reviews
+        GROUP BY reviews.products_asin
+    ) avg_ratings ON products.asin = avg_ratings.products_asin
 )
--- Die Hauptabfrage gibt die Produkte mit den höchsten Bewertungen für jeden Typ aus, basierend auf der Rangposition.
-SELECT Typ, ProduktNr, rating
+-- The main query retrieves the top-rated products for each type based on the rank position.
+SELECT Type, asin, Rating
 FROM ranked_products
--- Gebe nur die besten 5 Produkte je Typ aus
+-- Only retrieve the top 5 products per type
 WHERE ranking <= 5
-ORDER BY Typ, ranking;
+ORDER BY Type, ranking;
+
+-- Result:
+/*
++---------+-----------------+----------+
+| "type"  |     "asin"      | "rating" |
++---------+-----------------+----------+
+| "Book"  | "3491886120"    |     5.00 |
+| "Book"  | "3720527069"    |     5.00 |
+| "Book"  | "3570007928"    |     5.00 |
+| "Book"  | "342362115X"    |     5.00 |
+| "Book"  | "3785535929"    |     5.00 |
+| "DVD"   | "B00007BKGQ"    |     5.00 |
+| "DVD"   | "B00002ZMNV"    |     5.00 |
+| "DVD"   | "B0009K33LY"    |     5.00 |
+| "DVD"   | "B000053ZL2"    |     5.00 |
+| "DVD"   | "B00009PBJA"    |     5.00 |
+| "Music" | "B000026EM7"    |     5.00 |
+| "Music" | "B00008DCR8"    |     5.00 |
+| "Music" | "B000009OGR"    |     5.00 |
+| "Music" | "B00005UMTW"    |     5.00 |
+| "Music" | "B000068VXD"    |     5.00 |
++---------+-----------------+----------+
+*/
 
 ------ 3
 
