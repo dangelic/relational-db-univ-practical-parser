@@ -22,7 +22,6 @@ FROM
 +-----------------+--------------------+---------------+
 */
 
-
 -- #2
 -- Zusammenfassung der Logik:
 /*
@@ -38,8 +37,8 @@ FROM
 */
 
 WITH ranked_products AS (
-    SELECT products.pgroup AS Typ, products.asin AS asin, ROUND(avg_ratings.rating, 2) AS Bewertung,
-           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS Rangfolge
+    SELECT products.pgroup AS typ, products.asin AS produktnr, ROUND(avg_ratings.rating, 2) AS rating,
+           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS rangfolge
     FROM products
     INNER JOIN (
         SELECT reviews.products_asin, AVG(reviews.rating) AS rating
@@ -51,15 +50,15 @@ WITH ranked_products AS (
         GROUP BY reviews.products_asin
     ) avg_ratings ON products.asin = avg_ratings.products_asin
 )
-SELECT Typ, asin, Bewertung
+SELECT typ, produktnr, rating
 FROM ranked_products
-WHERE Rangfolge <= 5
-ORDER BY Typ, Rangfolge;
+WHERE rangfolge <= 5
+ORDER BY typ, rangfolge;
 
 -- Resultat:
 /*
 +---------+--------------+-------------+
-|  "typ"  |    "asin"    | "bewertung" |
+|  "typ"  |  "produktnr" |   "rating"  |
 +---------+--------------+-------------+
 | "Book"  | "3491886120" |        5.00 |
 | "Book"  | "3720527069" |        5.00 |
@@ -79,18 +78,51 @@ ORDER BY Typ, Rangfolge;
 +---------+--------------+-------------+
 */
 
------- 3
+-- #3
+-- Zusammenfassung der Logik:
+/*
+1. SELECT DISTINCT wird verwendet, um eindeutige Werte der Spalte products_asin aus der Tabelle priceinfos auszuwählen.
+2. WHERE NOT EXISTS stellt sicher, dass nur diejenigen Produkte ausgewählt werden, für die keine Einträge in der Tabelle priceinfos mit einem Preis ungleich Null existieren. Dies bedeutet, dass es für diese Produkte kein Angebot gibt.
+3. Subquery: Die Subquery überprüft die Bedingung, indem sie nach Einträgen in der Tabelle priceinfos sucht, die mit demselben products_asin-Wert wie der aktuelle Datensatz in der Hauptabfrage übereinstimmen. 
+    - AND pi2.price IS NOT NULL stellt sicher, dass nur Einträge ausgewählt werden, bei denen der Preis nicht null ist, was bedeutet, dass es ein Angebot für das betreffende Produkt gibt.
+*/
 
-SELECT DISTINCT pi.products_asin -- Selektiere die eindeutigen products_asin mit Distinct
+SELECT DISTINCT pi.products_asin
 FROM priceinfos pi
 WHERE NOT EXISTS (
-    -- Subquery zur Überprüfung der Bedingung, ob für ein Produkt ein Eintrag mit price ≠ 0 besteht
-    -- Nach unserer Miniwelt sind dies die Produkte, für die kein Angebot besteht
     SELECT 1
     FROM priceinfos pi2
-    WHERE pi.products_asin = pi2.products_asin -- Vergleiche die ASIN mit jedem Wert aus der Mainquery
+    WHERE pi.products_asin = pi2.products_asin
     AND pi2.price IS NOT NULL
 );
+
+-- Resultat (20 Einträge aus der Ergebnismenge mit 2121 Einträgen)
+/*
++-----------------+
+| "products_asin" |
++-----------------+
+| "3110181460"    |
+| "3120101702"    |
+| "3125611881"    |
+| "3134843080"    |
+| "3170189263"    |
+| "3190028559"    |
+| "3190033137"    |
+| "3190033145"    |
+| "3190041954"    |
+| "3190053588"    |
+| "3257008767"    |
+| "3401023845"    |
+| "3401024434"    |
+| "3401041134"    |
+| "3401044915"    |
+| "3401045512"    |
+| "3401045571"    |
+| "3401052330"    |
+| "3401053698"    |
+| "340105371X"    |
++-----------------+
+*/
 
 
 ----- 4
