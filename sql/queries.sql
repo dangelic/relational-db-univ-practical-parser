@@ -1,51 +1,49 @@
 -- 2 a)
 
 -- #1
+-- Zusammenfassung der Logik:
+-- Nutze CASE-Statement, um jeweils der passenden pgroup eine 1 zuzuordnen, wenn es zutrifft.
+-- Summiere auf und benenne die Ergebnisse entsprechend.
+
 SELECT
-    -- Calculate the total count of products in the 'Book' category and label the result as "Anzahl Bücher"
+    -- SUM(CASE WHEN pgroup = 'Book' THEN 1 ELSE 0 END) berechnet die Gesamtanzahl der Produkte in der Kategorie 'Book' und bezeichnet das Ergebnis als "Anzahl Bücher"
     SUM(CASE WHEN pgroup = 'Book' THEN 1 ELSE 0 END) AS "Anzahl Bücher",
-    
-    -- Calculate the total count of products in the 'Music' category and label the result as "Anzahl Musik-CDs"
     SUM(CASE WHEN pgroup = 'Music' THEN 1 ELSE 0 END) AS "Anzahl Musik-CDs",
-    
-    -- Calculate the total count of products in the 'DVD' category and label the result as "Anzahl DVDs"
     SUM(CASE WHEN pgroup = 'DVD' THEN 1 ELSE 0 END) AS "Anzahl DVDs"
 FROM
     products;
 
--- Result:
+-- Resultat:
 /*
-+-------------------+-----------------------+------------------+
-| "Number of Books" | "Number of Musik-CDs" | "Number of DVDs" |
-+-------------------+-----------------------+------------------+
-|               586 |                  1810 |              665 |
-+-------------------+-----------------------+------------------+
++-----------------+--------------------+---------------+
+| "Anzahl Bücher" | "Anzahl Musik-CDs" | "Anzahl DVDs" |
++-----------------+--------------------+---------------+
+|             586 |               1810 |           665 |
++-----------------+--------------------+---------------+
 */
 
 
 -- #2
-
--- Logic Summary:
+-- Zusammenfassung der Logik:
 /*
-    1. Create the intermediate table "ranked_products" to store information about products, ratings, and ranking positions.
-    2. Calculate the average ratings for each product, regardless of whether they come from "userreviews" or "guestreviews" table.
-    3. Join the "products" table with the average ratings to retrieve relevant product details.
-    4. Use the "ROW_NUMBER" function to assign a rank position to each product within its product group based on the average rating.
-    5. Retrieve the top 5 products per product group based on the rank position.
-    6. Order the results by product group and ranking.
+    1. CTE: Erstelle die Zwischentabelle "ranked_products", um Informationen über Produkte, Bewertungen und Rangpositionen zu speichern.
+         	- UNION: Berechne den Durchschnitt der Bewertungen für jedes Produkt, unabhängig davon, ob sie aus der Tabelle "userreviews" oder "guestreviews" stammen.
+            - Verknüpfe die Tabelle "products" mit den durchschnittlichen Bewertungen, um relevante Produktdetails abzurufen.
+            - ROW_NUMBER OVER A PARTITION: Verwende die Funktion "ROW_NUMBER", um jedem Produkt innerhalb seiner Produktgruppe (Partition) basierend auf der durchschnittlichen Bewertung eine Rangposition zuzuweisen.
+            - INNER JOIN: Kombiniert Durchschnittsbewertungen mit den Produktdetails (pgroup)
+                    - reviews: Zusammenführen "userreviews" und "guestreviews" über UNION
+                    - avg_ratings: Auf basis von Unterabfarge "reviews" wird Durchschnitt der Bewertungen mit AVG berechnet
+                    - GROUP BY: Durchschnittsbewertung pro Produktart gruppiert
+    2. Hauptabfrage: Referenziere Zwischentabelle, um nur die fünf besten Produkte pro Typ abzurufen (WHERE-Statement)
 */
 
 WITH ranked_products AS (
-    -- The intermediate table "ranked_products" contains information about the products and their ratings,
-    -- along with a rank position for each product based on the average rating.
-    SELECT products.pgroup AS Type, products.asin AS asin, ROUND(avg_ratings.rating, 2) AS Rating,
-           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS ranking
+    SELECT products.pgroup AS Typ, products.asin AS asin, ROUND(avg_ratings.rating, 2) AS Bewertung,
+           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS Rangfolge
     FROM products
-    JOIN (
-        -- The subquery "avg_ratings" calculates the average ratings for each product, regardless of whether they come from the "userreviews" or "guestreviews" table.
+    INNER JOIN (
         SELECT reviews.products_asin, AVG(reviews.rating) AS rating
         FROM (
-            -- The subquery "reviews" combines all the ratings from the "userreviews" and "guestreviews" tables.
             SELECT products_asin, rating FROM userreviews
             UNION ALL
             SELECT products_asin, rating FROM guestreviews
@@ -53,34 +51,32 @@ WITH ranked_products AS (
         GROUP BY reviews.products_asin
     ) avg_ratings ON products.asin = avg_ratings.products_asin
 )
--- The main query retrieves the top-rated products for each type based on the rank position.
-SELECT Type, asin, Rating
+SELECT Typ, asin, Bewertung
 FROM ranked_products
--- Only retrieve the top 5 products per type
-WHERE ranking <= 5
-ORDER BY Type, ranking;
+WHERE Rangfolge <= 5
+ORDER BY Typ, Rangfolge;
 
--- Result:
+-- Resultat:
 /*
-+---------+-----------------+----------+
-| "type"  |     "asin"      | "rating" |
-+---------+-----------------+----------+
-| "Book"  | "3491886120"    |     5.00 |
-| "Book"  | "3720527069"    |     5.00 |
-| "Book"  | "3570007928"    |     5.00 |
-| "Book"  | "342362115X"    |     5.00 |
-| "Book"  | "3785535929"    |     5.00 |
-| "DVD"   | "B00007BKGQ"    |     5.00 |
-| "DVD"   | "B00002ZMNV"    |     5.00 |
-| "DVD"   | "B0009K33LY"    |     5.00 |
-| "DVD"   | "B000053ZL2"    |     5.00 |
-| "DVD"   | "B00009PBJA"    |     5.00 |
-| "Music" | "B000026EM7"    |     5.00 |
-| "Music" | "B00008DCR8"    |     5.00 |
-| "Music" | "B000009OGR"    |     5.00 |
-| "Music" | "B00005UMTW"    |     5.00 |
-| "Music" | "B000068VXD"    |     5.00 |
-+---------+-----------------+----------+
++---------+--------------+-------------+
+|  "typ"  |    "asin"    | "bewertung" |
++---------+--------------+-------------+
+| "Book"  | "3491886120" |        5.00 |
+| "Book"  | "3720527069" |        5.00 |
+| "Book"  | "3570007928" |        5.00 |
+| "Book"  | "342362115X" |        5.00 |
+| "Book"  | "3785535929" |        5.00 |
+| "DVD"   | "B00007BKGQ" |        5.00 |
+| "DVD"   | "B00002ZMNV" |        5.00 |
+| "DVD"   | "B0009K33LY" |        5.00 |
+| "DVD"   | "B000053ZL2" |        5.00 |
+| "DVD"   | "B00009PBJA" |        5.00 |
+| "Music" | "B000026EM7" |        5.00 |
+| "Music" | "B00008DCR8" |        5.00 |
+| "Music" | "B000009OGR" |        5.00 |
+| "Music" | "B00005UMTW" |        5.00 |
+| "Music" | "B000068VXD" |        5.00 |
++---------+--------------+-------------+
 */
 
 ------ 3
