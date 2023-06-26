@@ -1,6 +1,11 @@
 -- 2 a)
 
 -- #1
+-- Aufgabe: 
+/*
+Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? 
+Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.
+*/
 -- Zusammenfassung der Logik:
 -- Nutze CASE-Statement, um jeweils der passenden pgroup eine 1 zuzuordnen, wenn es zutrifft.
 -- Summiere auf und benenne die Ergebnisse entsprechend.
@@ -23,6 +28,11 @@ FROM
 */
 
 -- #2
+-- Aufgabe:
+/*
+Nennen Sie die 5 besten Produkte jedes Typs (Buch, Musik-CD, DVD) sortiert nach dem durchschnittlichem Rating. 
+Hinweis: Geben Sie das Ergebnis in einer einzigen Relation mit den Attributen Typ, ProduktNr, Rating aus.
+*/
 -- Zusammenfassung der Logik:
 /*
     1. CTE: Erstelle die Zwischentabelle "ranked_products", um Informationen über Produkte, Bewertungen und Rangpositionen zu speichern.
@@ -80,6 +90,10 @@ ORDER BY typ, rangfolge;
 
 -- #3
 -- Zusammenfassung der Logik:
+-- Aufgabe:
+/*
+Für welche Produkte gibt es im Moment kein Angebot?
+*/
 /*
 1. SELECT DISTINCT wird verwendet, um eindeutige Werte der Spalte products_asin aus der Tabelle priceinfos auszuwählen.
 2. WHERE NOT EXISTS stellt sicher, dass nur diejenigen Produkte ausgewählt werden, für die keine Einträge in der Tabelle priceinfos mit einem Preis ungleich Null existieren. Dies bedeutet, dass es für diese Produkte kein Angebot gibt.
@@ -125,18 +139,34 @@ WHERE NOT EXISTS (
 */
 
 
------ 4
-
-SELECT pi.products_asin -- Selektiere die products_asin, um die betreffenden Produkte zu identifizieren
+-- #4
+-- Aufgabe:
+/*
+Für welche Produkte ist das teuerste Angebot mehr als doppelt so teuer wie das preiswerteste?
+*/
+-- Zusammenfassung der Logik:
+/*
+1. Hauptabfrage: Nehme aus Produkten mit mehr als einem eindeutigem Preis diejenigen mit max-preis > 2 * min-preis
+2. Unterabfrage: Selektiere nur Produkte mit mehr als einen eindeutigen Preis haben
+    - WHERE: Bedingungen, dass keine NULL-Werte oder 0-Werte eingefangen werden
+    - HAVING COUNT DISTINCT: Mehr als einen eindeutigen Preis (wie vergleichen keine NULL-Werte mit Preisen)
+*/
+-- Hauptabfrage
+SELECT pi.products_asin, MIN(pi.price) AS min_price, MAX(pi.price) AS max_price
 FROM priceinfos pi
-WHERE pi.price = ( -- Selektiere nur die Zeilen, bei denen der Preis gleich dem...
-    SELECT MAX(price) -- ...höchsten Preis für das betreffende Produkt ist
-    FROM priceinfos -- Unterabfrage, um den höchsten Preis zu ermitteln
-    WHERE products_asin = pi.products_asin -- Vergleiche das products_asin der Hauptabfrage mit dem der Unterabfrage
+WHERE pi.products_asin IN (
+    -- Unterabfrage
+    SELECT products_asin
+    FROM priceinfos
+    WHERE price IS NOT NULL
+      AND price > 0
+    GROUP BY products_asin
+    HAVING COUNT(DISTINCT price) > 1
 )
-GROUP BY pi.products_asin -- Gruppiere die Ergebnisse nach products_asin, um jedes Produkt einmal aufzulisten
-HAVING MAX(price) > 2 * MIN(price); -- Filtere die Ergebnisse, bei denen der höchste Preis mehr als das Doppelte des niedrigsten Preises ist
+GROUP BY pi.products_asin
+HAVING MAX(pi.price) > 2 * MIN(pi.price);
 
+-- Ergebnis: Leere Menge (Maximal ist ein Produkt rund 1.3x teurer als im billigsten Angebot)
 
 ------- 5
 
