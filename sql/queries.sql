@@ -110,7 +110,7 @@ WHERE NOT EXISTS (
     AND pi2.price IS NOT NULL
 );
 
--- Resultat (20 Einträge aus der Ergebnismenge mit 2121 Einträgen)
+-- Resultat (20 Einträge aus der Ergebnismenge mit 2121 Einträgen):
 /*
 +-----------------+
 | "products_asin" |
@@ -168,32 +168,96 @@ HAVING MAX(pi.price) > 2 * MIN(pi.price);
 
 -- Ergebnis: Leere Menge (Maximal ist ein Produkt rund 1.3x teurer als im billigsten Angebot)
 
-------- 5
+-- #5 
+-- Aufgabe:
+/*
+Welche Produkte haben sowohl mindestens eine sehr schlechte (Punktzahl: 1) 
+als auch mindestens eine sehr gute (Punktzahl: 5) Bewertung?
+*/
 
-SELECT reviews.products_asin -- Wähle die ASIN der Produkte aus
+-- Zusammenfassung der Logik:
+/*
+1. Haupabfrage: Wähle Produkte 
+    - WHERE: Filtere nach Bewertungen mit Punktzahl 1 oder 5
+    - GROUP-BY: Gruppiere nach ASIN, um jedes Produkt nur einmal aufzulisten
+    - HAVING-Statements: Zwei Statement zur Prüfung, ob es mindestens eine Schlechtnote (1) und eine Bestnote (5) gibt
+        - DISTINCT CASE WHEN THEN END: Zähle die Fälle, bei denen das Rating 1 (bzw. 5) ist
+2. Unterabfrage "reviews": Hole alle Reviews mit der UNION der Tabellen "userreviews" und "guestreviews"
+*/
+-- Hauptabfrage
+SELECT reviews.products_asin
 FROM (
+    -- Unterabfrage
     SELECT products_asin, rating -- Selektiere ASIN und Bewertung aus den Tabellen guestreviews und userreviews
     FROM guestreviews
     UNION
     SELECT products_asin, rating
     FROM userreviews
-) AS reviews -- Kombiniere die Bewertungen aus beiden Tabellen
-WHERE reviews.rating = 1 OR reviews.rating = 5 -- Filtere nach Bewertungen mit Punktzahl 1 oder 5
-GROUP BY reviews.products_asin -- Gruppiere nach ASIN, um jedes Produkt nur einmal aufzulisten
-HAVING COUNT(DISTINCT CASE WHEN reviews.rating = 1 THEN reviews.products_asin END) > 0 -- Prüfe, ob es mindestens eine Bewertung mit Punktzahl 1 gibt
-   AND COUNT(DISTINCT CASE WHEN reviews.rating = 5 THEN reviews.products_asin END) > 0 -- Prüfe, ob es mindestens eine Bewertung mit Punktzahl 5 gibt
+) AS reviews
+WHERE reviews.rating = 1 OR reviews.rating = 5
+GROUP BY reviews.products_asin 
+HAVING COUNT(DISTINCT CASE WHEN reviews.rating = 1 THEN reviews.products_asin END) > 0
+   AND COUNT(DISTINCT CASE WHEN reviews.rating = 5 THEN reviews.products_asin END) > 0 
 
-------- 6
+-- Resultat (20 Einträge aus der Ergebnismenge mit 118 Einträgen):
+/*
++-----------------+
+| "products_asin" |
++-----------------+
+| "3120101702"    |
+| "3401023845"    |
+| "3401058371"    |
+| "3423055960"    |
+| "3451280000"    |
+| "3466457513"    |
+| "3468266251"    |
+| "3520452030"    |
+| "3551552002"    |
+| "3570016943"    |
+| "3570215075"    |
+| "3593373912"    |
+| "3593375559"    |
+| "3765323063"    |
+| "3785714130"    |
+| "3791504649"    |
+| "3791504657"    |
+| "3800050870"    |
+| "3800050889"    |
+| "3800051680"    |
++-----------------+
+*/
 
---- Count wird genutzt
-SELECT COUNT(p.asin) AS product_count -- Zähle die Produkte, für die keine Rezension existiert
-FROM products p
-LEFT JOIN (SELECT products_asin FROM guestreviews
-           UNION
-           SELECT products_asin FROM userreviews) AS r
-    ON p.asin = r.products_asin -- Verbinde die products Tabelle mit der UNION-Abfrage
-WHERE r.products_asin IS NULL -- Filtere nach Produkten, für die keine Rezension existiert
+-- #6
+-- Aufgabe:
+/*
+Für wieviele Produkte gibt es gar keine Rezension?
+*/
+-- Zusammenfassung der Logik:
+/*
+1. Umgehe ein JOIN-Statement mit Doppel-NOT-EXIST Statements (Alternative: z.B. LEFT JOIN und dann NULL-Werte filtern)
+2. Zähle die Anzahl mit COUNT
+*/
+SELECT COUNT(products.asin) AS products_without_ratings_count
+FROM products
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM guestreviews
+    WHERE guestreviews.products_asin = products.asin
+)
+AND NOT EXISTS (
+    SELECT 1
+    FROM userreviews
+    WHERE userreviews.products_asin = products.asin
+);
 
+-- Resultat: 
+/*
++----------------------------------+
+| "products_without_ratings_count" |
++----------------------------------+
+|                             1142 |
++----------------------------------+
+*/
 
 ------- 7
 
