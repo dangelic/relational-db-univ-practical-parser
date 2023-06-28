@@ -348,20 +348,48 @@ ORDER BY a.name;
 +---------------------+
 */
 
-------- 9
+-- 9
+-- Aufgabe:
+/*
+Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?
+*/
+-- Zusammenfassung der Logik:
+/*
 
--- Wichtig: Wir nehmen hier auch CDs mit auf, die keinen Track gelistet haben.
--- Dies macht insofern Sinn, als dass z.B. Ambiente-Musik oder experimentelle Musik keine Tracks listen
--- Somit gehen auch 0 in die Durchschnittsbewertung ein, was wir intendieren.
--- Würden wir das nicht wollen, könnten wir einen simplen COUNT auf gruppierte Werte in der tracks-tabeelle ausführen (da die tracks-tabelle natürlich nur CDs mit mind. einem Track listet)
-SELECT AVG(track_count) AS average_track_count
+ANNAHME:
+Wir nehmen hier auch CDs mit auf, die keinen Track gelistet haben.
+Dies macht insofern Sinn, als dass z.B. Ambiente-Musik oder experimentelle Musik keine Tracks listen.
+Somit gehen auch 0 in die Durchschnittsbewertung ein, was wir intendieren.
+Würden wir das nicht wollen, könnten wir einen simplen COUNT auf gruppierte Werte in der tracks-tabelle ausführen (da die tracks-tabelle natürlich nur CDs mit mind. einem Track listet)
+
+1. Hauptabfrage: Schalte ein AVG (Durschnittswert) auf track_count aus der Unterabfrage
+2. Unterabfrage: 
+    - COUNT: Zählt die Anzahl der Tracks pro CD und
+    - LEFT JOIN: 
+            - Bezieht ALLE werte der linken Tabelle (cds) mit aus, auch wenn es keine Übereinstimmung gibt
+            - Gibt es keine Übereinstimmung, wird (anders als bei JOIN) ein NULL-Wert ausgebeben
+            - Dieser fließt wie intendiert ebenso in die Durschnittsbewertung (als 0) mit ein
+    - GROUP: Gruppiert sie nach cds_asin
+    - AS subquery: Benenne die Unterabfrage (nötig in pg)
+*/
+-- Hauptabfrage
+SELECT ROUND(AVG(track_count), 2) AS average_track_count
 FROM (
-    -- Subquery: Zählt die Anzahl der Tracks pro CD und gruppiert sie nach CDs_ASIN
-    -- Die Ergebnisse der Subquery werden verwendet, um den Durchschnitt der Trackanzahlen zu berechnen
-    SELECT cds_asin, COUNT(*) AS track_count
-    FROM tracks
-    GROUP BY cds_asin
+    -- Unterabfrage
+    SELECT cds.asin AS cds_asin, COUNT(tracks.cds_asin) AS track_count
+    FROM cds
+    LEFT JOIN tracks ON cds.asin = tracks.cds_asin
+    GROUP BY cds.asin
 ) AS subquery;
+
+-- Resultat:
+/*
++-----------------------+
+| "average_track_count" |
++-----------------------+
+|                 21.25 |
++-----------------------+
+*/
 
 
 ---- 11
