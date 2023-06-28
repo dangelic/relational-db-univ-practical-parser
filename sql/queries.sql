@@ -259,17 +259,94 @@ AND NOT EXISTS (
 +----------------------------------+
 */
 
-------- 7
-
--- Schließe Guests aus
-SELECT users_username AS user, COUNT(*) AS review_count -- Selektiere den Rezensenten und zähle die Anzahl der Rezensionen
+-- #7
+-- Aufgabe:
+/*
+Nennen Sie alle Rezensenten, die mindestens 10 Rezensionen geschrieben haben.
+*/
+-- Zusammenfassung der Logik:
+/*
+1. SELECT-Statement: Selektiere den Rezensenten und zähle die Anzahl der Rezensionen mit COUNT(*)
+    - Wichtig: Guests werden ausgeschlossen
+2. GROUP-Statement: Gruppiere nach Rezensenten
+3. HAVING-Statement: Wählte nur Rezensenten, bei denen der review_count größergleich 10 ist
+*/
+SELECT users_username AS user, COUNT(*) AS review_count
 FROM userreviews
-GROUP BY users_username -- Gruppiere nach Rezensenten
-HAVING COUNT(*) >= 10 -- Filtere nach Rezensenten mit mindestens 10 Rezensionen
+GROUP BY users_username
+HAVING COUNT(*) >= 10
 
-------- 8
+-- Resultat:
+/*
++-------------------------+----------------+
+|         "user"          | "review_count" |
++-------------------------+----------------+
+| "m_oehri_stadtmagazine" |             12 |
+| "marccoll11"            |             10 |
+| "media-maniade"         |             16 |
+| "petethemusicfan"       |             13 |
++-------------------------+----------------+
+*/
 
--- TODO: IMPLEMENT ME!
+-- #8
+-- Aufgabe:
+/*
+Geben Sie eine duplikatfreie und alphabetisch sortierte Liste der Namen aller Buchautoren an, 
+die auch an DVDs oder Musik-CDs beteiligt sind.
+*/
+-- Zusammenfassung der Logik:
+/*
+1. Hauptabfrage: Wählt die Namen der Autoren aus, deren Name auch ein Creator (von DVD, Music) oder ein Actor (DVD) ist
+    - DISTINCT: Duplikatfreiheit
+    - ORDER BY: Alphabetische Ordnung 
+    - WHERE-Klausel: Prüft, ob der Name des Autors in einer der beiden Unterabfragen vorhanden ist.
+    - Bereinigung in zweiter Bedingung der WHERE-Klausel (AND): Various Artists fliegen raus
+2. Unterabfragen: Vereinigt beide Unterabfragen mit UNION
+    - Unterabfrage 1: Wähle Namen aus der Tabelle actors aus (sind Schauspieler auch Autoren?)
+    - Unterabfrage 2: Ist komplexer:
+           a. Sie verbindet die Tabelle "creators" mit der Junction-Tabelle "junction_products_creators" über die entsprechenden IDs.
+           b. Die Verbindung mit der Tabelle "products" erfolgt ebenfalls über die entsprechenden IDs.
+           c. Die WHERE-Klausel filtert nur Produkte mit der Kategorie ('DVD', 'Music') (keine Creators von Books sollen gezählt werden)
+           d. 
+*/
+-- Hauptabfrage
+SELECT DISTINCT a.name
+FROM authors a
+WHERE a.name IN (
+    -- Unterabfrage 1
+    SELECT name
+    FROM actors
+    UNION
+    -- Unterabfrage 2
+    SELECT name
+    FROM creators c
+    JOIN junction_products_creators jpc ON c.creator_id = jpc.creators_creator_id
+    JOIN products p ON jpc.products_asin = p.asin
+    WHERE p.pgroup IN ('DVD', 'Music')
+)
+AND a.name not in ('Va')
+ORDER BY a.name;
+
+-- Resultat:
+/*
++---------------------+
+|       "name"        |
++---------------------+
+| "Ac"                |
+| "Al"                |
+| "Alexandre"         |
+| "Dav"               |
+| "Heino"             |
+| "Jürgen"            |
+| "Korn"              |
+| "Leonard Bernstein" |
+| "Nas"               |
+| "Nicole"            |
+| "Peter"             |
+| "Robin"             |
+| "Sandra"            |
++---------------------+
+*/
 
 ------- 9
 
