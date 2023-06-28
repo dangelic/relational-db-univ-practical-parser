@@ -400,9 +400,69 @@ Erstellen Sie eine rekursive Anfrage, die zu jedem Produkt dessen Hauptkategorie
 */
 -- Zusammenfassung der Logik:
 /*
-
+1. CTE: category_hierarchy (RECURSIVE)
+    - Basisabfrage: Alle Kategorien mit ihren direkten Hauptkategorien (root-category)
+        - WHERE-Klausel: Wenn parent_category_id IS NULL, dann ist es Hauptkategorie
+    - Rekursive Abfrage: Verknüpfung der Kategorien mit ihren direkten Hauptkategorien
+        - Verknüpfung der CTE mit sich selbst
+2. Hauptabfrage:
+    - SELECT-DISTINCT: Gibt eindeutige product_asin für alle Produkte aus, due ähnliche Produkte haben in anderen Hauptkategorien haben
+    - JOINS:
+        - Je zwei Joins, einmal für das produkt und einmal für das ähnliche Produkt, um die Kategorien des Produkts aus der Tabelle "junction_products_categories" 
+            mit den entsprechenden Kategorien in der Hierarchie-Tabelle "category_hierarchy" zu verknüpfen
+    - WHERE-Klausel: Stellt sicher, dass es sich um unterschiedliche Hauptkategorien handelt
 */
+WITH RECURSIVE category_hierarchy AS (
+  -- Basisabfrage
+  SELECT categories.category_id, categories.parent_category_id, categories.category_id AS root_category_id
+  FROM categories
+  WHERE categories.parent_category_id IS NULL
+  
+  UNION ALL
 
+  -- Rekursive Abfrage
+  SELECT categories.category_id, categories.parent_category_id, category_hierarchy.root_category_id
+  FROM categories
+  INNER JOIN category_hierarchy ON categories.parent_category_id = category_hierarchy.category_id
+)
+-- Hauptabfrage
+SELECT DISTINCT products_similars.products_asin
+FROM products_similars
+
+JOIN junction_products_categories AS jpc1 ON products_similars.products_asin = jpc1.products_asin
+JOIN junction_products_categories AS jpc2 ON products_similars.similar_product_asin = jpc2.products_asin
+
+JOIN category_hierarchy AS ch1 ON jpc1.categories_category_id = ch1.category_id
+JOIN category_hierarchy AS ch2 ON jpc2.categories_category_id = ch2.category_id
+WHERE ch1.root_category_id <> ch2.root_category_id
+
+-- Resultat:
+/*
++-----------------+
+| "products_asin" |
++-----------------+
+| "3134843080"    |
+| "3190041954"    |
+| "3407780567"    |
+| "340778063X"    |
+| "3407784570"    |
+| "340780945X"    |
+| "3423078006"    |
+| "3468266251"    |
+| "3468839286"    |
+| "3473373486"    |
+| "3473377120"    |
+| "3473377147"    |
+| "3473379972"    |
+| "349188795X"    |
+| "3491888077"    |
+| "3551551677"    |
+| "3551551685"    |
+| "3551551693"    |
+| "3551551936"    |
+| "3551555559"    |
++-----------------+
+*/
 
 -- #11
 -- Aufgabe:
