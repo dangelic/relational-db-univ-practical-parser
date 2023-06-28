@@ -437,11 +437,11 @@ WHERE NOT EXISTS (
         FROM priceinfos
         WHERE priceinfos.products_asin = products.asin
         AND priceinfos.price IS NOT NULL
-        AND priceinfos.price <> 0
+        AND priceinfos.price > 0
     )
 );
 
--- Resultat (20 Einträge aus der Ergebnismenge mit 16 Einträgen):
+-- Resultat (20 Einträge aus der Ergebnismenge mit 115 Einträgen):
 /*
 +--------------+--------------------------------------------------+
 |    "asin"    |                     "ptitle"                     |
@@ -493,27 +493,40 @@ WITH matching_products_cte AS (
       FROM priceinfos
       WHERE priceinfos.products_asin = products.asin
       AND priceinfos.price IS NOT NULL
+      AND priceinfos.price > 0
     )
   )
-), priceinfo_counts AS (
-  -- Unterabfrage: 
-  SELECT
-    COUNT(*) AS total_products,
-    COUNT(CASE WHEN priceinfos.shops_shop_id = 'LEIPZIG' 
-    AND priceinfos.price = (
-        	SELECT MIN(price) 
-            FROM priceinfos 
-            WHERE products_asin = matching_products_cte.asin) 
-            THEN 1 
-            END
-    )  AS leipzig_cheapest_count
-  FROM matching_products_cte
-  LEFT JOIN priceinfos ON priceinfos.products_asin = matching_products_cte.asin
+),
+cheapest_prices_cte AS (
+  SELECT priceinfos.products_asin, priceinfos.shops_shop_id, priceinfos.price
+  FROM priceinfos
+  INNER JOIN (
+    SELECT products_asin, MIN(price) AS min_price
+    FROM priceinfos
+    WHERE products_asin IN (SELECT asin FROM matching_products_cte)
+    GROUP BY products_asin
+  ) AS min_prices ON priceinfos.products_asin = min_prices.products_asin AND priceinfos.price = min_prices.min_price
+),
+leipzig_count_cte AS (
+  SELECT COUNT(*) AS leipzig_count
+  FROM cheapest_prices_cte
+  WHERE shops_shop_id = 'LEIPZIG'
+),
+total_count_cte AS (
+  SELECT COUNT(*) AS total_count
+  FROM cheapest_prices_cte
 )
-SELECT ROUND((leipzig_cheapest_count::decimal / total_products) * 100, 2) AS cheapest_percentage
-FROM priceinfo_counts;
-
-
+SELECT ROUND((leipzig_count_cte.leipzig_count * 100.0 / total_count_cte.total_count), 2) AS leipzig_cheapest_percentage
+FROM leipzig_count_cte, total_count_cte;
+  
+-- Resultat:
+/*
++-------------------------------+
+| "leipzig_cheapest_percentage" |
++-------------------------------+
+|                         50.43 |
++-------------------------------+
+*/
 
 
 
