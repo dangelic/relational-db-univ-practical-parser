@@ -475,12 +475,18 @@ WHERE NOT EXISTS (
 */
 -- Zusammenfassung der Logik:
 /*
+ANNAHME: Es werden nur die günstigsten Angebote verglichen, 
+d.h. wenn Filiale X Produkt A zu Preis a und b anbietet (in zwei Konditionen), wird der billigste genommen
+
 1. CTE: matching_products_cte -> Gleiche Abfrage wie oben, gibt alle Produkte aus #11 aus
-2. CTE: priceinfo_counts -> Anzahl der Produkte und wie oft Leipzig den günstigsten Preis hat
-    - COUNT(*): Gibt ALLE Produkte der Ergebnismenge von oben (=117)
-    - COUNT-CASE:  
-        - Zähle eine 1, wenn die Filiale "LEIPZIG" ist
-        - UND 
+2. CTE: cheapest_price_cte -> 
+    - Unterabfrage min_prices: Stellt sicher, dass die minimalen Preise je Produkt (aus matching_products_cte) gruppiert nach asin zurückgegeben werden
+    - JOIN:
+        - "priceinfos.products_asin = min_prices.products_asin" stellt sicher, dass die Produkte übereinstimmen.
+        - "priceinfos.price = min_prices.min_price2 stellt sicher, dass der Preis dem minimalen Preis für jedes Produkt entspricht.
+3. CTE: leipzig_count_cte -> Zähle die Einträge, bei denen "LEIPZIG" die Filliale mit dem günstigsten Angebot ist
+4. CTE: total_count_cte -> Zählt alle Ergebnisse aus matching_products_cte
+5. Hauptabfrage -> Berechnet den Quotienten aus leipzig_count_cte und total_count_cte, um den gerundeten Anteil zu bekommen
 */
 WITH matching_products_cte AS (
   SELECT products.asin, products.ptitle
@@ -501,11 +507,14 @@ cheapest_prices_cte AS (
   SELECT priceinfos.products_asin, priceinfos.shops_shop_id, priceinfos.price
   FROM priceinfos
   INNER JOIN (
+    - Unterabfrage zu cheapest_price_cte
     SELECT products_asin, MIN(price) AS min_price
     FROM priceinfos
     WHERE products_asin IN (SELECT asin FROM matching_products_cte)
     GROUP BY products_asin
-  ) AS min_prices ON priceinfos.products_asin = min_prices.products_asin AND priceinfos.price = min_prices.min_price
+  ) AS min_prices 
+    ON priceinfos.products_asin = min_prices.products_asin 
+    AND priceinfos.price = min_prices.min_price
 ),
 leipzig_count_cte AS (
   SELECT COUNT(*) AS leipzig_count
@@ -516,6 +525,7 @@ total_count_cte AS (
   SELECT COUNT(*) AS total_count
   FROM cheapest_prices_cte
 )
+- Hauptabfrage
 SELECT ROUND((leipzig_count_cte.leipzig_count * 100.0 / total_count_cte.total_count), 2) AS leipzig_cheapest_percentage
 FROM leipzig_count_cte, total_count_cte;
   
