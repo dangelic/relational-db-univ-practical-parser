@@ -348,7 +348,7 @@ ORDER BY a.name;
 +---------------------+
 */
 
--- 9
+-- #9
 -- Aufgabe:
 /*
 Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?
@@ -391,8 +391,28 @@ FROM (
 +-----------------------+
 */
 
+-- 10
+-- Aufgabe:
+/*
+Für welche Produkte gibt es ähnliche Produkte in einer anderen Hauptkategorie? 
+Hinweis: Eine Hauptkategorie ist eine Produktkategorie ohne Oberkategorie. 
+Erstellen Sie eine rekursive Anfrage, die zu jedem Produkt dessen Hauptkategorie bestimmt.
+*/
+-- Zusammenfassung der Logik:
+/*
 
----- 11
+*/
+
+
+-- #11
+-- Aufgabe:
+/*
+Welche Produkte werden in allen Filialen angeboten? Hinweis: Ihre Query muss so formuliert werden, dass sie für eine beliebige Anzahl von Filialen funktioniert. Hinweis: 
+Beachten Sie, dass ein Produkt mehrfach von einer Filiale angeboten werden kann (z.B. neu und gebraucht).
+*/
+-- Zusammenfassung der Logik:
+/*
+*/
 
 -- Die Hauptabfrage, um Produkte zu finden, die in allen Filialen angeboten werden
 SELECT products.asin
