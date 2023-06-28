@@ -412,42 +412,106 @@ Beachten Sie, dass ein Produkt mehrfach von einer Filiale angeboten werden kann 
 */
 -- Zusammenfassung der Logik:
 /*
+Von "innen nach außen":
+- Unterabfrage 2: 
+    - Es werden die Filialen ausgewählt, für die es einen Eintrag in der Tabelle "priceinfos" gibt, der das entsprechende Produkt repräsentiert und einen nicht-NULL-Preis hat. 
+    - Diese SELECT-Anweisung dient dazu, die Filialen zu ermitteln, bei denen das Produkt zu einem bestimmten Preis angeboten wird.
+- Unterabfrage 1: 
+    - Wähle durch die NOT IN Klausel (auf Unterabfrage 2) alle Filialen aus, bei denen KEIN Wert in den priceinfos besteht, der ein Produkt repräsentiert und einen nicht-NULL-Preis hat.
+    - Das bedeutet, dass das Produkt in keinem der Shops angeboten wird
+- Hauptabfrage:
+    - Durch NOT EXIST werden nur die Produkte ausgewählt, bei denen die Bedingung der Unterabfrage 1 nicht filt
+    - Das bedeutet, dass alle Produkte angegeben werden, die in jeder Filiale mindestens einmal (mit Preis, ergo Angebot) vorkommen
+2.
 */
-
--- Die Hauptabfrage, um Produkte zu finden, die in allen Filialen angeboten werden
-SELECT products.asin
+-- Hauptabfrage: Produkte, die in allen Filialen angeboten werden
+SELECT products.asin, products.ptitle
 FROM products
--- Subquery zur Ermittlung der Gesamtanzahl von Filialen
-CROSS JOIN (
-    -- Subquery zur Berechnung der Gesamtanzahl von Filialen
-    SELECT COUNT(DISTINCT priceinfos.shops_shop_id) AS total_shops
-    FROM priceinfos
-) shop_count
-WHERE products.asin IN (
-    -- Subquery zur Ermittlung der Produkte, die in allen Filialen angeboten werden
-    SELECT priceinfos.products_asin
-    FROM priceinfos
-    INNER JOIN (
-        -- Subquery zur Ermittlung der Produkte, die in allen Filialen angeboten werden
-        SELECT priceinfos.products_asin
+WHERE NOT EXISTS (
+    -- Unterabfrage 1: Filialen, in denen das Produkt nicht angeboten wird
+    SELECT shops.shop_id
+    FROM shops
+    WHERE shops.shop_id NOT IN (
+        -- Unterabfrage 2: Filialen, in denen das Produkt mit einem Preis vorhanden ist
+        SELECT priceinfos.shops_shop_id
         FROM priceinfos
-        -- Gruppierung nach Produkt-ASIN, um die Anzahl der Filialen pro Produkt zu ermitteln
-        GROUP BY priceinfos.products_asin
-        -- Bedingung, um Produkte auszuwählen, die in allen Filialen angeboten werden
-        HAVING COUNT(DISTINCT priceinfos.shops_shop_id) = shop_count.total_shops
-    ) filtered ON priceinfos.products_asin = filtered.products_asin
-    -- Bedingung, um Produkte auszuwählen, die einen Preis haben (nicht NULL)
-    WHERE priceinfos.price IS NOT NULL
-    -- Gruppierung nach Produkt-ASIN, um die Anzahl der Filialen pro Produkt zu ermitteln
-    GROUP BY priceinfos.products_asin
-    -- Bedingung, um Produkte auszuwählen, die in allen Filialen angeboten werden
-    HAVING COUNT(DISTINCT priceinfos.shops_shop_id) = shop_count.total_shops
+        WHERE priceinfos.products_asin = products.asin
+        AND priceinfos.price IS NOT NULL
+        AND priceinfos.price <> 0
+    )
 );
 
+-- Resultat (20 Einträge aus der Ergebnismenge mit 16 Einträgen):
+/*
++--------------+--------------------------------------------------+
+|    "asin"    |                     "ptitle"                     |
++--------------+--------------------------------------------------+
+| "B00002DGW7" | "Movie Classics"                                 |
+| "B00005UW50" | "Baroque Esprit - Il Pastor Fido"                |
+| "B0002TB60W" | "Various Artists - Karaoke: Love Songs, Vol. 01" |
+| "B00069KW58" | "Dream on"                                       |
+| "B000ANPWYG" | "I'Ve Got My Own Hell to Raise"                  |
+| "B000005GWE" | "I Can See Your House from Here"                 |
+| "B00004W55E" | "Individuality (Can I Be Me? )"                  |
+| "B000BAVWA6" | "We Are Always Searching"                        |
+| "B0002PZWQ0" | "Hed Kandi Summer 2004"                          |
+| "B000BFHW1E" | "Melissa (25th Anniversary Re-I"                 |
+| "B0009WPCJS" | "I Want a Girlfriend"                            |
+| "B000BW9BKC" | "Tokyo Project/Introduction"                     |
+| "B000B2WK8M" | "Once+Wish I Had An Angel (Collectors Box)"      |
+| "B000BFHW1O" | "Abigail (25th Anniversary Re-I"                 |
+| "B0008GIXDW" | "I Bruise Easily"                                |
+| "B00007B6WD" | "Night of the Proms 2002-d"                      |
+| "B0002WS3M8" | "Facts of Life/I Don'T Know Wha"                 |
+| "B000B6VUAW" | "Trilogy-Tonight I'M Yours/Atla"                 |
+| "B0002Z9ZCW" | "Pure Smooth Jazz"                               |
+| "B0009SQ6YW" | "I Love Everybody"                               |
++--------------+--------------------------------------------------+
+*/
 
-
-
-
+-- #12
+-- Aufgabe:
+/*
+*/
+-- Zusammenfassung der Logik:
+/*
+1. CTE: matching_products_cte -> Gleiche Abfrage wie oben, gibt alle Produkte aus #11 aus
+2. CTE: priceinfo_counts -> Anzahl der Produkte und wie oft Leipzig den günstigsten Preis hat
+    - COUNT(*): Gibt ALLE Produkte der Ergebnismenge von oben (=117)
+    - COUNT-CASE:  
+        - Zähle eine 1, wenn die Filiale "LEIPZIG" ist
+        - UND 
+*/
+WITH matching_products_cte AS (
+  SELECT products.asin, products.ptitle
+  FROM products
+  WHERE NOT EXISTS (
+    SELECT shops.shop_id
+    FROM shops
+    WHERE shops.shop_id NOT IN (
+      SELECT priceinfos.shops_shop_id
+      FROM priceinfos
+      WHERE priceinfos.products_asin = products.asin
+      AND priceinfos.price IS NOT NULL
+    )
+  )
+), priceinfo_counts AS (
+  -- Unterabfrage: 
+  SELECT
+    COUNT(*) AS total_products,
+    COUNT(CASE WHEN priceinfos.shops_shop_id = 'LEIPZIG' 
+    AND priceinfos.price = (
+        	SELECT MIN(price) 
+            FROM priceinfos 
+            WHERE products_asin = matching_products_cte.asin) 
+            THEN 1 
+            END
+    )  AS leipzig_cheapest_count
+  FROM matching_products_cte
+  LEFT JOIN priceinfos ON priceinfos.products_asin = matching_products_cte.asin
+)
+SELECT ROUND((leipzig_cheapest_count::decimal / total_products) * 100, 2) AS cheapest_percentage
+FROM priceinfo_counts;
 
 
 
