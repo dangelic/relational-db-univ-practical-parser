@@ -1,4 +1,6 @@
--- Beispiel für die Berechnung des Durchschnittsratings über einen Trigger-Funktion.
+-- TESTAT II
+-- dbprak21
+-- b) Code (Beispiel zu den Trigger-Functions)
 
 -- Wähle das Produkt mit der asin = B00068C824 aus -> Es hat anfangs ein Rating von 3,5, das als Durchschnitt aus den Gast- und Benutzerbewertungen berechnet wird.
 SELECT asin, ptitle, average_rating FROM products WHERE asin LIKE 'B00068C824';
