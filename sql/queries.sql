@@ -1,17 +1,20 @@
--- 2 a)
+-- TESTAT II
+-- dbprak21
 
--- #1
+--  a)
+
+
 -- Aufgabe: 
 /*
 Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? 
-Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.
+Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.
 */
 -- Zusammenfassung der Logik:
--- Nutze CASE-Statement, um jeweils der passenden pgroup eine 1 zuzuordnen, wenn es zutrifft.
--- Summiere auf und benenne die Ergebnisse entsprechend.
-
+/*
+1. Nutze CASE-Statement, um jeweils der passenden pgroup eine 1 zuzuordnen, wenn es zutrifft.
+2.Summiere auf und benenne die Ergebnisse entsprechend.
+*/
 SELECT
-    -- SUM(CASE WHEN pgroup = 'Book' THEN 1 ELSE 0 END) berechnet die Gesamtanzahl der Produkte in der Kategorie 'Book' und bezeichnet das Ergebnis als "Anzahl Bücher"
     SUM(CASE WHEN pgroup = 'Book' THEN 1 ELSE 0 END) AS "Anzahl Bücher",
     SUM(CASE WHEN pgroup = 'Music' THEN 1 ELSE 0 END) AS "Anzahl Musik-CDs",
     SUM(CASE WHEN pgroup = 'DVD' THEN 1 ELSE 0 END) AS "Anzahl DVDs"
@@ -27,28 +30,29 @@ FROM
 +-----------------+--------------------+---------------+
 */
 
--- #2
+------------ #2 ------------
 -- Aufgabe:
 /*
-Nennen Sie die 5 besten Produkte jedes Typs (Buch, Musik-CD, DVD) sortiert nach dem durchschnittlichem Rating. 
+Nennen Sie die 5 besten Produkte jedes Typs (Buch, Musik-CD, DVD) sortiert nach dem durchschnittlichen Rating. 
 Hinweis: Geben Sie das Ergebnis in einer einzigen Relation mit den Attributen Typ, ProduktNr, Rating aus.
 */
 -- Zusammenfassung der Logik:
 /*
-    1. CTE: Erstelle die Zwischentabelle "ranked_products", um Informationen über Produkte, Bewertungen und Rangpositionen zu speichern.
-         	- UNION: Berechne den Durchschnitt der Bewertungen für jedes Produkt, unabhängig davon, ob sie aus der Tabelle "userreviews" oder "guestreviews" stammen.
-            - Verknüpfe die Tabelle "products" mit den durchschnittlichen Bewertungen, um relevante Produktdetails abzurufen.
+    1. CTE "ranked_products": Erstelle die CTE, um Informationen über Produkte, Bewertungen und Rangpositionen zu speichern:
             - ROW_NUMBER OVER A PARTITION: Verwende die Funktion "ROW_NUMBER", um jedem Produkt innerhalb seiner Produktgruppe (Partition) basierend auf der durchschnittlichen Bewertung eine Rangposition zuzuweisen.
-            - INNER JOIN: Kombiniert Durchschnittsbewertungen mit den Produktdetails (pgroup)
-                    - reviews: Zusammenführen "userreviews" und "guestreviews" über UNION
-                    - avg_ratings: Auf basis von Unterabfarge "reviews" wird Durchschnitt der Bewertungen mit AVG berechnet
-                    - GROUP BY: Durchschnittsbewertung pro Produktart gruppiert
-    2. Hauptabfrage: Referenziere Zwischentabelle, um nur die fünf besten Produkte pro Typ abzurufen (WHERE-Statement)
+            - INNER JOIN: Kombiniert Durchschnittsbewertungen mit den Produktdetails (pgroup).
+                    - reviews: Zusammenführen "userreviews" und "guestreviews" über UNION.
+                    - avg_ratings: Auf Basis von Unterabfrage "reviews" wird Durchschnitt der Bewertungen mit AVG berechnet.
+                    - GROUP BY: Durchschnittsbewertung pro Produktart gruppiert.
+    2. Hauptabfrage: Referenziere Zwischentabelle, um nur die fünf besten Produkte pro Typ abzurufen (mit WHERE-Statement).
 */
 
 WITH ranked_products AS (
     SELECT products.pgroup AS typ, products.asin AS produktnr, ROUND(avg_ratings.rating, 2) AS rating,
-           ROW_NUMBER() OVER (PARTITION BY products.pgroup ORDER BY avg_ratings.rating DESC) AS rangfolge
+           ROW_NUMBER() OVER (
+            PARTITION BY products.pgroup 
+            ORDER BY avg_ratings.rating DESC
+            ) AS rangfolge
     FROM products
     INNER JOIN (
         SELECT reviews.products_asin, AVG(reviews.rating) AS rating
@@ -60,6 +64,7 @@ WITH ranked_products AS (
         GROUP BY reviews.products_asin
     ) avg_ratings ON products.asin = avg_ratings.products_asin
 )
+-- Hauptabfrage
 SELECT typ, produktnr, rating
 FROM ranked_products
 WHERE rangfolge <= 5
@@ -88,22 +93,23 @@ ORDER BY typ, rangfolge;
 +---------+--------------+-------------+
 */
 
--- #3
--- Zusammenfassung der Logik:
+------------ #3 ------------
 -- Aufgabe:
 /*
 Für welche Produkte gibt es im Moment kein Angebot?
 */
+-- Zusammenfassung der Logik:
 /*
 1. SELECT DISTINCT wird verwendet, um eindeutige Werte der Spalte products_asin aus der Tabelle priceinfos auszuwählen.
 2. WHERE NOT EXISTS stellt sicher, dass nur diejenigen Produkte ausgewählt werden, für die keine Einträge in der Tabelle priceinfos mit einem Preis ungleich Null existieren. Dies bedeutet, dass es für diese Produkte kein Angebot gibt.
-3. Subquery: Die Subquery überprüft die Bedingung, indem sie nach Einträgen in der Tabelle priceinfos sucht, die mit demselben products_asin-Wert wie der aktuelle Datensatz in der Hauptabfrage übereinstimmen. 
+3. Unterabfrage: Die Unterabfrage überprüft die Bedingung, indem sie nach Einträgen in der Tabelle priceinfos sucht, die mit demselben products_asin-Wert wie der aktuelle Datensatz in der Hauptabfrage übereinstimmen. 
     - AND pi2.price IS NOT NULL stellt sicher, dass nur Einträge ausgewählt werden, bei denen der Preis nicht null ist, was bedeutet, dass es ein Angebot für das betreffende Produkt gibt.
 */
 
 SELECT DISTINCT pi.products_asin
 FROM priceinfos pi
 WHERE NOT EXISTS (
+    -- Unterabfrage
     SELECT 1
     FROM priceinfos pi2
     WHERE pi.products_asin = pi2.products_asin
@@ -138,18 +144,17 @@ WHERE NOT EXISTS (
 +-----------------+
 */
 
-
--- #4
+------------ #4 ------------
 -- Aufgabe:
 /*
 Für welche Produkte ist das teuerste Angebot mehr als doppelt so teuer wie das preiswerteste?
 */
 -- Zusammenfassung der Logik:
 /*
-1. Hauptabfrage: Nehme aus Produkten mit mehr als einem eindeutigem Preis diejenigen mit max-preis > 2 * min-preis
-2. Unterabfrage: Selektiere nur Produkte mit mehr als einen eindeutigen Preis haben
-    - WHERE: Bedingungen, dass keine NULL-Werte oder 0-Werte eingefangen werden
-    - HAVING COUNT DISTINCT: Mehr als einen eindeutigen Preis (wie vergleichen keine NULL-Werte mit Preisen)
+1. Hauptabfrage: Nehme aus Produkten mit mehr als einem eindeutigem Preis diejenigen mit max-preis > 2 * min-preis.
+2. Unterabfrage: Selektiere nur Produkte, die mehr als einen eindeutigen Preis haben:
+    - WHERE: Bedingungen, dass keine NULL-Werte oder 0-Werte eingefangen werden.
+    - HAVING COUNT DISTINCT: Mehr als einen eindeutigen Preis (wie vergleichen keine NULL-Werte mit Preisen).
 */
 -- Hauptabfrage
 SELECT pi.products_asin, MIN(pi.price) AS min_price, MAX(pi.price) AS max_price
@@ -168,27 +173,26 @@ HAVING MAX(pi.price) > 2 * MIN(pi.price);
 
 -- Ergebnis: Leere Menge (Maximal ist ein Produkt rund 1.3x teurer als im billigsten Angebot)
 
--- #5 
+------------ #5 ------------
 -- Aufgabe:
 /*
 Welche Produkte haben sowohl mindestens eine sehr schlechte (Punktzahl: 1) 
 als auch mindestens eine sehr gute (Punktzahl: 5) Bewertung?
 */
-
 -- Zusammenfassung der Logik:
 /*
-1. Haupabfrage: Wähle Produkte 
-    - WHERE: Filtere nach Bewertungen mit Punktzahl 1 oder 5
-    - GROUP-BY: Gruppiere nach ASIN, um jedes Produkt nur einmal aufzulisten
-    - HAVING-Statements: Zwei Statement zur Prüfung, ob es mindestens eine Schlechtnote (1) und eine Bestnote (5) gibt
-        - DISTINCT CASE WHEN THEN END: Zähle die Fälle, bei denen das Rating 1 (bzw. 5) ist
-2. Unterabfrage "reviews": Hole alle Reviews mit der UNION der Tabellen "userreviews" und "guestreviews"
+1. Haupabfrage: Wähle Produkte:
+    - WHERE: Filtere nach Bewertungen mit Punktzahl 1 oder 5.
+    - GROUP-BY: Gruppiere nach ASIN, um jedes Produkt nur einmal aufzulisten.
+    - HAVING-Statements: Zwei Statement zur Prüfung, ob es mindestens eine Schlechtnote (1) und eine Bestnote (5) gibt:
+        - DISTINCT CASE WHEN THEN END: Zähle die Fälle, bei denen das Rating 1 (bzw. 5) ist.
+2. Unterabfrage "reviews": Nimm alle Reviews mit der UNION der Tabellen "userreviews" und "guestreviews".
 */
 -- Hauptabfrage
 SELECT reviews.products_asin
 FROM (
     -- Unterabfrage
-    SELECT products_asin, rating -- Selektiere ASIN und Bewertung aus den Tabellen guestreviews und userreviews
+    SELECT products_asin, rating
     FROM guestreviews
     UNION
     SELECT products_asin, rating
@@ -227,15 +231,15 @@ HAVING COUNT(DISTINCT CASE WHEN reviews.rating = 1 THEN reviews.products_asin EN
 +-----------------+
 */
 
--- #6
+------------ #6 ------------
 -- Aufgabe:
 /*
 Für wieviele Produkte gibt es gar keine Rezension?
 */
 -- Zusammenfassung der Logik:
 /*
-1. Umgehe ein JOIN-Statement mit Doppel-NOT-EXIST Statements (Alternative: z.B. LEFT JOIN und dann NULL-Werte filtern)
-2. Zähle die Anzahl mit COUNT
+1. Umgehe ein JOIN-Statement mit Doppel-NOT-EXIST Statements (Alternative: z.B. LEFT JOIN und dann NULL-Werte filtern).
+2. Zähle die Anzahl mit COUNT.
 */
 SELECT COUNT(products.asin) AS products_without_ratings_count
 FROM products
@@ -259,17 +263,17 @@ AND NOT EXISTS (
 +----------------------------------+
 */
 
--- #7
+------------ #7 ------------
 -- Aufgabe:
 /*
 Nennen Sie alle Rezensenten, die mindestens 10 Rezensionen geschrieben haben.
 */
 -- Zusammenfassung der Logik:
 /*
-1. SELECT-Statement: Selektiere den Rezensenten und zähle die Anzahl der Rezensionen mit COUNT(*)
-    - Wichtig: Guests werden ausgeschlossen
-2. GROUP-Statement: Gruppiere nach Rezensenten
-3. HAVING-Statement: Wählte nur Rezensenten, bei denen der review_count größergleich 10 ist
+1. SELECT-Statement: Selektiere den Rezensenten und zähle die Anzahl der Rezensionen mit COUNT(*).
+    - Wichtig: Guests werden ausgeschlossen!
+2. GROUP-Statement: Gruppiere nach Rezensenten.
+3. HAVING-Statement: Wählte nur Rezensenten, bei denen der review_count größergleich 10 ist.
 */
 SELECT users_username AS user, COUNT(*) AS review_count
 FROM userreviews
@@ -288,7 +292,7 @@ HAVING COUNT(*) >= 10
 +-------------------------+----------------+
 */
 
--- #8
+------------ #8 ------------
 -- Aufgabe:
 /*
 Geben Sie eine duplikatfreie und alphabetisch sortierte Liste der Namen aller Buchautoren an, 
@@ -296,18 +300,17 @@ die auch an DVDs oder Musik-CDs beteiligt sind.
 */
 -- Zusammenfassung der Logik:
 /*
-1. Hauptabfrage: Wählt die Namen der Autoren aus, deren Name auch ein Creator (von DVD, Music) oder ein Actor (DVD) ist
-    - DISTINCT: Duplikatfreiheit
-    - ORDER BY: Alphabetische Ordnung 
+1. Hauptabfrage: Wählt die Namen der Autoren aus, deren Name auch ein Creator (von DVD, Music) oder ein Actor (DVD) ist:
+    - DISTINCT: Duplikatfreiheit.
+    - ORDER BY: Alphabetische Ordnung .
     - WHERE-Klausel: Prüft, ob der Name des Autors in einer der beiden Unterabfragen vorhanden ist.
-    - Bereinigung in zweiter Bedingung der WHERE-Klausel (AND): Various Artists fliegen raus
+    - Bereinigung in zweiter Bedingung der WHERE-Klausel (AND): Various Artists fliegen raus!
 2. Unterabfragen: Vereinigt beide Unterabfragen mit UNION
-    - Unterabfrage 1: Wähle Namen aus der Tabelle actors aus (sind Schauspieler auch Autoren?)
-    - Unterabfrage 2: Ist komplexer:
+    - Unterabfrage 1: Wähle Namen aus der Tabelle actors aus (sind Schauspieler auch Autoren?).
+    - Unterabfrage 2: Sind Creators (von nicht-Büchern) auch Autoren? Ist komplexer:
            a. Sie verbindet die Tabelle "creators" mit der Junction-Tabelle "junction_products_creators" über die entsprechenden IDs.
            b. Die Verbindung mit der Tabelle "products" erfolgt ebenfalls über die entsprechenden IDs.
-           c. Die WHERE-Klausel filtert nur Produkte mit der Kategorie ('DVD', 'Music') (keine Creators von Books sollen gezählt werden)
-           d. 
+           c. Die WHERE-Klausel filtert nur Produkte mit der Kategorie ('DVD', 'Music') (keine Creators von Books sollen gezählt werden).
 */
 -- Hauptabfrage
 SELECT DISTINCT a.name
@@ -348,7 +351,7 @@ ORDER BY a.name;
 +---------------------+
 */
 
--- #9
+------------ #9 ------------
 -- Aufgabe:
 /*
 Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?
@@ -360,17 +363,17 @@ ANNAHME:
 Wir nehmen hier auch CDs mit auf, die keinen Track gelistet haben.
 Dies macht insofern Sinn, als dass z.B. Ambiente-Musik oder experimentelle Musik keine Tracks listen.
 Somit gehen auch 0 in die Durchschnittsbewertung ein, was wir intendieren.
-Würden wir das nicht wollen, könnten wir einen simplen COUNT auf gruppierte Werte in der tracks-tabelle ausführen (da die tracks-tabelle natürlich nur CDs mit mind. einem Track listet)
+Würden wir das nicht wollen, könnten wir einen simplen COUNT auf gruppierte Werte in der tracks-tabelle ausführen (da die tracks-tabelle natürlich nur CDs mit mind. einem Track listet)...
 
-1. Hauptabfrage: Schalte ein AVG (Durschnittswert) auf track_count aus der Unterabfrage
+1. Hauptabfrage: Schalte ein AVG (Durschnittswert) auf track_count aus der Unterabfrage.
 2. Unterabfrage: 
-    - COUNT: Zählt die Anzahl der Tracks pro CD und
+    - COUNT: Zählt die Anzahl der Tracks pro CD und.
     - LEFT JOIN: 
-            - Bezieht ALLE werte der linken Tabelle (cds) mit aus, auch wenn es keine Übereinstimmung gibt
-            - Gibt es keine Übereinstimmung, wird (anders als bei JOIN) ein NULL-Wert ausgebeben
+            - Bezieht ALLE Werte der linken Tabelle (cds) mit ein, auch wenn es keine Übereinstimmung gibt.
+            - Gibt es keine Übereinstimmung, wird (anders als bei INNER JOIN) ein NULL-Wert ausgebeben,
             - Dieser fließt wie intendiert ebenso in die Durschnittsbewertung (als 0) mit ein
-    - GROUP: Gruppiert sie nach cds_asin
-    - AS subquery: Benenne die Unterabfrage (nötig in pg)
+    - GROUP: Gruppiert sie nach cds_asin.
+    - AS subquery: Benenne die Unterabfrage (nötig in pg).
 */
 -- Hauptabfrage
 SELECT ROUND(AVG(track_count), 2) AS average_track_count
@@ -391,7 +394,7 @@ FROM (
 +-----------------------+
 */
 
--- 10
+------------ #10 ------------
 -- Aufgabe:
 /*
 Für welche Produkte gibt es ähnliche Produkte in einer anderen Hauptkategorie? 
@@ -400,17 +403,17 @@ Erstellen Sie eine rekursive Anfrage, die zu jedem Produkt dessen Hauptkategorie
 */
 -- Zusammenfassung der Logik:
 /*
-1. CTE: category_hierarchy (RECURSIVE)
-    - Basisabfrage: Alle Kategorien mit ihren direkten Hauptkategorien (root-category)
-        - WHERE-Klausel: Wenn parent_category_id IS NULL, dann ist es Hauptkategorie
-    - Rekursive Abfrage: Verknüpfung der Kategorien mit ihren direkten Hauptkategorien
-        - Verknüpfung der CTE mit sich selbst
+1. CTE: category_hierarchy (RECURSIVE):
+    - Basisabfrage: Alle Kategorien mit ihren direkten Hauptkategorien (root-category):
+        - WHERE-Klausel: Wenn parent_category_id IS NULL, dann ist es Hauptkategorie.
+    - Rekursive Abfrage: Verknüpfung der Kategorien mit ihren direkten Hauptkategorien:
+        - Verknüpfung der CTE mit sich selbst.
 2. Hauptabfrage:
-    - SELECT-DISTINCT: Gibt eindeutige product_asin für alle Produkte aus, due ähnliche Produkte haben in anderen Hauptkategorien haben
+    - SELECT-DISTINCT: Gibt eindeutige product_asin für alle Produkte aus, die ähnliche Produkte in anderen Hauptkategorien haben.
     - JOINS:
-        - Je zwei Joins, einmal für das produkt und einmal für das ähnliche Produkt, um die Kategorien des Produkts aus der Tabelle "junction_products_categories" 
-            mit den entsprechenden Kategorien in der Hierarchie-Tabelle "category_hierarchy" zu verknüpfen
-    - WHERE-Klausel: Stellt sicher, dass es sich um unterschiedliche Hauptkategorien handelt
+        - Je zwei Joins, einmal für das Produkt und einmal für das ähnliche Produkt, um die Kategorien des Produkts aus der Tabelle "junction_products_categories".
+          mit den entsprechenden Kategorien in der Hierarchie-Tabelle "category_hierarchy" zu verknüpfen.
+    - WHERE-Klausel: Stellt sicher, dass es sich um unterschiedliche Hauptkategorien handelt.
 */
 WITH RECURSIVE category_hierarchy AS (
   -- Basisabfrage
@@ -436,7 +439,7 @@ JOIN category_hierarchy AS ch1 ON jpc1.categories_category_id = ch1.category_id
 JOIN category_hierarchy AS ch2 ON jpc2.categories_category_id = ch2.category_id
 WHERE ch1.root_category_id <> ch2.root_category_id
 
--- Resultat:
+-- Resultat (20 Einträge aus der Ergebnismenge mit 438 Einträgen):
 /*
 +-----------------+
 | "products_asin" |
@@ -464,7 +467,7 @@ WHERE ch1.root_category_id <> ch2.root_category_id
 +-----------------+
 */
 
--- #11
+------------ #11 ------------
 -- Aufgabe:
 /*
 Welche Produkte werden in allen Filialen angeboten? Hinweis: Ihre Query muss so formuliert werden, dass sie für eine beliebige Anzahl von Filialen funktioniert. Hinweis: 
@@ -474,25 +477,24 @@ Beachten Sie, dass ein Produkt mehrfach von einer Filiale angeboten werden kann 
 /*
 Von "innen nach außen":
 - Unterabfrage 2: 
-    - Es werden die Filialen ausgewählt, für die es einen Eintrag in der Tabelle "priceinfos" gibt, der das entsprechende Produkt repräsentiert und einen nicht-NULL-Preis hat. 
+    - Es werden die Filialen ausgewählt, für die es einen Eintrag in der Tabelle "priceinfos" gibt, der das entsprechende Produkt repräsentiert und einen nicht-NULL-Preis hat.
     - Diese SELECT-Anweisung dient dazu, die Filialen zu ermitteln, bei denen das Produkt zu einem bestimmten Preis angeboten wird.
 - Unterabfrage 1: 
     - Wähle durch die NOT IN Klausel (auf Unterabfrage 2) alle Filialen aus, bei denen KEIN Wert in den priceinfos besteht, der ein Produkt repräsentiert und einen nicht-NULL-Preis hat.
-    - Das bedeutet, dass das Produkt in keinem der Shops angeboten wird
+    - Das bedeutet, dass das Produkt in keinem der Shops angeboten wird.
 - Hauptabfrage:
-    - Durch NOT EXIST werden nur die Produkte ausgewählt, bei denen die Bedingung der Unterabfrage 1 nicht filt
-    - Das bedeutet, dass alle Produkte angegeben werden, die in jeder Filiale mindestens einmal (mit Preis, ergo Angebot) vorkommen
-2.
+    - Durch NOT EXIST werden nur die Produkte ausgewählt, bei denen die Bedingung der Unterabfrage 1 nicht erfüllt ist.
+    - Das bedeutet, dass alle Produkte angegeben werden, die in jeder Filiale mindestens einmal (mit Preis, ergo Angebot) vorkommen.
 */
--- Hauptabfrage: Produkte, die in allen Filialen angeboten werden
+-- Hauptabfrage: Produkte, die in allen Filialen angeboten werden.
 SELECT products.asin, products.ptitle
 FROM products
 WHERE NOT EXISTS (
-    -- Unterabfrage 1: Filialen, in denen das Produkt nicht angeboten wird
+    -- Unterabfrage 1: Filialen, in denen das Produkt nicht angeboten wird.
     SELECT shops.shop_id
     FROM shops
     WHERE shops.shop_id NOT IN (
-        -- Unterabfrage 2: Filialen, in denen das Produkt mit einem Preis vorhanden ist
+        -- Unterabfrage 2: Filialen, in denen das Produkt mit einem Preis vorhanden ist.
         SELECT priceinfos.shops_shop_id
         FROM priceinfos
         WHERE priceinfos.products_asin = products.asin
@@ -529,24 +531,25 @@ WHERE NOT EXISTS (
 +--------------+--------------------------------------------------+
 */
 
--- #12
+------------ #12 ------------
 -- Aufgabe:
 /*
+In wieviel Prozent der Fälle der Frage 11 gibt es in Leipzig das preiswerteste Angebot?
 */
 -- Zusammenfassung der Logik:
 /*
 ANNAHME: Es werden nur die günstigsten Angebote verglichen, 
-d.h. wenn Filiale X Produkt A zu Preis a und b anbietet (in zwei Konditionen), wird der billigste genommen
+d.h. wenn Filiale X Produkt A zu Preis a UND b anbietet (in zwei Konditionen), wird der billigste genommen.
 
-1. CTE: matching_products_cte -> Gleiche Abfrage wie oben, gibt alle Produkte aus #11 aus
+1. CTE: matching_products_cte -> Gleiche Abfrage wie oben, gibt alle Produkte aus #11 aus.
 2. CTE: cheapest_price_cte -> 
-    - Unterabfrage min_prices: Stellt sicher, dass die minimalen Preise je Produkt (aus matching_products_cte) gruppiert nach asin zurückgegeben werden
+    - Unterabfrage min_prices: Stellt sicher, dass die minimalen Preise je Produkt (aus matching_products_cte) gruppiert nach ASIN zurückgegeben werden.
     - JOIN:
         - "priceinfos.products_asin = min_prices.products_asin" stellt sicher, dass die Produkte übereinstimmen.
         - "priceinfos.price = min_prices.min_price2 stellt sicher, dass der Preis dem minimalen Preis für jedes Produkt entspricht.
-3. CTE: leipzig_count_cte -> Zähle die Einträge, bei denen "LEIPZIG" die Filliale mit dem günstigsten Angebot ist
-4. CTE: total_count_cte -> Zählt alle Ergebnisse aus matching_products_cte
-5. Hauptabfrage -> Berechnet den Quotienten aus leipzig_count_cte und total_count_cte, um den gerundeten Anteil zu bekommen
+3. CTE: leipzig_count_cte -> Zähle die Einträge, bei denen "LEIPZIG" die Filliale mit dem günstigsten Angebot ist.
+4. CTE: total_count_cte -> Zählt alle Ergebnisse aus matching_products_cte.
+5. Hauptabfrage -> Berechnet den Quotienten aus leipzig_count_cte und total_count_cte, um den gerundeten Anteil zu bekommen.
 */
 WITH matching_products_cte AS (
   SELECT products.asin, products.ptitle
@@ -597,6 +600,3 @@ FROM leipzig_count_cte, total_count_cte;
 |                         50.43 |
 +-------------------------------+
 */
-
-
-
