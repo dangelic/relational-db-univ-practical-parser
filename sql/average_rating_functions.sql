@@ -22,6 +22,7 @@ BEGIN
             SELECT rating FROM guestreviews WHERE products_asin = products.asin
         ) AS subquery
     );
+    WHERE asin = NEW.products_asin
     --  Gib die aktualisierte Zeile (NEW) zurück (wird für die Trigger-Funktion benötigt).
     RETURN NEW;
 END;
