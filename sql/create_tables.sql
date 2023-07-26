@@ -27,8 +27,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE bankinfos (
-  bankinfo_id VARCHAR(9) NOT NULL,
-  users_username VARCHAR(9),
+  bankinfo_id INTEGER NOT NULL,
+  users_username VARCHAR(30),
   account_number VARCHAR(255) NOT NULL,
   -- More attributes would be added in a real life scenario here of course!
   PRIMARY KEY (bankinfo_id),
@@ -36,8 +36,8 @@ CREATE TABLE bankinfos (
 );
 
 CREATE TABLE categories (
-  category_id VARCHAR(9) NOT NULL,
-  parent_category_id VARCHAR(9),
+  category_id INTEGER NOT NULL,
+  parent_category_id INTEGER,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (category_id),
   CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id)
@@ -45,32 +45,32 @@ CREATE TABLE categories (
 
 
 CREATE TABLE creators (
-  creator_id VARCHAR(9) NOT NULL,
+  creator_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (creator_id)
 );
 
 CREATE TABLE artists (
-  artist_id VARCHAR(9) NOT NULL,
+  artist_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (artist_id)
 );
 
 CREATE TABLE listmanialists (
-  listmanialist_id VARCHAR(9) NOT NULL,
+  listmanialist_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (listmanialist_id)
 );
 
 CREATE TABLE shops (
-  shop_id VARCHAR(9) NOT NULL,
+  shop_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (shop_id)
 );
 
 CREATE TABLE shopaddresses (
-  shopaddress_id VARCHAR(9) NOT NULL,
-  shops_shop_id VARCHAR(9) NOT NULL,
+  shopaddress_id INTEGER NOT NULL,
+  shops_shop_id INTEGER NOT NULL,
   street VARCHAR(255) NOT NULL,
   zip VARCHAR(10) NOT NULL,
   PRIMARY KEY (shopaddress_id),
@@ -78,9 +78,9 @@ CREATE TABLE shopaddresses (
 );
 
 CREATE TABLE priceinfos (
-  priceinfo_id VARCHAR(9) NOT NULL,
+  priceinfo_id INTEGER NOT NULL,
   products_asin VARCHAR(10) NOT NULL,
-  shops_shop_id VARCHAR(9) NOT NULL,
+  shops_shop_id INTEGER NOT NULL,
   price FLOAT(2),
   multiplier FLOAT(2),
   currency VARCHAR(9),
@@ -92,7 +92,7 @@ CREATE TABLE priceinfos (
 );
 
 CREATE TABLE userreviews (
-  userreview_id VARCHAR(9) NOT NULL,
+  userreview_id INTEGER NOT NULL,
   products_asin VARCHAR(10) NOT NULL,
   users_username VARCHAR(30) NOT NULL,
   rating INTEGER NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE userreviews (
 );
 
 CREATE TABLE guestreviews (
-  guestreview_id VARCHAR(9) NOT NULL,
+  guestreview_id INTEGER NOT NULL,
   products_asin VARCHAR(10) NOT NULL,
   rating INTEGER NOT NULL,
   helpful_votes INTEGER NOT NULL,
@@ -124,9 +124,9 @@ CREATE TABLE guestreviews (
 );
 
 CREATE TABLE purchases (
-  purchase_id VARCHAR(12) NOT NULL,
+  purchase_id INTEGERNOT NULL,
   products_asin VARCHAR(10) NOT NULL,
-  priceinfos_priceinfo_id VARCHAR(9) NOT NULL,
+  priceinfos_priceinfo_id INTEGER NOT NULL,
   users_username VARCHAR(30) NOT NULL,
   purchase_date DATE NOT NULL,
   PRIMARY KEY (purchase_id),
@@ -136,38 +136,38 @@ CREATE TABLE purchases (
 );
 
 CREATE TABLE deliveryaddresses (
-  deliveryaddress_id VARCHAR(9) NOT NULL,
+  deliveryaddress_id INTEGER NOT NULL,
   street VARCHAR(255) NOT NULL,
   zip VARCHAR(255) NOT NULL,
   PRIMARY KEY (deliveryaddress_id)
 );
 
 CREATE TABLE authors (
-  author_id VARCHAR(9) NOT NULL,
+  author_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (author_id)
 );
 
 CREATE TABLE publishers (
-  publisher_id VARCHAR(9) NOT NULL,
+  publisher_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (publisher_id)
 );
 
 CREATE TABLE actors (
-  actor_id VARCHAR(9) NOT NULL,
+  actor_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (actor_id)
 );
 
 CREATE TABLE studios (
-  studio_id VARCHAR(9) NOT NULL,
+  studio_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (studio_id)
 );
 
 CREATE TABLE audiotexts (
-  audiotext_id VARCHAR(9) NOT NULL,
+  audiotext_id INTEGER NOT NULL,
   -- This needs to be normalized, but due to time constraints, it is in one column.
   -- TODO: Split audioformat, languagetype, ... into separate columns instead of one string!
   media_properties text NOT NULL,
@@ -175,13 +175,13 @@ CREATE TABLE audiotexts (
 );
 
 CREATE TABLE labels (
-  label_id VARCHAR(9),
+  label_id INTEGER
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (label_id)
 );
 
 CREATE TABLE dvdformats (
-  dvdformat_id VARCHAR(9) NOT NULL,
+  dvdformat_id INTEGERNOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (dvdformat_id)
 );
@@ -225,7 +225,7 @@ CREATE TABLE cds (
 
 CREATE TABLE junction_cds_labels (
   cds_asin VARCHAR(10),
-  labels_label_id VARCHAR(9),
+  labels_label_id INTEGER,
   PRIMARY KEY (cds_asin, labels_label_id),
   CONSTRAINT fk_junction_cds_labels_cds FOREIGN KEY (cds_asin) REFERENCES cds(asin),
   CONSTRAINT fk_junction_cds_labels_labels FOREIGN KEY (labels_label_id) REFERENCES labels(label_id)
@@ -233,7 +233,7 @@ CREATE TABLE junction_cds_labels (
 
 CREATE TABLE junction_books_authors (
   books_asin VARCHAR(10) NOT NULL,
-  authors_author_id VARCHAR(9) NOT NULL,
+  authors_author_id INTEGER NOT NULL,
   PRIMARY KEY (books_asin, authors_author_id),
   CONSTRAINT fk_junction_books_authors_books FOREIGN KEY (books_asin) REFERENCES books(asin),
   CONSTRAINT fk_junction_books_authors_authors FOREIGN KEY (authors_author_id) REFERENCES authors(author_id)
@@ -241,7 +241,7 @@ CREATE TABLE junction_books_authors (
 
 CREATE TABLE junction_books_publishers (
   books_asin VARCHAR(10) NOT NULL,
-  publishers_publisher_id VARCHAR(9) NOT NULL,
+  publishers_publisher_id INTEGER NOT NULL,
   PRIMARY KEY (books_asin, publishers_publisher_id),
   CONSTRAINT fk_junction_books_publishers_books FOREIGN KEY (books_asin) REFERENCES books(asin),
   CONSTRAINT fk_junction_books_publishers_publishers FOREIGN KEY (publishers_publisher_id) REFERENCES publishers(publisher_id)
@@ -249,7 +249,7 @@ CREATE TABLE junction_books_publishers (
 
 CREATE TABLE junction_dvds_actors (
   dvds_asin VARCHAR(10) NOT NULL,
-  actors_actor_id VARCHAR(9) NOT NULL,
+  actors_actor_id INTEGER NOT NULL,
   PRIMARY KEY (dvds_asin, actors_actor_id),
   CONSTRAINT fk_junction_dvds_actors_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
   CONSTRAINT fk_junction_dvds_actors_actors FOREIGN KEY (actors_actor_id) REFERENCES actors(actor_id)
@@ -257,7 +257,7 @@ CREATE TABLE junction_dvds_actors (
 
 CREATE TABLE junction_dvds_studios (
   dvds_asin VARCHAR(10) NOT NULL,
-  studios_studio_id VARCHAR(9) NOT NULL,
+  studios_studio_id INTEGER NOT NULL,
   PRIMARY KEY (dvds_asin, studios_studio_id),
   CONSTRAINT fk_junction_dvds_studios_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
   CONSTRAINT fk_junction_dvds_studios_studios FOREIGN KEY (studios_studio_id) REFERENCES studios(studio_id)
@@ -265,7 +265,7 @@ CREATE TABLE junction_dvds_studios (
 
 CREATE TABLE junction_dvds_audiotexts (
   dvds_asin VARCHAR(10) NOT NULL,
-  audiotexts_audiotext_id VARCHAR(9) NOT NULL,
+  audiotexts_audiotext_id INTEGER NOT NULL,
   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id),
   CONSTRAINT fk_junction_dvds_audiotexts_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
   CONSTRAINT fk_junction_dvds_audiotexts_audiotexts FOREIGN KEY (audiotexts_audiotext_id) REFERENCES audiotexts(audiotext_id)
@@ -273,14 +273,14 @@ CREATE TABLE junction_dvds_audiotexts (
 
 CREATE TABLE junction_dvds_dvdformats (
   dvds_asin VARCHAR(10) NOT NULL,
-  dvdformats_dvdformat_id VARCHAR(9) NOT NULL,
+  dvdformats_dvdformat_id INTEGER NOT NULL,
   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id),
   CONSTRAINT fk_junction_dvds_dvdformats_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),
   CONSTRAINT fk_junction_dvds_dvdformats_dvdformats FOREIGN KEY (dvdformats_dvdformat_id) REFERENCES dvdformats(dvdformat_id)
 );
 
 CREATE TABLE tracks (
-  track_id VARCHAR(9) NOT NULL,
+  track_id INTEGER NOT NULL,
   cds_asin VARCHAR(10) NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (track_id),
@@ -298,7 +298,7 @@ CREATE TABLE products_similars (
 
 CREATE TABLE junction_products_categories (
   products_asin VARCHAR(10) NOT NULL,
-  categories_category_id VARCHAR(9) NOT NULL,
+  categories_category_id INTEGER NOT NULL,
   PRIMARY KEY (products_asin, categories_category_id),
   CONSTRAINT fk_junction_products_categories_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_junction_products_categories_categories FOREIGN KEY (categories_category_id) REFERENCES categories(category_id)
@@ -306,7 +306,7 @@ CREATE TABLE junction_products_categories (
 
 CREATE TABLE junction_products_listmanialists (
   products_asin VARCHAR(10) NOT NULL,
-  listmanialists_listmanialist_id VARCHAR(9) NOT NULL,
+  listmanialists_listmanialist_id INTEGER NOT NULL,
   PRIMARY KEY (products_asin, listmanialists_listmanialist_id),
   CONSTRAINT fk_junction_products_listmanialists_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_junction_products_listmanialists_listmanialists FOREIGN KEY (listmanialists_listmanialist_id) REFERENCES listmanialists(listmanialist_id)
@@ -314,7 +314,7 @@ CREATE TABLE junction_products_listmanialists (
 
 CREATE TABLE junction_products_creators (
   products_asin VARCHAR(10) NOT NULL,
-  creators_creator_id VARCHAR(9) NOT NULL,
+  creators_creator_id INTEGER NOT NULL,
   PRIMARY KEY (products_asin, creators_creator_id),
   CONSTRAINT fk_junction_products_creators_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_junction_products_creators_creators FOREIGN KEY (creators_creator_id) REFERENCES creators(creator_id)
@@ -322,7 +322,7 @@ CREATE TABLE junction_products_creators (
 
 CREATE TABLE junction_products_artists (
   products_asin VARCHAR(10) NOT NULL,
-  artists_artist_id VARCHAR(9) NOT NULL,
+  artists_artist_id INTEGER NOT NULL,
   PRIMARY KEY (products_asin, artists_artist_id),
   CONSTRAINT fk_junction_products_artists_products FOREIGN KEY (products_asin) REFERENCES products(asin),
   CONSTRAINT fk_junction_products_artists_artists FOREIGN KEY (artists_artist_id) REFERENCES artists(artist_id)
@@ -330,7 +330,7 @@ CREATE TABLE junction_products_artists (
 
 CREATE TABLE junction_users_deliveryaddresses (
   users_username VARCHAR(30) NOT NULL,
-  deliveryaddresses_deliveryaddress_id VARCHAR(9) NOT NULL,
+  deliveryaddresses_deliveryaddress_id INTEGER NOT NULL,
   PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id),
   CONSTRAINT fk_junction_users_deliveryaddresses_users FOREIGN KEY (users_username) REFERENCES users(username),
   CONSTRAINT fk_junction_users_deliveryaddresses_deliveryaddresses FOREIGN KEY (deliveryaddresses_deliveryaddress_id) REFERENCES deliveryaddresses(deliveryaddress_id)
