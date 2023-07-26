@@ -63,14 +63,14 @@ CREATE TABLE listmanialists (
 );
 
 CREATE TABLE shops (
-  shop_id INTEGER NOT NULL,
+  shop_id VARCHAR(22) NOT NULL,
   name VARCHAR(255) NOT NULL,
   PRIMARY KEY (shop_id)
 );
 
 CREATE TABLE shopaddresses (
   shopaddress_id INTEGER NOT NULL,
-  shops_shop_id INTEGER NOT NULL,
+  shops_shop_id VARCHAR(22)  NOT NULL,
   street VARCHAR(255) NOT NULL,
   zip VARCHAR(10) NOT NULL,
   PRIMARY KEY (shopaddress_id),
@@ -80,7 +80,7 @@ CREATE TABLE shopaddresses (
 CREATE TABLE priceinfos (
   priceinfo_id INTEGER NOT NULL,
   products_asin VARCHAR(10) NOT NULL,
-  shops_shop_id INTEGER NOT NULL,
+  shops_shop_id VARCHAR(22)  NOT NULL,
   price FLOAT(2),
   multiplier FLOAT(2),
   currency VARCHAR(9),
