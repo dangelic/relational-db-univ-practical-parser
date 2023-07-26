@@ -43,7 +43,6 @@ CREATE TABLE categories (
   CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id)
 );
 
-
 CREATE TABLE creators (
   creator_id VARCHAR(9) NOT NULL,
   name VARCHAR(255) NOT NULL,
