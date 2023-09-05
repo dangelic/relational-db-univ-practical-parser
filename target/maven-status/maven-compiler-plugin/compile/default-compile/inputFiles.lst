@@ -1,0 +1,12 @@
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/ETLProcess.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/parserUserReviewsCSV/CSVParsingReviews.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/parserShopsXML/XMLParsingShops.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/LogGenerationRejection/LogGenerator.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/dataCleanUp/CleanUpOperations.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/categoryHandler/CategoryTransformAndGenerateSQL.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/queryBuilderJunctions/QueryBuilderJunctions.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/parserProductsXML/XMLParsingProducts.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/entityMap/EntityFieldDTMappings.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/dbConnection/PostgresConnector.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/queryBuilderStandardEntities/QueryBuilderStandard.java
+/Users/leodangelico/Documents/GitHub/relational-db-univ-practical-parser/src/main/java/helper/sqlParser.java

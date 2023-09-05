@@ -1,4 +1,222 @@
-SQL Statement: CREATE TABLE artists (   artist_id VARCHAR(9) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (artist_id) );
-Error Message: ERROR: relation "artists" already exists
-SQL Statement: CREATE TABLE junction_products_artists (   products_asin VARCHAR(10) NOT NULL,   artists_artist_id VARCHAR(9) NOT NULL,   PRIMARY KEY (products_asin, artists_artist_id),   CONSTRAINT fk_junction_products_artists_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_artists_artists FOREIGN KEY (artists_artist_id) REFERENCES artists(artist_id) );
-Error Message: ERROR: relation "junction_products_artists" already exists
+SQL Statement: SET CONSTRAINTS ALL DEFERRED;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_users_deliveraddresses CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_products_creators CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_products_listmanialists CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_products_categories CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS products_similars CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS tracks CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_cds_labels CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_audiotexts CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_studios CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_actors CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_books_publishers CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_books_authors CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS dvds CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS cds CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS books CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS labels CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS audiotexts CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS dvdformats CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS studios CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS actors CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS publishers CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS authors CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS deliveryaddresses CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS purchases CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS userreviews CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS guestreviews CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_dvds_dvdformats CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS priceinfos CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS shops CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS shopaddresses CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS listmanialists CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS creators CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS categories CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS users CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS bankinfos CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS products CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: DROP TABLE IF EXISTS junction_users_deliveryaddresses CASCADE;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE products (   asin VARCHAR(10) NOT NULL,   ptitle VARCHAR(255) NOT NULL,   pgroup VARCHAR(5) NOT NULL,   ean VARCHAR(13),   image_url TEXT,   detailpage_url TEXT,   salesrank INTEGER,   upc VARCHAR(12),   average_rating FLOAT,   PRIMARY KEY (asin),   CONSTRAINT unique_upc UNIQUE (upc),   CONSTRAINT unique_ean UNIQUE (ean),   CONSTRAINT check_asin_length CHECK (LENGTH(asin) = 10),   CONSTRAINT check_upc_length CHECK (LENGTH(upc) = 12 OR upc IS NULL),   CONSTRAINT check_ean_length CHECK (LENGTH(ean) = 13 OR ean IS NULL) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE users (   username VARCHAR(30) NOT NULL,   PRIMARY KEY (username) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE bankinfos (   bankinfo_id VARCHAR(9) NOT NULL,   users_username VARCHAR(9),   account_number VARCHAR(255) NOT NULL,   PRIMARY KEY (bankinfo_id),   CONSTRAINT fk_bankinfos_users FOREIGN KEY (users_username) REFERENCES users(username) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE categories (   category_id VARCHAR(9) NOT NULL,   parent_category_id VARCHAR(9),   name VARCHAR(255) NOT NULL,   PRIMARY KEY (category_id),   CONSTRAINT unique_name_parent_id UNIQUE (name, parent_category_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE creators (   creator_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (creator_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE artists (   artist_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (artist_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE listmanialists (   listmanialist_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (listmanialist_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE shops (   shop_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (shop_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE shopaddresses (   shopaddress_id VARCHAR(36) NOT NULL,   shops_shop_id VARCHAR(36) NOT NULL,   street VARCHAR(255) NOT NULL,   zip VARCHAR(10) NOT NULL,   PRIMARY KEY (shopaddress_id),   CONSTRAINT fk_shopaddresses_shops FOREIGN KEY (shops_shop_id) REFERENCES shops(shop_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE priceinfos (   priceinfo_id VARCHAR(36) NOT NULL,   products_asin VARCHAR(10) NOT NULL,   shops_shop_id VARCHAR(36) NOT NULL,   price FLOAT(2),   multiplier FLOAT(2),   currency VARCHAR(36),   state VARCHAR(15),   PRIMARY KEY (priceinfo_id),   CONSTRAINT fk_priceinfos_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_priceinfos_shops FOREIGN KEY (shops_shop_id) REFERENCES shops(shop_id),   CONSTRAINT unique_priceinfo_constellation UNIQUE (shops_shop_id, products_asin, multiplier, price, currency, state) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE userreviews (   userreview_id VARCHAR(36) NOT NULL,   products_asin VARCHAR(10) NOT NULL,   users_username VARCHAR(30) NOT NULL,   rating INTEGER NOT NULL,   helpful_votes INTEGER NOT NULL,   summary TEXT NOT NULL,   content TEXT NOT NULL,   review_date DATE NOT NULL,   PRIMARY KEY (userreview_id),   CONSTRAINT fk_userreviews_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_userreviews_users FOREIGN KEY (users_username) REFERENCES users(username),   CONSTRAINT unique_asin_username_in_userreviews UNIQUE (products_asin, users_username),   CONSTRAINT check_rating_range CHECK (rating >= 0 AND rating <= 5),   CONSTRAINT check_review_date CHECK (review_date > '1994-05-07') );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE guestreviews (   guestreview_id VARCHAR(36) NOT NULL,   products_asin VARCHAR(10) NOT NULL,   rating INTEGER NOT NULL,   helpful_votes INTEGER NOT NULL,   summary TEXT NOT NULL,   content TEXT NOT NULL,   review_date DATE NOT NULL,   PRIMARY KEY (guestreview_id),   CONSTRAINT check_rating_range_guestreviews CHECK (rating >= 0 AND rating <= 5),   CONSTRAINT check_review_date CHECK (review_date > '1994-05-07'),   CONSTRAINT fk_guestreviews_products FOREIGN KEY (products_asin) REFERENCES products(asin) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE purchases (   purchase_id VARCHAR(12) NOT NULL,   products_asin VARCHAR(10) NOT NULL,   priceinfos_priceinfo_id VARCHAR(36) NOT NULL,   users_username VARCHAR(30) NOT NULL,   purchase_date DATE NOT NULL,   PRIMARY KEY (purchase_id),   CONSTRAINT fk_purchases_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_purchases_priceinfos FOREIGN KEY (priceinfos_priceinfo_id) REFERENCES priceinfos(priceinfo_id),   CONSTRAINT fk_purchases_users FOREIGN KEY (users_username) REFERENCES users(username) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE deliveryaddresses (   deliveryaddress_id VARCHAR(36) NOT NULL,   street VARCHAR(255) NOT NULL,   zip VARCHAR(255) NOT NULL,   PRIMARY KEY (deliveryaddress_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE authors (   author_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (author_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE publishers (   publisher_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (publisher_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE actors (   actor_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (actor_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE studios (   studio_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (studio_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE audiotexts (   audiotext_id VARCHAR(36) NOT NULL,   media_properties text NOT NULL,   PRIMARY KEY (audiotext_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE labels (   label_id VARCHAR(36),   name VARCHAR(255) NOT NULL,   PRIMARY KEY (label_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE dvdformats (   dvdformat_id VARCHAR(36) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (dvdformat_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE dvds (   asin VARCHAR(10) NOT NULL,   aspect_ratio VARCHAR(7),   running_time INTEGER,   theatr_release DATE,   release_date DATE,   region_code VARCHAR(3),   PRIMARY KEY (asin),   CONSTRAINT fk_dvds_products_asin FOREIGN KEY (asin) REFERENCES products(asin) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE books (   asin VARCHAR(10) NOT NULL,   isbn VARCHAR(13) NOT NULL,   edition VARCHAR(255),   binding VARCHAR(255),   weight FLOAT(2),   height FLOAT(2),   length FLOAT(2),   pages INTEGER,   publication_date DATE,   PRIMARY KEY (asin),   CONSTRAINT fk_books_products_asin FOREIGN KEY (asin) REFERENCES products(asin),   CONSTRAINT check_isbn_length CHECK (LENGTH(isbn) = 10) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE cds (   asin VARCHAR(10) NOT NULL,   binding VARCHAR(20),   cd_format VARCHAR(50),   num_discs INTEGER,   release_date DATE,   PRIMARY KEY (asin),   CONSTRAINT fk_cds_products_asin FOREIGN KEY (asin) REFERENCES products(asin) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_cds_labels (   cds_asin VARCHAR(10),   labels_label_id VARCHAR(36),   PRIMARY KEY (cds_asin, labels_label_id),   CONSTRAINT fk_junction_cds_labels_cds FOREIGN KEY (cds_asin) REFERENCES cds(asin),   CONSTRAINT fk_junction_cds_labels_labels FOREIGN KEY (labels_label_id) REFERENCES labels(label_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_books_authors (   books_asin VARCHAR(10) NOT NULL,   authors_author_id VARCHAR(36) NOT NULL,   PRIMARY KEY (books_asin, authors_author_id),   CONSTRAINT fk_junction_books_authors_books FOREIGN KEY (books_asin) REFERENCES books(asin),   CONSTRAINT fk_junction_books_authors_authors FOREIGN KEY (authors_author_id) REFERENCES authors(author_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_books_publishers (   books_asin VARCHAR(10) NOT NULL,   publishers_publisher_id VARCHAR(36) NOT NULL,   PRIMARY KEY (books_asin, publishers_publisher_id),   CONSTRAINT fk_junction_books_publishers_books FOREIGN KEY (books_asin) REFERENCES books(asin),   CONSTRAINT fk_junction_books_publishers_publishers FOREIGN KEY (publishers_publisher_id) REFERENCES publishers(publisher_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_dvds_actors (   dvds_asin VARCHAR(10) NOT NULL,   actors_actor_id VARCHAR(36) NOT NULL,   PRIMARY KEY (dvds_asin, actors_actor_id),   CONSTRAINT fk_junction_dvds_actors_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),   CONSTRAINT fk_junction_dvds_actors_actors FOREIGN KEY (actors_actor_id) REFERENCES actors(actor_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_dvds_studios (   dvds_asin VARCHAR(10) NOT NULL,   studios_studio_id VARCHAR(36) NOT NULL,   PRIMARY KEY (dvds_asin, studios_studio_id),   CONSTRAINT fk_junction_dvds_studios_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),   CONSTRAINT fk_junction_dvds_studios_studios FOREIGN KEY (studios_studio_id) REFERENCES studios(studio_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_dvds_audiotexts (   dvds_asin VARCHAR(10) NOT NULL,   audiotexts_audiotext_id VARCHAR(36) NOT NULL,   PRIMARY KEY (dvds_asin, audiotexts_audiotext_id),   CONSTRAINT fk_junction_dvds_audiotexts_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),   CONSTRAINT fk_junction_dvds_audiotexts_audiotexts FOREIGN KEY (audiotexts_audiotext_id) REFERENCES audiotexts(audiotext_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_dvds_dvdformats (   dvds_asin VARCHAR(10) NOT NULL,   dvdformats_dvdformat_id VARCHAR(36) NOT NULL,   PRIMARY KEY (dvds_asin, dvdformats_dvdformat_id),   CONSTRAINT fk_junction_dvds_dvdformats_dvds FOREIGN KEY (dvds_asin) REFERENCES dvds(asin),   CONSTRAINT fk_junction_dvds_dvdformats_dvdformats FOREIGN KEY (dvdformats_dvdformat_id) REFERENCES dvdformats(dvdformat_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE tracks (   track_id VARCHAR(36) NOT NULL,   cds_asin VARCHAR(10) NOT NULL,   name VARCHAR(255) NOT NULL,   PRIMARY KEY (track_id),   CONSTRAINT fk_tracks_cds FOREIGN KEY (cds_asin) REFERENCES cds(asin),   CONSTRAINT unique_trackname_cd UNIQUE (name, cds_asin) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE products_similars (   products_asin VARCHAR(10) NOT NULL,   similar_product_asin VARCHAR(10) NOT NULL,   PRIMARY KEY (products_asin, similar_product_asin),   CONSTRAINT fk_products_similars_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_products_similars_similar_product FOREIGN KEY (similar_product_asin) REFERENCES products(asin) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_products_categories (   products_asin VARCHAR(10) NOT NULL,   categories_category_id VARCHAR(36) NOT NULL,   PRIMARY KEY (products_asin, categories_category_id),   CONSTRAINT fk_junction_products_categories_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_categories_categories FOREIGN KEY (categories_category_id) REFERENCES categories(category_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_products_listmanialists (   products_asin VARCHAR(10) NOT NULL,   listmanialists_listmanialist_id VARCHAR(36) NOT NULL,   PRIMARY KEY (products_asin, listmanialists_listmanialist_id),   CONSTRAINT fk_junction_products_listmanialists_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_listmanialists_listmanialists FOREIGN KEY (listmanialists_listmanialist_id) REFERENCES listmanialists(listmanialist_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_products_creators (   products_asin VARCHAR(10) NOT NULL,   creators_creator_id VARCHAR(36) NOT NULL,   PRIMARY KEY (products_asin, creators_creator_id),   CONSTRAINT fk_junction_products_creators_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_creators_creators FOREIGN KEY (creators_creator_id) REFERENCES creators(creator_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_products_artists (   products_asin VARCHAR(10) NOT NULL,   artists_artist_id VARCHAR(36) NOT NULL,   PRIMARY KEY (products_asin, artists_artist_id),   CONSTRAINT fk_junction_products_artists_products FOREIGN KEY (products_asin) REFERENCES products(asin),   CONSTRAINT fk_junction_products_artists_artists FOREIGN KEY (artists_artist_id) REFERENCES artists(artist_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TABLE junction_users_deliveryaddresses (   users_username VARCHAR(30) NOT NULL,   deliveryaddresses_deliveryaddress_id VARCHAR(36) NOT NULL,   PRIMARY KEY (users_username, deliveryaddresses_deliveryaddress_id),   CONSTRAINT fk_junction_users_deliveryaddresses_users FOREIGN KEY (users_username) REFERENCES users(username),   CONSTRAINT fk_junction_users_deliveryaddresses_deliveryaddresses FOREIGN KEY (deliveryaddresses_deliveryaddress_id) REFERENCES deliveryaddresses(deliveryaddress_id) );
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getProduct ON products (asin);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getProducts ON products (ptitle);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getCategoryTree ON categories (parent_category_id);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getProductsByCategoryPath ON categories (name, parent_category_id);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getTopProducts ON userreviews (rating);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getSimilarCheaperProduct ON priceinfos (price);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_addNewReview ON userreviews (products_asin, users_username);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getTrolls ON userreviews (users_username);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE INDEX idx_getOffers ON priceinfos (products_asin);
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE OR REPLACE FUNCTION calculate_average_ratings()
+RETURNS void AS $$
+BEGIN
+    -- Perform an UPDATE statement on the "products" table
+    UPDATE products
+    SET average_rating = (
+        -- Calculate the average rating using a subquery
+        SELECT AVG(rating)
+        FROM (
+            -- Combine the ratings from both "userreviews" and "guestreviews" tables for a specific product
+            SELECT rating FROM userreviews WHERE products_asin = products.asin
+            UNION ALL
+            SELECT rating FROM guestreviews WHERE products_asin = products.asin
+        ) AS subquery
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: -- Fills the the average_rating column for each product in the "products" table
+-- Fetches data from both "userreviews" and "guestreviews" tables to calculate the average rating over a UNION.
+-- This function is called initially to fill the data and also after every UPDATE of the reviews' tables - as defined by triggers
+CREATE OR REPLACE FUNCTION calculate_average_ratings_totrigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Perform an UPDATE statement on the "products" table
+    UPDATE products
+    SET average_rating = (
+        -- Calculate the average rating using a subquery
+        SELECT AVG(rating)
+        FROM (
+            -- Combine the ratings from both "userreviews" and "guestreviews" tables for a specific product
+            SELECT rating FROM userreviews WHERE products_asin = products.asin
+            UNION ALL
+            SELECT rating FROM guestreviews WHERE products_asin = products.asin
+        ) AS subquery
+    );
+    -- Return the NEW row (required for trigger function)
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TRIGGER update_average_rating_on_update_userreviews_trigger
+AFTER INSERT ON userreviews
+FOR EACH ROW
+EXECUTE FUNCTION calculate_average_ratings_totrigger();
+Error Message: Die Abfrage lieferte kein Ergebnis.
+SQL Statement: CREATE TRIGGER update_average_rating_on_update_guestreviews_trigger
+AFTER INSERT ON guestreviews
+FOR EACH ROW
+EXECUTE FUNCTION calculate_average_ratings_totrigger();
+Error Message: Die Abfrage lieferte kein Ergebnis.
